@@ -1,0 +1,17 @@
+.logo {
+  width: 5rem;
+  height: 100%;
+  & a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    &:hover,
+    &:active {
+      color: #919aa1;
+    }
+  }
+}

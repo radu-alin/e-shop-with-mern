@@ -1,0 +1,19 @@
+.latest-products {
+  & h3 {
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  &-products {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 379px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

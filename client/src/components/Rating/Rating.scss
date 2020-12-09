@@ -1,0 +1,6 @@
+.rating {
+  color: #ffd700;
+  & span:last-child {
+    color: #000;
+  }
+}
