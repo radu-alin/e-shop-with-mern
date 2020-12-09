@@ -9,8 +9,8 @@ const App = () => {
     <Route>
       <Layout>
         <Switch>
-          <Route path="/" exact component={HomePage} />
           <Route path="/products/:id" component={ProductPage} />
+          <Route path="/" exact component={HomePage} />
           <Redirect to="/" />
         </Switch>
       </Layout>

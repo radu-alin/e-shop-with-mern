@@ -4,7 +4,6 @@ import Rating from '../../Rating/Rating';
 import './ProductDetails.scss';
 
 const ProductDetails = ({ buttonGoBackClickHandler, ...product }) => {
-  console.log('product - ', product);
   return (
     <section id="ProductDetails">
       <div className="product-details my-1">
@@ -19,7 +18,7 @@ const ProductDetails = ({ buttonGoBackClickHandler, ...product }) => {
         <div className="product-details-content">
           <div
             className="product-details-content-image"
-            style={{ backgroundImage: `url(${product.imageURL})` }}
+            style={{ backgroundImage: `url(${product.image})` }}
           />
           <div className="product-details-content-text-left">
             <h3>{product.name}</h3>
