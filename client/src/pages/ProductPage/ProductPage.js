@@ -6,12 +6,13 @@ import LatestProducts from '../../components/Products/LatestProducts/LatestProdu
 
 const ProductPage = ({ match, history }) => {
   const [productSelected, setProductSelected] = useState(null);
+  console.log('params - ', match.params.id);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get('/products/' + match.params.id);
-        setProductSelected(res.data);
+        const { data } = await axios.get('/api/products/' + match.params.id);
+        setProductSelected(data);
       } catch (err) {}
     };
     fetchProduct();

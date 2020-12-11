@@ -1,4 +1,4 @@
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Layout from './components/Layout/Layout';
 import HomePage from './pages/HomePage/HomePage';
@@ -9,7 +9,7 @@ const App = () => {
     <Route>
       <Layout>
         <Switch>
-          <Route path="/products/:id" component={ProductPage} />
+          <Route path="/product/:id" component={ProductPage} />
           <Route path="/" exact component={HomePage} />
           <Redirect to="/" />
         </Switch>

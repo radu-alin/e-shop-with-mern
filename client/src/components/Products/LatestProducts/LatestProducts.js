@@ -8,24 +8,14 @@ import ProductOverview from '../ProductOverview/ProductOverview';
 import './LatestProducts.scss';
 
 const LatestProducts = (props) => {
-  const [latestProducts, setLatestProducts] = useState(null);
-
-  const convertObjectIntoArray = (obj) => {
-    const array = [];
-    for (const key in obj) {
-      if (array.length <= 3) {
-        array.push({ productId: key, ...obj[key] });
-      }
-    }
-    return array;
-  };
+  const [latestProducts, setLatestProducts] = useState([]);
+  console.log('latestProducts - ', latestProducts);
 
   useEffect(() => {
     const fetchLatestProducts = async () => {
       try {
-        const res = await axios.get('/products');
-        const productsArray = convertObjectIntoArray(res.data);
-        setLatestProducts(productsArray);
+        const { data } = await axios.get('/api/products');
+        setLatestProducts(data);
       } catch (err) {
         console.log('err - ', err);
       }
@@ -38,10 +28,7 @@ const LatestProducts = (props) => {
     if (latestProducts) {
       renderlatestProducts = latestProducts.map((latestProduct) => {
         return (
-          <Link
-            key={latestProduct.productId}
-            to={'/products/' + [latestProduct.productId]}
-          >
+          <Link key={latestProduct._id} to={'/product/' + latestProduct._id}>
             <ProductOverview {...latestProduct} />
           </Link>
         );
