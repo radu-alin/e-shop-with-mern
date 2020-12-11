@@ -1,4 +1,4 @@
-import LatestProducts from '../../components/Products/LatestProducts/LatestProducts';
+import LatestProducts from '../../components/Product/LatestProducts/LatestProducts';
 import Carousel from '../../components/Carousel/Carousel';
 const HomePage = (props) => {
   return (
