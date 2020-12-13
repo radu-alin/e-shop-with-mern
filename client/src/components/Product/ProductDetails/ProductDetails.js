@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { addProductToCart } from '../../../redux/actions/index';
@@ -15,39 +15,38 @@ const ProductDetails = ({
   buttonGoBackClickHandler,
   onAddProductToCart,
 }) => {
-  const [quantitySelected, setQuantitySelected] = useState(0);
-  console.log('quantitySelected - ', quantitySelected);
+  // const [quantitySelected, setQuantitySelected] = useState(0);
 
-  const renderInputSelectHandler = () => {
-    const maxLenght = productDetails.countInStock;
-    const renderInputSelect = [];
-    for (let i = 0; i <= maxLenght; i++) {
-      renderInputSelect.push(
-        <option key={i} value={i}>
-          {i}
-        </option>
-      );
-    }
-    return renderInputSelect;
-  };
+  // const renderInputSelectHandler = () => {
+  //   const maxLenght = productDetails.countInStock;
+  //   const renderInputSelect = [];
+  //   for (let i = 0; i <= maxLenght; i++) {
+  //     renderInputSelect.push(
+  //       <option key={i} value={i}>
+  //         {i}
+  //       </option>
+  //     );
+  //   }
+  //   return renderInputSelect;
+  // };
 
-  const renderFormHandler = () => (
-    <>
-      {productDetails.countInStock ? (
-        <>
-          <div className="product-details-content-text-right-quantity">
-            <form onChange={(e) => submitFormHandler(e)}>
-              <label>Quantity:</label>
-              <select>{renderInputSelectHandler()}</select>
-            </form>
-          </div>
-          <hr></hr>
-        </>
-      ) : null}
-    </>
-  );
+  // const renderFormHandler = () => (
+  //   <>
+  //     {productDetails.countInStock ? (
+  //       <>
+  //         <div className="product-details-content-text-right-quantity">
+  //           <form onChange={(e) => submitFormHandler(e)}>
+  //             <label>Quantity:</label>
+  //             <select>{renderInputSelectHandler()}</select>
+  //           </form>
+  //         </div>
+  //         <hr></hr>
+  //       </>
+  //     ) : null}
+  //   </>
+  // );
 
-  const submitFormHandler = (e) => setQuantitySelected(e.target.value);
+  // const submitFormHandler = (e) => setQuantitySelected(e.target.value);
 
   const productDetailsView = () => (
     <div className="product-details-content">
@@ -83,7 +82,6 @@ const ProductDetails = ({
           </span>
         </div>
         <hr></hr>
-        {renderFormHandler()}
         <Button
           onClickAction={() => onAddProductToCart(productDetails)}
           type="btn-gray-dark "

@@ -15,7 +15,6 @@ const ProductDetailsPage = ({
   match,
   history,
 }) => {
-  console.log('ProductDetailsPage - render()');
   useEffect(() => onFetchProductSelected(match.params.id), [
     onFetchProductSelected,
     match.params.id,

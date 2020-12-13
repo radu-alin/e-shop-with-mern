@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 
+import { cartProductsSelector } from '../../../redux/selectors/cartSelectors';
+
 import CartProduct from './CartProduct/CartProduct';
 
 import './CartProducts.scss';
 
 const CartProducts = ({ cartProducts }) => {
-  console.log('cartProducts - ', cartProducts);
-
   const renderCartProductsHandler = () =>
     cartProducts.map(({ cartProductDetails, quantity }) => (
       <CartProduct
@@ -19,8 +19,8 @@ const CartProducts = ({ cartProducts }) => {
   return <div className="cart-products">{renderCartProductsHandler()}</div>;
 };
 
-const mapStateToProps = ({ cart: { cartProducts } }) => ({
-  cartProducts,
+const mapStateToProps = (state) => ({
+  cartProducts: cartProductsSelector(state),
 });
 
 export default connect(mapStateToProps)(CartProducts);
