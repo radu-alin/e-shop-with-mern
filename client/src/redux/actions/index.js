@@ -2,4 +2,4 @@ export { fetchProductList } from './productListAction';
 
 export { fetchProductDetails } from './productDetailsAction';
 
-export { toogleCartHidden } from './cartAction';
+export { toogleCartHidden, addProductToCart } from './cartAction';

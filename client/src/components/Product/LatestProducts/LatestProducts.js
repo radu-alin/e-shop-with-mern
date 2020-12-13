@@ -25,7 +25,7 @@ const LatestProducts = ({ productsAll, isLoading, isError, onFetchProductList })
         {productsAll.map((latestProduct) => {
           return (
             <Link key={latestProduct._id} to={'/product/' + latestProduct._id}>
-              <ProductOverview {...latestProduct} />
+              <ProductOverview productOverview={latestProduct} />
             </Link>
           );
         })}

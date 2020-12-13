@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
+
+import { addProductToCart } from '../../../redux/actions/index';
 
 import Button from '../../UI/Button /Button';
 import Rating from '../../Rating/Rating';
@@ -10,6 +13,7 @@ const ProductDetails = ({
   productDetails,
   isError,
   isLoading,
+  onAddProductToCart,
 }) => {
   const [quantitySelected, setQuantitySelected] = useState(0);
   console.log('quantitySelected - ', quantitySelected);
@@ -44,8 +48,6 @@ const ProductDetails = ({
   );
 
   const submitFormHandler = (e) => setQuantitySelected(e.target.value);
-
-  const addToCartHandler = () => {};
 
   const productDetailsView = () => (
     <div className="product-details-content">
@@ -82,7 +84,10 @@ const ProductDetails = ({
         </div>
         <hr></hr>
         {renderFormHandler()}
-        <Button onClickAction={addToCartHandler} type="btn-gray-dark ">
+        <Button
+          onClickAction={() => onAddProductToCart(productDetails)}
+          type="btn-gray-dark "
+        >
           ADD TO CHART
         </Button>
       </div>
@@ -106,4 +111,8 @@ const ProductDetails = ({
   );
 };
 
-export default ProductDetails;
+const mapDispatchToProps = (dispatch) => ({
+  onAddProductToCart: (product) => dispatch(addProductToCart(product)),
+});
+
+export default connect(null, mapDispatchToProps)(ProductDetails);
