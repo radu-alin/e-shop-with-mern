@@ -3,8 +3,8 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 
 import './Toolbar.scss';
 
-const Toolbar = () => {
-  return (
+const Toolbar = () => (
+  <>
     <header id="Toolbar">
       <div className="toolbar bg-gray-dark">
         <div className="toolbar-content container">
@@ -13,7 +13,7 @@ const Toolbar = () => {
         </div>
       </div>
     </header>
-  );
-};
+  </>
+);
 
 export default Toolbar;

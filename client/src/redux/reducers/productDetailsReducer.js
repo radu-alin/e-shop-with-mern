@@ -9,11 +9,6 @@ const initialState = {
 
 export const productDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_PRODUCT_DETAILS_SPINNER_RESET:
-      return {
-        ...state,
-        isLoading: true,
-      };
     case actionTypes.FETCH_PRODUCT_DETAILS_START:
       return {
         ...state,
@@ -25,7 +20,7 @@ export const productDetailsReducer = (state = initialState, action) => {
         productDetails: { ...action.payload },
         isLoading: false,
       };
-    case actionTypes.FETCH_PRODUCTS_DETAILS_FAIL:
+    case actionTypes.FETCH_PRODUCT_DETAILS_FAIL:
       return {
         ...state,
         isLoading: false,

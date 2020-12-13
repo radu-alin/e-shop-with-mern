@@ -1,6 +1,5 @@
-export { fetchProductList, fetchProductListResetSpinner } from './productListAction';
+export { fetchProductList } from './productListAction';
 
-export {
-  fetchProductDetails,
-  fetchProductDetailsResetSpinner,
-} from './productDetailsAction';
+export { fetchProductDetails } from './productDetailsAction';
+
+export { toogleCartHidden } from './cartAction';

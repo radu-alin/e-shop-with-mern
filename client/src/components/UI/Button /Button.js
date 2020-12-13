@@ -1,9 +1,7 @@
 import './Button.scss';
 
-const Button = ({ children, type, size, onClickAction, disabled }) => {
-  //type options: brown-light, brown-dark +  big
-  //isWidth opstions: full
-  //spacing options: my-1
+const Button = ({ children, type, onClickAction, disabled }) => {
+  //type options: btn-gray-dark, btn-gray-light
 
   const classes = `btn ${type}`;
 

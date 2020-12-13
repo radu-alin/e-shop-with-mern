@@ -1,0 +1,68 @@
+.checkout-page {
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px auto 0;
+
+  @media screen and(max-width: 800px) {
+    width: 90%;
+    margin-top: 60px;
+  }
+
+  .checkout-header {
+    width: 100%;
+    padding: 10px 0px;
+    display: flex;
+    border-bottom: 1px solid darkgrey;
+    .header-block {
+      text-transform: capitalize;
+      width: 23%;
+
+      &:last-child {
+        width: 8%;
+        @media screen and(max-width: 800px) {
+          width: 15%;
+        }
+      }
+    }
+  }
+
+  .fade-exit {
+    opacity: 1;
+  }
+
+  .fade-exit-active {
+    opacity: 0;
+    transition: opacity 0.15s ease-out;
+  }
+
+  .total {
+    margin-top: 30px;
+    margin-left: auto;
+    font-size: 32px;
+  }
+
+  button {
+    margin-left: auto;
+    margin-top: 30px;
+  }
+
+  .test-warning {
+    margin-left: auto;
+    text-align: right;
+    margin-top: 30px;
+    margin-top: 40px;
+    font-size: 16px;
+    color: red;
+    padding: 5px;
+    border-bottom: 1px solid darkgrey;
+    border-top: 1px solid darkgrey;
+
+    @media screen and(max-width: 800px) {
+      width: 100%;
+      text-align: right;
+    }
+  }
+}

@@ -4,26 +4,16 @@ import { Link } from 'react-router-dom';
 
 import Spinner from '../../UI/Spinner/Spinner';
 
-import {
-  fetchProductList,
-  fetchProductListResetSpinner,
-} from '../../../redux/actions/index';
+import { fetchProductList } from '../../../redux/actions/index';
 
 import ProductOverview from '../ProductOverview/ProductOverview';
 
 import './LatestProducts.scss';
 
-const LatestProducts = ({
-  productsAll,
-  isLoading,
-  isError,
-  onFetchProductList,
-  onFetchProductListResetSpinner,
-}) => {
+const LatestProducts = ({ productsAll, isLoading, isError, onFetchProductList }) => {
   useEffect(() => {
     onFetchProductList();
-    return () => onFetchProductListResetSpinner();
-  }, [onFetchProductList, onFetchProductListResetSpinner]);
+  }, [onFetchProductList]);
 
   const renderLatestProductsHandler = () => {
     let renderlatestProducts = isLoading ? (
@@ -62,7 +52,6 @@ const mapStateToProps = ({ productList: { productsAll, isLoading, isError } }) =
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchProductList: () => dispatch(fetchProductList()),
-  onFetchProductListResetSpinner: () => dispatch(fetchProductListResetSpinner()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LatestProducts);

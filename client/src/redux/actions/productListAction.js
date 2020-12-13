@@ -1,10 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const fetchProductListResetSpinner = () => ({
-  type: actionTypes.FETCH_PRODUCT_LIST_SPINNER_RESET,
-});
-
 export const fetchProductListStart = () => ({
   type: actionTypes.FETCH_PRODUCT_LIST_START,
 });
@@ -15,11 +11,12 @@ export const fetchProductListSuccess = (products) => ({
 });
 
 export const fetchProductListFail = (error) => ({
-  type: actionTypes.FETCH_PRODUCTS_LIST_FAIL,
+  type: actionTypes.FETCH_PRODUCT_LIST_FAIL,
   payload: error,
 });
 
 export const fetchProductList = () => async (dispatch) => {
+  dispatch(fetchProductListStart());
   try {
     const { data } = await axios.get('/api/products');
     dispatch(fetchProductListSuccess(data));

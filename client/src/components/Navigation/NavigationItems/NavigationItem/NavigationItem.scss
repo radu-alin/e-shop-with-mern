@@ -1,6 +1,8 @@
 .navigation-item {
-  width: 6rem;
+  width: 7.5rem;
   height: 100%;
+  display: flex;
+  justify-content: flex-end;
 
   & a {
     height: 100%;
@@ -12,5 +14,15 @@
     &:active {
       color: #919aa1;
     }
+  }
+}
+
+.navigation-item:last-child {
+  width: 3rem;
+
+  & .noWidthFull {
+    width: 45px;
+    display: flex;
+    justify-content: flex-end;
   }
 }
