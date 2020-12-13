@@ -1,5 +1,5 @@
 export { fetchProductList } from './productListAction';
 
-export { fetchProductDetails } from './productDetailsAction';
+export { fetchProductSelected } from './productSelectedAction';
 
 export { toogleCartHidden, addProductToCart } from './cartAction';

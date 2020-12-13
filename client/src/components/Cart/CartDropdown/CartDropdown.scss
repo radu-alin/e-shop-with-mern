@@ -2,8 +2,8 @@
   position: absolute;
   top: 1rem;
   right: 0px;
-  width: 240px;
-  height: 340px;
+  width: 288px;
+  height: 375px;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -12,13 +12,6 @@
 
   @media (max-width: 1024px) {
     right: 1rem;
-  }
-
-  .cart-items {
-    height: 240px;
-    display: flex;
-    flex-direction: column;
-    overflow: scroll;
   }
 
   button {

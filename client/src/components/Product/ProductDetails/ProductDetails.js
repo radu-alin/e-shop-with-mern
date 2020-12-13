@@ -9,10 +9,10 @@ import Spinner from '../../UI/Spinner/Spinner';
 import './ProductDetails.scss';
 
 const ProductDetails = ({
-  buttonGoBackClickHandler,
   productDetails,
-  isError,
   isLoading,
+  isError,
+  buttonGoBackClickHandler,
   onAddProductToCart,
 }) => {
   const [quantitySelected, setQuantitySelected] = useState(0);

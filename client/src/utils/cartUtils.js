@@ -9,7 +9,7 @@ export const addProductToCart = (cartProducts, productToAdd) => {
         ? {
             _id: cartProduct._id,
             quantity: cartProduct.quantity + 1,
-            productDetails: { ...productToAdd },
+            cartProductDetails: { ...productToAdd },
           }
         : cartProduct
     );
@@ -17,6 +17,6 @@ export const addProductToCart = (cartProducts, productToAdd) => {
 
   return [
     ...cartProducts,
-    { _id: productToAdd._id, quantity: 1, productDetails: { ...productToAdd } },
+    { _id: productToAdd._id, quantity: 1, cartProductDetails: { ...productToAdd } },
   ];
 };

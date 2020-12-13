@@ -22,10 +22,10 @@ const LatestProducts = ({ productsAll, isLoading, isError, onFetchProductList })
       <h3>{isError}</h3>
     ) : productsAll ? (
       <div className="latest-products-products">
-        {productsAll.map((latestProduct) => {
+        {productsAll.map((product) => {
           return (
-            <Link key={latestProduct._id} to={'/product/' + latestProduct._id}>
-              <ProductOverview productOverview={latestProduct} />
+            <Link key={product._id} to={'/product/' + product._id}>
+              <ProductOverview product={product} />
             </Link>
           );
         })}

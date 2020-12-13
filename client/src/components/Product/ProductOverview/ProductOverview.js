@@ -3,7 +3,7 @@ import Rating from '../../Rating/Rating';
 import './ProductOverview.scss';
 
 const ProductOverview = ({
-  productOverview: { name, price, image, rating, numReviews },
+  product: { name, price, image, rating, numReviews },
 }) => (
   <article id="ProductOverview">
     <div className="product-overview p-1 bg-gray-light">
