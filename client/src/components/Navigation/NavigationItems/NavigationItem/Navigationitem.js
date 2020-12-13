@@ -2,8 +2,8 @@ import { NavLink } from 'react-router-dom';
 
 import './NavigationItem.scss';
 
-const NavigationItem = ({ children, link, active, noWidthFull }) => {
-  const classes = active ? 'active' : null || noWidthFull ? 'noWidthFull' : null;
+const NavigationItem = ({ children, link, active }) => {
+  const classes = `${active ? 'active' : ''}`;
 
   return (
     <li className="navigation-item">

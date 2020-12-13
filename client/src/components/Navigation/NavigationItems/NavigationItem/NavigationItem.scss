@@ -10,6 +10,11 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    &.active {
+      color: #919aa1;
+    }
+
     &:hover,
     &:active {
       color: #919aa1;

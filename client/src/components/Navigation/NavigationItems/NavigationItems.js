@@ -9,12 +9,12 @@ const NavigationItems = () => (
       <NavigationItem link="/checkout">
         <i className="fas fa-shopping-cart"></i>CHECKOUT
       </NavigationItem>
-      <NavigationItem link="/">
+      <NavigationItem link="/auth">
         <i className="fas fa-user"></i>SIGN IN
       </NavigationItem>
-      <NavigationItem link="/" noWidthFull="noWidthFull">
+      <div className="navigation-items-cart-icon">
         <CartIcon />
-      </NavigationItem>
+      </div>
     </ul>
   </nav>
 );

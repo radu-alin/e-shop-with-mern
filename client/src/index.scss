@@ -109,3 +109,9 @@ p {
     margin: 1rem 0 1rem 0;
   }
 }
+
+.show-effect {
+  & a {
+    transition: all 0.2s ease-in-out;
+  }
+}

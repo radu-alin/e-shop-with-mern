@@ -7,7 +7,7 @@ const Toolbar = () => (
   <>
     <header id="Toolbar">
       <div className="toolbar bg-gray-dark">
-        <div className="toolbar-content container">
+        <div className="toolbar-content container show-effect">
           <Logo />
           <NavigationItems />
         </div>

@@ -1,22 +1,40 @@
 .cart-icon {
-  width: 50px;
-  height: 35px;
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  cursor: pointer;
+  margin-left: 0.5rem;
+  &-content {
+    width: 35px;
+    height: 35px;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+    }
 
-  .shopping-icon {
-    width: 30px;
-    height: 30px;
-  }
+    &-img {
+      width: 30px;
+      height: 30px;
+    }
 
-  .item-count {
-    position: absolute;
-    font-weight: bold;
-    font-size: 13px;
-    bottom: 7px;
-    right: 11px;
+    &-count {
+      width: 21px;
+      height: 18px;
+      position: absolute;
+      bottom: 7px;
+      right: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+      overflow: hidden;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        color: #919aa1;
+      }
+    }
   }
 }
