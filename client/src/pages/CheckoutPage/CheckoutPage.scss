@@ -6,27 +6,31 @@
   align-items: center;
   margin: 50px auto 0;
 
-  .checkout-header {
+  @media (max-width: 994px) {
+    padding: 0 1rem 0 1rem;
+  }
+
+  &-header {
     width: 100%;
     display: flex;
     border-bottom: 1px solid darkgrey;
-    .header-block {
+    &-block {
       text-transform: capitalize;
       width: 23%;
 
       &:last-child {
         width: 8%;
-        @media screen and(max-width: 800px) {
-          width: 15%;
+        & span {
+          float: right;
         }
       }
     }
   }
 
-  .checkout-total {
-    margin-top: 30px;
+  &-total {
+    margin-top: 1rem;
     margin-left: auto;
-    font-size: 32px;
+    font-size: 1.2rem;
   }
 
   button {

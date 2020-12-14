@@ -1,5 +1,8 @@
-import './CheckoutPage.scss';
 import { connect } from 'react-redux';
+
+import CheckoutProducts from '../../components/Checkout/CheckoutProducts/CheckoutProducts';
+
+import './CheckoutPage.scss';
 
 import {
   cartProductsSelector,
@@ -7,30 +10,45 @@ import {
 } from '../../redux/selectors/cartSelector';
 
 const CheckoutPage = ({ cartProducts, cartTotalValue }) => {
-  console.log('cartProducts - ', cartProducts);
-  const renderCartProducts = () => cartProducts.map((cartProduct) => <h1>Hello</h1>);
   return (
     <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
-          <span>Product</span>
+      <div className="checkout-page-header py-1">
+        <div className="checkout-page-header-block">
+          <span>
+            <strong>Product</strong>
+          </span>
         </div>
-        <div className="header-block">
-          <span>Name</span>
+        <div className="checkout-page-header-block">
+          <span>
+            <strong>Name</strong>
+          </span>
         </div>
-        <div className="header-block">
-          <span>Quantity</span>
+        <div className="checkout-page-header-block">
+          <span>
+            <strong>Quantity</strong>
+          </span>
         </div>
-        <div className="header-block">
-          <span>Price</span>
+        <div className="checkout-page-header-block">
+          <span>
+            <strong>Price</strong>
+          </span>
         </div>
-        <div className="header-block">
-          <span>Remove</span>
+        <div className="checkout-page-header-block">
+          <span>
+            <strong>Remove</strong>
+          </span>
         </div>
       </div>
-      {renderCartProducts()}
-      <div className="checkout-total">
-        <span>TOTAL: $ {cartTotalValue}</span>
+      {cartProducts.length ? (
+        <CheckoutProducts cartProducts={cartProducts} />
+      ) : (
+        <h1 className="py-1">Please Add Products for Checkout</h1>
+      )}
+
+      <div className="checkout-page-total">
+        <span>
+          <strong>TOTAL: ${cartTotalValue.toFixed(2)}</strong>
+        </span>
       </div>
     </div>
   );

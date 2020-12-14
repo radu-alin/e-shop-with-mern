@@ -7,23 +7,14 @@ import CartProduct from './CartProduct/CartProduct';
 import './CartProducts.scss';
 
 const CartProducts = ({ cartProducts }) => {
-  console.log('cartProducts - ', cartProducts);
   const renderCartProductsHandler = () =>
-    cartProducts.length ? (
-      cartProducts.map(({ cartProductDetails, quantity }) => (
-        <CartProduct
-          key={cartProductDetails._id}
-          quantity={quantity}
-          cartProductDetails={cartProductDetails}
-        />
-      ))
-    ) : (
-      <>
-        <span className="cart-products-empty-message">
-          <strong>YOURE CART IS EMPTY .</strong>
-        </span>
-      </>
-    );
+    cartProducts.map(({ cartProductDetails, quantity }) => (
+      <CartProduct
+        key={cartProductDetails._id}
+        quantity={quantity}
+        cartProductDetails={cartProductDetails}
+      />
+    ));
 
   return <div className="cart-products">{renderCartProductsHandler()}</div>;
 };
