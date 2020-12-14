@@ -9,18 +9,18 @@ const initialState = {
 
 export const productSelectedReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_PRODUCT_SELECTED_START:
+    case actionTypes.PRODUCT_SELECTED_FETCH_START:
       return {
         ...state,
         isLoading: true,
       };
-    case actionTypes.FETCH_PRODUCT_SELECTED_SUCCESS:
+    case actionTypes.PRODUCT_SELECTED_FETCH_SUCCESS:
       return {
         ...state,
         productSelectedDetails: { ...action.payload },
         isLoading: false,
       };
-    case actionTypes.FETCH_PRODUCT_SELECTED_FAIL:
+    case actionTypes.PRODUCT_SELECTED_FETCH_FAIL:
       return {
         ...state,
         isLoading: false,

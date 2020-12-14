@@ -1,7 +1,7 @@
 // import { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { addProductToCart } from '../../../redux/actions/index';
+import { cartAddProduct } from '../../../redux/actions/index';
 
 import Button from '../../UI/Button /Button';
 import Rating from '../../Rating/Rating';
@@ -13,41 +13,8 @@ const ProductDetails = ({
   isLoading,
   isError,
   buttonGoBackClickHandler,
-  onAddProductToCart,
+  onCartAddProduct,
 }) => {
-  // const [quantitySelected, setQuantitySelected] = useState(0);
-
-  // const renderInputSelectHandler = () => {
-  //   const maxLenght = productDetails.countInStock;
-  //   const renderInputSelect = [];
-  //   for (let i = 0; i <= maxLenght; i++) {
-  //     renderInputSelect.push(
-  //       <option key={i} value={i}>
-  //         {i}
-  //       </option>
-  //     );
-  //   }
-  //   return renderInputSelect;
-  // };
-
-  // const renderFormHandler = () => (
-  //   <>
-  //     {productDetails.countInStock ? (
-  //       <>
-  //         <div className="product-details-content-text-right-quantity">
-  //           <form onChange={(e) => submitFormHandler(e)}>
-  //             <label>Quantity:</label>
-  //             <select>{renderInputSelectHandler()}</select>
-  //           </form>
-  //         </div>
-  //         <hr></hr>
-  //       </>
-  //     ) : null}
-  //   </>
-  // );
-
-  // const submitFormHandler = (e) => setQuantitySelected(e.target.value);
-
   const productDetailsView = () => (
     <div className="product-details-content">
       <div
@@ -83,7 +50,7 @@ const ProductDetails = ({
         </div>
         <hr></hr>
         <Button
-          onClickAction={() => onAddProductToCart(productDetails)}
+          onClickAction={() => onCartAddProduct(productDetails)}
           type="btn-gray-dark "
         >
           ADD TO CHART
@@ -110,7 +77,40 @@ const ProductDetails = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onAddProductToCart: (product) => dispatch(addProductToCart(product)),
+  onCartAddProduct: (product) => dispatch(cartAddProduct(product)),
 });
 
 export default connect(null, mapDispatchToProps)(ProductDetails);
+
+// const [quantitySelected, setQuantitySelected] = useState(0);
+
+// const renderInputSelectHandler = () => {
+//   const maxLenght = productDetails.countInStock;
+//   const renderInputSelect = [];
+//   for (let i = 0; i <= maxLenght; i++) {
+//     renderInputSelect.push(
+//       <option key={i} value={i}>
+//         {i}
+//       </option>
+//     );
+//   }
+//   return renderInputSelect;
+// };
+
+// const renderFormHandler = () => (
+//   <>
+//     {productDetails.countInStock ? (
+//       <>
+//         <div className="product-details-content-text-right-quantity">
+//           <form onChange={(e) => submitFormHandler(e)}>
+//             <label>Quantity:</label>
+//             <select>{renderInputSelectHandler()}</select>
+//           </form>
+//         </div>
+//         <hr></hr>
+//       </>
+//     ) : null}
+//   </>
+// );
+
+// const submitFormHandler = (e) => setQuantitySelected(e.target.value);

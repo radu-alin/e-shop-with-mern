@@ -1,4 +1,4 @@
-export const addProductToCart = (cartProducts, productToAdd) => {
+export const cartAddProductUtils = (cartProducts, productToAdd) => {
   const cartContainProductToAdd = cartProducts.find(
     (cartProduct) => cartProduct._id === productToAdd._id
   );

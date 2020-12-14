@@ -1,30 +1,30 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const fetchProductListStart = () => ({
-  type: actionTypes.FETCH_PRODUCT_LIST_START,
+export const productListFetchStart = () => ({
+  type: actionTypes.PRODUCT_LIST_FETCH_START,
 });
 
-export const fetchProductListSuccess = (products) => ({
-  type: actionTypes.FETCH_PRODUCT_LIST_SUCCESS,
+export const productListFetchSuccess = (products) => ({
+  type: actionTypes.PRODUCT_LIST_FETCH_SUCCESS,
   payload: products,
 });
 
-export const fetchProductListFail = (error) => ({
-  type: actionTypes.FETCH_PRODUCT_LIST_FAIL,
+export const productListFetchFail = (error) => ({
+  type: actionTypes.PRODUCT_LIST_FETCH_FAIL,
   payload: error,
 });
 
-export const fetchProductList = () => async (dispatch) => {
-  dispatch(fetchProductListStart());
+export const productListFetch = () => async (dispatch) => {
+  dispatch(productListFetchStart());
   try {
     const { data } = await axios.get('/api/products');
-    dispatch(fetchProductListSuccess(data));
+    dispatch(productListFetchSuccess(data));
   } catch (err) {
     const isError =
       err.response && err.response.data.message
         ? err.response.data.message
         : err.message;
-    dispatch(fetchProductListFail(isError));
+    dispatch(productListFetchFail(isError));
   }
 };

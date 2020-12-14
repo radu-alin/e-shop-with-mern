@@ -8,18 +8,18 @@ const initialState = {
 
 export const productListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_PRODUCT_LIST_START:
+    case actionTypes.PRODUCT_LIST_FETCH_START:
       return {
         ...state,
         isLoading: true,
       };
-    case actionTypes.FETCH_PRODUCT_LIST_SUCCESS:
+    case actionTypes.PRODUCT_LIST_FETCH_SUCCESS:
       return {
         ...state,
-        productsAll: [...action.payload],
+        productsAll: action.payload,
         isLoading: false,
       };
-    case actionTypes.FETCH_PRODUCT_LIST_FAIL:
+    case actionTypes.PRODUCT_LIST_FETCH_FAIL:
       return {
         ...state,
         isLoading: false,

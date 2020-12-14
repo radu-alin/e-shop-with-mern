@@ -1,6 +1,6 @@
 import './CartProduct.scss';
 
-const CartProduct = ({ image, price, name, quantity }) => (
+const CartProduct = ({ cartProductDetails: { image, price, name }, quantity }) => (
   <>
     <div className="cart-product">
       <img src={image} alt="product" />

@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchProductSelected } from '../../redux/actions/index';
+import { productSelectedFetch } from '../../redux/actions/index';
 
 import ProductDetails from '../../components/Product/ProductDetails/ProductDetails';
 import LatestProducts from '../../components/Product/LatestProducts/LatestProducts';
@@ -11,12 +11,12 @@ const ProductDetailsPage = ({
   productReviews,
   isLoading,
   isError,
-  onFetchProductSelected,
+  onProductSelectedFetch,
   match,
   history,
 }) => {
-  useEffect(() => onFetchProductSelected(match.params.id), [
-    onFetchProductSelected,
+  useEffect(() => onProductSelectedFetch(match.params.id), [
+    onProductSelectedFetch,
     match.params.id,
   ]);
 
@@ -45,7 +45,7 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchProductSelected: (id) => dispatch(fetchProductSelected(id)),
+  onProductSelectedFetch: (id) => dispatch(productSelectedFetch(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailsPage);

@@ -1,3 +1,9 @@
 .cart-products {
+  height: 100%;
   overflow: auto;
+  &-empty-message {
+    display: flex;
+    margin-top: 80px;
+    justify-content: center;
+  }
 }

@@ -1,26 +1,14 @@
-// import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
-// import TransitionGroup from 'react-transition-group/TransitionGroup';
-// import CSSTransition from 'react-transition-group/CSSTransition';
-
-// import CheckoutItem from '../../components/CheckoutItem/CheckoutItem';
-// // import StripeCheckoutButton from '../../components/Stripe/StripeButton/StripeButton';
-
-// import {
-//   selectCartItems,
-//   selectCartPricesSum,
-// } from '../../redux/selectors/cartSelectors';
-
 import './CheckoutPage.scss';
+import { connect } from 'react-redux';
 
-const CheckoutPage = ({ cartItems, cartPricesSum }) => {
-  // const renderItems = () =>
-  //   cartItems.map((cartItem) => (
-  //     <CSSTransition key={cartItem.id} classNames="fade" timeout={300}>
-  //       <CheckoutItem cartItem={cartItem} />
-  //     </CSSTransition>
-  //   ));
+import {
+  cartProductsSelector,
+  cartTotalValueSelector,
+} from '../../redux/selectors/cartSelector';
 
+const CheckoutPage = ({ cartProducts, cartTotalValue }) => {
+  console.log('cartProducts - ', cartProducts);
+  const renderCartProducts = () => cartProducts.map((cartProduct) => <h1>Hello</h1>);
   return (
     <div className="checkout-page">
       <div className="checkout-header">
@@ -28,7 +16,7 @@ const CheckoutPage = ({ cartItems, cartPricesSum }) => {
           <span>Product</span>
         </div>
         <div className="header-block">
-          <span>Description</span>
+          <span>Name</span>
         </div>
         <div className="header-block">
           <span>Quantity</span>
@@ -40,14 +28,17 @@ const CheckoutPage = ({ cartItems, cartPricesSum }) => {
           <span>Remove</span>
         </div>
       </div>
+      {renderCartProducts()}
+      <div className="checkout-total">
+        <span>TOTAL: $ {cartTotalValue}</span>
+      </div>
     </div>
   );
 };
 
-// const mapStateToProps = createStructuredSelector({
-//   cartItems: selectCartItems,
-//   cartPricesSum: selectCartPricesSum,
-// });
+const mapStateToProps = (state) => ({
+  cartProducts: cartProductsSelector(state),
+  cartTotalValue: cartTotalValueSelector(state),
+});
 
-// export default connect(mapStateToProps)(CheckoutPage);
-export default CheckoutPage;
+export default connect(mapStateToProps)(CheckoutPage);

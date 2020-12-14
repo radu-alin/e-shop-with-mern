@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import { addProductToCart } from '../../utils/cartUtils';
+import { cartAddProductUtils } from '../../utils/cartUtils';
 
 const initialState = {
   cartProducts: [],
@@ -8,15 +8,15 @@ const initialState = {
 
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.TOGGLE_CART_HIDDEN:
+    case actionTypes.CART_TOGGLE_HIDDEN:
       return {
         ...state,
         isHidden: !state.isHidden,
       };
-    case actionTypes.ADD_PRODUCT_TO_CART:
+    case actionTypes.CART_ADD_PRODUCT:
       return {
         ...state,
-        cartProducts: addProductToCart(state.cartProducts, action.payload),
+        cartProducts: cartAddProductUtils(state.cartProducts, action.payload),
       };
     default:
       return state;
