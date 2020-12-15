@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 
-import { productSelectedFetch } from '../../redux/actions/index';
+import { productSelectedFetch, cartAddProduct } from '../../redux/actions/index';
 
 import ProductDetails from '../../components/Product/ProductDetails/ProductDetails';
 import LatestProducts from '../../components/Product/LatestProducts/LatestProducts';
@@ -12,6 +12,7 @@ const ProductDetailsPage = ({
   isLoading,
   isError,
   onProductSelectedFetch,
+  onCartAddProduct,
   match,
   history,
 }) => {
@@ -20,15 +21,16 @@ const ProductDetailsPage = ({
     match.params.id,
   ]);
 
-  const buttonGoBackClickHandler = useCallback(() => history.push('/'), [history]);
+  const buttonGoBackClickHandler = useCallback(() => history.goBack(), [history]);
 
   return (
     <main id="ProductPage">
       <ProductDetails
-        buttonGoBackClickHandler={buttonGoBackClickHandler}
         isLoading={isLoading}
         isError={isError}
         productDetails={productSelectedDetails}
+        buttonGoBackClickHandler={buttonGoBackClickHandler}
+        onCartAddProduct={onCartAddProduct}
       />
       <LatestProducts />
     </main>
@@ -46,6 +48,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   onProductSelectedFetch: (id) => dispatch(productSelectedFetch(id)),
+  onCartAddProduct: (product) => dispatch(cartAddProduct(product)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailsPage);

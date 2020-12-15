@@ -24,7 +24,7 @@ const LatestProducts = ({ productsAll, isLoading, isError, onProductListFetch })
       <div className="latest-products-products">
         {productsAll.map((product) => {
           return (
-            <Link key={product._id} to={'/product/' + product._id}>
+            <Link key={product._id} to={'/products/' + product._id}>
               <ProductOverview product={product} />
             </Link>
           );

@@ -8,3 +8,16 @@ export const cartAddProduct = (product) => ({
   type: actionTypes.CART_ADD_PRODUCT,
   payload: product,
 });
+
+export const cartDecreaseProduct = (product) => ({
+  type: actionTypes.CART_DECREASE_PRODUCT,
+  payload: product,
+});
+
+export const cartClearProduct = (productId) => ({
+  type: actionTypes.CART_CLEAR_PRODUCT,
+  payload: productId,
+});
+
+// localStorage.setItem('cartProducts', JSON.stringify(getState().cart.cartProducts));
+// localStorage.setItem('cartProducts', JSON.stringify(getState().cart.cartProducts));

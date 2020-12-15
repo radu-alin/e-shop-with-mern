@@ -10,7 +10,7 @@ const App = () => {
     <Route>
       <Layout>
         <Switch>
-          <Route path="/product/:id" component={ProductDetailsPage} />
+          <Route path="/products/:id" component={ProductDetailsPage} />
           <Route path="/checkout" component={CheckoutPage} />
           <Route path="/" exact component={HomePage} />
           <Redirect to="/" />

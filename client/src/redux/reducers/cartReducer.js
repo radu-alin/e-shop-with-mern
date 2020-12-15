@@ -1,8 +1,12 @@
 import * as actionTypes from '../actions/actionTypes';
-import { cartAddProductUtils } from '../../utils/cartUtils';
+import {
+  cartAddProductUtil,
+  cartDecreaseProductUtil,
+  cartProductsFromLocalStorageUtil,
+} from '../../utils/cartUtil';
 
 const initialState = {
-  cartProducts: [],
+  cartProducts: cartProductsFromLocalStorageUtil('cartProducts'),
   isHidden: true,
 };
 
@@ -16,7 +20,21 @@ export const cartReducer = (state = initialState, action) => {
     case actionTypes.CART_ADD_PRODUCT:
       return {
         ...state,
-        cartProducts: cartAddProductUtils(state.cartProducts, action.payload),
+        cartProducts: cartAddProductUtil(state.cartProducts, action.payload),
+      };
+    case actionTypes.CART_DECREASE_PRODUCT:
+      return {
+        ...state,
+        cartProducts: cartDecreaseProductUtil(state.cartProducts, action.payload),
+      };
+    case actionTypes.CART_CLEAR_PRODUCT:
+      return {
+        ...state,
+        cartProducts: [
+          ...state.cartProducts.filter(
+            (cartProduct) => cartProduct._id !== action.payload
+          ),
+        ],
       };
     default:
       return state;

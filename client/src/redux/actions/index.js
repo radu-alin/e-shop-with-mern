@@ -2,4 +2,9 @@ export { productListFetch } from './productListAction';
 
 export { productSelectedFetch } from './productSelectedAction';
 
-export { cartToggleHidden, cartAddProduct } from './cartAction';
+export {
+  cartToggleHidden,
+  cartAddProduct,
+  cartDecreaseProduct,
+  cartClearProduct,
+} from './cartAction';

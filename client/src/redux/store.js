@@ -32,11 +32,3 @@ const composedEnhancers =
     : compose(...enhancers);
 
 export const store = createStore(rootReducer, composedEnhancers);
-
-// const loggerInfo = (store) => (next) => (action) => {
-//   console.log('Prev State - ', store.getState());
-//   console.log('Action - ', action);
-//   const result = next(action);
-//   console.log('Next State -', store.getState());
-//   return result;
-// };

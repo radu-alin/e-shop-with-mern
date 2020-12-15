@@ -22,12 +22,32 @@
     width: 23%;
   }
 
+  &-name {
+    & a {
+      color: #000;
+    }
+  }
+
   &-quantity {
     padding-left: 20px;
+    display: flex;
+    // flex-direction: row;
+    &-arrow-left {
+      padding-right: 9px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &-arrow-right {
+      padding-left: 9px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
   &-remove-button {
-    padding-left: 30px;
+    margin-left: 30px;
     cursor: pointer;
   }
 }

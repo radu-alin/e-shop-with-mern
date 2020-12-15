@@ -2,55 +2,74 @@ import { connect } from 'react-redux';
 
 import CheckoutProducts from '../../components/Checkout/CheckoutProducts/CheckoutProducts';
 
-import './CheckoutPage.scss';
+import {
+  cartClearProduct,
+  cartAddProduct,
+  cartDecreaseProduct,
+} from '../../redux/actions/index';
 
 import {
   cartProductsSelector,
   cartTotalValueSelector,
 } from '../../redux/selectors/cartSelector';
 
-const CheckoutPage = ({ cartProducts, cartTotalValue }) => {
-  return (
-    <div className="checkout-page">
-      <div className="checkout-page-header py-1">
-        <div className="checkout-page-header-block">
-          <span>
-            <strong>Product</strong>
-          </span>
-        </div>
-        <div className="checkout-page-header-block">
-          <span>
-            <strong>Name</strong>
-          </span>
-        </div>
-        <div className="checkout-page-header-block">
-          <span>
-            <strong>Quantity</strong>
-          </span>
-        </div>
-        <div className="checkout-page-header-block">
-          <span>
-            <strong>Price</strong>
-          </span>
-        </div>
-        <div className="checkout-page-header-block">
-          <span>
-            <strong>Remove</strong>
-          </span>
-        </div>
-      </div>
-      {cartProducts.length ? (
-        <CheckoutProducts cartProducts={cartProducts} />
-      ) : (
-        <h1 className="py-1">Please Add Products for Checkout</h1>
-      )}
+import './CheckoutPage.scss';
 
-      <div className="checkout-page-total">
-        <span>
-          <strong>TOTAL: ${cartTotalValue.toFixed(2)}</strong>
-        </span>
+const CheckoutPage = ({
+  cartProducts,
+  cartTotalValue,
+  onCartClearProduct,
+  onCartAddProduct,
+  onCartDecreaseProduct,
+}) => {
+  return (
+    <main id="CheckoutPage">
+      <div className="checkout-page">
+        <div className="checkout-page-header py-1">
+          <div className="checkout-page-header-block">
+            <span>
+              <strong>Product</strong>
+            </span>
+          </div>
+          <div className="checkout-page-header-block">
+            <span>
+              <strong>Name</strong>
+            </span>
+          </div>
+          <div className="checkout-page-header-block">
+            <span>
+              <strong>Quantity</strong>
+            </span>
+          </div>
+          <div className="checkout-page-header-block">
+            <span>
+              <strong>Price</strong>
+            </span>
+          </div>
+          <div className="checkout-page-header-block">
+            <span>
+              <strong>Remove</strong>
+            </span>
+          </div>
+        </div>
+        {cartProducts.length ? (
+          <CheckoutProducts
+            cartProducts={cartProducts}
+            onCartClearProduct={onCartClearProduct}
+            onCartAddProduct={onCartAddProduct}
+            onCartDecreaseProduct={onCartDecreaseProduct}
+          />
+        ) : (
+          <h1 className="py-1">Please Add Products for Checkout</h1>
+        )}
+
+        <div className="checkout-page-total">
+          <span>
+            <strong>TOTAL: ${cartTotalValue.toFixed(2)}</strong>
+          </span>
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 
@@ -59,4 +78,10 @@ const mapStateToProps = (state) => ({
   cartTotalValue: cartTotalValueSelector(state),
 });
 
-export default connect(mapStateToProps)(CheckoutPage);
+const mapDispatchToProps = (dispatch) => ({
+  onCartClearProduct: (id) => dispatch(cartClearProduct(id)),
+  onCartAddProduct: (product) => dispatch(cartAddProduct(product)),
+  onCartDecreaseProduct: (product) => dispatch(cartDecreaseProduct(product)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPage);

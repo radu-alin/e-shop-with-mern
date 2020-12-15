@@ -1,8 +1,3 @@
-// import { useState } from 'react';
-import { connect } from 'react-redux';
-
-import { cartAddProduct } from '../../../redux/actions/index';
-
 import Button from '../../UI/Button /Button';
 import Rating from '../../Rating/Rating';
 import Spinner from '../../UI/Spinner/Spinner';
@@ -76,11 +71,7 @@ const ProductDetails = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onCartAddProduct: (product) => dispatch(cartAddProduct(product)),
-});
-
-export default connect(null, mapDispatchToProps)(ProductDetails);
+export default ProductDetails;
 
 // const [quantitySelected, setQuantitySelected] = useState(0);
 
