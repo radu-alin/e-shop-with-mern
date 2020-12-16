@@ -4,11 +4,15 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import colors from 'colors';
-import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import {
+  notFoundMiddleware,
+  errorHandlerMiddleware,
+} from './middleware/errorMiddleware.js';
 
 import connectDB from './config/db.js';
 
 import productRoutes from './routes/productRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 if (process.env.NODE_ENV !== 'production') dotenv.config();
 
@@ -35,10 +39,11 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
 
-app.use(notFound);
+app.use(notFoundMiddleware);
 
-app.use(errorHandler);
+app.use(errorHandlerMiddleware);
 
 app.listen(port, (error) => {
   if (error) throw error;
