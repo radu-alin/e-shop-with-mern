@@ -10,18 +10,18 @@ import ProductOverview from '../ProductOverview/ProductOverview';
 
 import './LatestProducts.scss';
 
-const LatestProducts = ({ productsAll, isLoading, isError, onProductListFetch }) => {
+const LatestProducts = ({ productsAll, isError, onProductListFetch }) => {
   useEffect(() => {
     onProductListFetch();
   }, [onProductListFetch]);
 
-  const renderLatestProductsHandler = () => {
-    let renderlatestProducts = isLoading ? (
+  const renderLatestProductsHandler = () =>
+    !productsAll ? (
       <Spinner />
     ) : isError ? (
       <h3>{isError}</h3>
-    ) : productsAll ? (
-      <div className="latest-products-products">
+    ) : (
+      <div className="latest-products-product">
         {productsAll.map((product) => {
           return (
             <Link key={product._id} to={'/products/' + product._id}>
@@ -30,9 +30,7 @@ const LatestProducts = ({ productsAll, isLoading, isError, onProductListFetch })
           );
         })}
       </div>
-    ) : null;
-    return renderlatestProducts;
-  };
+    );
 
   return (
     <section id="LatestProducts">
@@ -44,9 +42,8 @@ const LatestProducts = ({ productsAll, isLoading, isError, onProductListFetch })
   );
 };
 
-const mapStateToProps = ({ productList: { productsAll, isLoading, isError } }) => ({
+const mapStateToProps = ({ productList: { productsAll, isError } }) => ({
   productsAll,
-  isLoading,
   isError,
 });
 

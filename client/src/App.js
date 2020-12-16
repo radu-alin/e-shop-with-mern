@@ -21,3 +21,27 @@ const App = () => {
 };
 
 export default App;
+
+/* <Profiler
+            id="ProductDetailsPage"
+            onRender={(
+              id,
+              phase,
+              actualDuration,
+              baseDuration,
+              startTime,
+              commitTime,
+              interactions
+            ) => {
+              const ProductDetailsPage = {
+                id,
+                phase,
+                actualDuration,
+                baseDuration,
+                startTime,
+                commitTime,
+                interactions,
+              };
+              console.table(ProductDetailsPage);
+            }}
+          ></Profiler> */

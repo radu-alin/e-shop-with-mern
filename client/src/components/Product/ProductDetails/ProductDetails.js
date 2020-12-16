@@ -5,7 +5,6 @@ import './ProductDetails.scss';
 
 const ProductDetails = ({
   productDetails,
-  isLoading,
   isError,
   buttonGoBackClickHandler,
   onCartAddProduct,
@@ -55,7 +54,13 @@ const ProductDetails = ({
   );
 
   const renderProductDetailsHandler = () =>
-    isLoading ? <Spinner /> : isError ? <h3>{isError}</h3> : productDetailsView();
+    !productDetails ? (
+      <Spinner />
+    ) : isError ? (
+      <h3>{isError}</h3>
+    ) : (
+      productDetailsView()
+    );
 
   return (
     <section id="ProductDetails">

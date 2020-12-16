@@ -8,8 +8,6 @@ import LatestProducts from '../../components/Product/LatestProducts/LatestProduc
 
 const ProductDetailsPage = ({
   productSelectedDetails,
-  productReviews,
-  isLoading,
   isError,
   onProductSelectedFetch,
   onCartAddProduct,
@@ -26,7 +24,6 @@ const ProductDetailsPage = ({
   return (
     <main id="ProductPage">
       <ProductDetails
-        isLoading={isLoading}
         isError={isError}
         productDetails={productSelectedDetails}
         buttonGoBackClickHandler={buttonGoBackClickHandler}
@@ -38,11 +35,9 @@ const ProductDetailsPage = ({
 };
 
 const mapStateToProps = ({
-  productSelected: { productSelectedDetails, productReviews, isLoading, isError },
+  productSelected: { productSelectedDetails, isError },
 }) => ({
   productSelectedDetails,
-  productReviews,
-  isLoading,
   isError,
 });
 
