@@ -8,3 +8,5 @@ export {
   cartDecreaseProduct,
   cartClearProduct,
 } from './cartAction';
+
+export { userLogin, userLogout } from './userAction';

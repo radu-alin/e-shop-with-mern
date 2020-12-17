@@ -1,5 +1,10 @@
 import './Spinner.scss';
 
-const Spinner = () => <div className="loader">Loading...</div>;
+const Spinner = ({ type }) => {
+  //type options: small - 3rem.
+  const classes = `loader ${type}`;
+
+  return <div className={classes}>Loading...</div>;
+};
 
 export default Spinner;

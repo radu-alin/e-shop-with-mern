@@ -9,10 +9,12 @@ import './Layout.scss';
 const Layout = ({ children, isHidden }) => (
   <>
     <Toolbar />
-    <div id="Layout" className="layout">
-      <div className="layout-cart">{isHidden ? null : <CartDropdown />}</div>
-      {children}
-    </div>
+    <main id="Layout">
+      <div className="layout">
+        <div className="layout-cart">{isHidden ? null : <CartDropdown />}</div>
+        {children}
+      </div>
+    </main>
     <Footer />
   </>
 );

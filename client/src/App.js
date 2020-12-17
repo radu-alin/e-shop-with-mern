@@ -4,6 +4,8 @@ import Layout from './components/Layout/Layout';
 import HomePage from './pages/HomePage/HomePage';
 import ProductDetailsPage from './pages/ProductDetailsPage/ProductDetailsPage';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+import AuthPage from './pages/AuthPage/AuthPage';
+import LogoutPage from './pages/LogoutPage/LogoutPage';
 
 const App = () => {
   return (
@@ -12,6 +14,8 @@ const App = () => {
         <Switch>
           <Route path="/products/:id" component={ProductDetailsPage} />
           <Route path="/checkout" component={CheckoutPage} />
+          <Route path="/logout" component={LogoutPage} />
+          <Route path="/auth" component={AuthPage} />
           <Route path="/" exact component={HomePage} />
           <Redirect to="/" />
         </Switch>

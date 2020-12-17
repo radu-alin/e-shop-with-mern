@@ -2,16 +2,12 @@
   font-size: 10px;
   margin: 50px auto;
   text-indent: -9999em;
-  width: 11em;
-  height: 11em;
+  width: 9em;
+  height: 9em;
   border-radius: 50%;
   background: #343a40;
   background: -moz-linear-gradient(left, #343a40 10%, rgba(52, 58, 64, 0) 42%);
-  background: -webkit-linear-gradient(
-    left,
-    #343a40 10%,
-    rgba(52, 58, 64, 0) 42%
-  );
+  background: -webkit-linear-gradient(left, #343a40 10%, rgba(52, 58, 64, 0) 42%);
   background: -o-linear-gradient(left, #343a40 10%, rgba(52, 58, 64, 0) 42%);
   background: -ms-linear-gradient(left, #343a40 10%, rgba(52, 58, 64, 0) 42%);
   background: linear-gradient(to right, #343a40 10%, rgba(52, 58, 64, 0) 42%);
@@ -21,6 +17,12 @@
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
+
+  &.small {
+    margin: 0 auto 0 auto;
+    width: 3em;
+    height: 3em;
+  }
 }
 .loader:before {
   width: 50%;

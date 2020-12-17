@@ -9,18 +9,20 @@ import Button from '../../UI/Button /Button';
 import './CartDropdown.scss';
 
 const CartDropdown = ({ history, dispatch }) => (
-  <div className="cart-dropdown">
-    <CartProducts />
-    <Button
-      type="btn-gray-dark"
-      onClickAction={() => {
-        history.push('/checkout');
-        dispatch(onCartToggleHidden());
-      }}
-    >
-      GO TO CHECKOUT
-    </Button>
-  </div>
+  <section id="CartDropdown">
+    <div className="cart-dropdown">
+      <CartProducts />
+      <Button
+        type="btn-gray-dark"
+        onClickAction={() => {
+          history.push('/checkout');
+          dispatch(onCartToggleHidden());
+        }}
+      >
+        GO TO CHECKOUT
+      </Button>
+    </div>
+  </section>
 );
 
 export default withRouter(connect(null)(CartDropdown));

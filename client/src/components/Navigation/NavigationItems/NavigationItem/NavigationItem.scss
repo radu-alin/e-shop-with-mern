@@ -22,13 +22,3 @@
     }
   }
 }
-
-.navigation-item:last-child {
-  width: 3rem;
-
-  & .noWidthFull {
-    width: 45px;
-    display: flex;
-    justify-content: flex-end;
-  }
-}

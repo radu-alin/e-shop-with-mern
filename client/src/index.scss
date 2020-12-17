@@ -65,6 +65,10 @@ nav {
   height: 100%;
 }
 
+ul {
+  list-style: none;
+}
+
 p {
   margin: 1rem 0 1rem 0;
 }
@@ -74,7 +78,7 @@ p {
     background: $color-gray-700;
   }
   &-gray-light {
-    background: $color-gray-200;
+    background: $color-gray-100;
   }
   &-gray-medium {
     background: $color-gray-500;

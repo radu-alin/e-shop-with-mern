@@ -1,0 +1,18 @@
+.sign-in-form {
+  &-spinner {
+    margin-top: 1rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-footer {
+    color: #adb5bd;
+    text-align: center;
+    & a {
+      color: #343a40;
+      font-weight: bolder;
+      cursor: pointer;
+    }
+  }
+}

@@ -12,36 +12,38 @@ const CheckoutProduct = ({
 }) => {
   const { name, image, price, _id } = cartProductDetails;
   return (
-    <div className="checkout-product">
-      <div className="checkout-product-image-container">
-        <img src={image} alt="product" />
-      </div>
-      <span className="checkout-product-name">
-        <Link to={'/products/' + _id}>{name}</Link>
-      </span>
-      <span className="checkout-product-quantity">
-        <div
-          className="checkout-product-quantity-arrow-left"
-          onClick={() => onCartDecreaseProduct(cartProductDetails)}
-        >
-          &#60;
+    <article id="CheckoutProduct">
+      <div className="checkout-product">
+        <div className="checkout-product-image-container">
+          <img src={image} alt="product" />
         </div>
-        <span className="checkout-product-quantity-value">{quantity}</span>
+        <span className="checkout-product-name">
+          <Link to={'/products/' + _id}>{name}</Link>
+        </span>
+        <span className="checkout-product-quantity">
+          <div
+            className="checkout-product-quantity-arrow-left"
+            onClick={() => onCartDecreaseProduct(cartProductDetails)}
+          >
+            &#60;
+          </div>
+          <span className="checkout-product-quantity-value">{quantity}</span>
+          <div
+            className="checkout-product-quantity-arrow-right"
+            onClick={() => onCartAddProduct(cartProductDetails)}
+          >
+            &#62;
+          </div>
+        </span>
+        <span className="checkout-product-price">{price}</span>
         <div
-          className="checkout-product-quantity-arrow-right"
-          onClick={() => onCartAddProduct(cartProductDetails)}
+          className="checkout-product-remove-button"
+          onClick={() => onCartClearProduct(_id)}
         >
-          &#62;
+          &#10005;
         </div>
-      </span>
-      <span className="checkout-product-price">{price}</span>
-      <div
-        className="checkout-product-remove-button"
-        onClick={() => onCartClearProduct(_id)}
-      >
-        &#10005;
       </div>
-    </div>
+    </article>
   );
 };
 

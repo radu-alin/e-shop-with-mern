@@ -11,19 +11,25 @@
 
   &.btn-gray-dark {
     background-color: #343a40; //gray-800
-    color: #f7f7f9; //gray-200
-    transition: all 0.4s ease-in-out;
+    color: #f8f9fa; //gray-100
+    transition: all 0.3s ease-in-out;
 
     &:hover,
     &:active {
-      background-color: #f7f7f9; //gray-200
-      color: #343a40; //gray-800
+      background-color: #919aa1; //gray-600
+      color: #f8f9fa; //gray-100
+    }
+    &:disabled,
+    &:disabled:hover {
+      background-color: #343a40; //gray-800
+      color: #f8f9fa; //gray-100
+      cursor: not-allowed;
     }
   }
   &.btn-gray-light {
-    background-color: #f7f7f9; //gray-200
+    background-color: #adb5bd; //gray-500
     color: #343a40; //gray-800
-    transition: all 0.4s ease-in-out;
+    transition: all 0.3s ease-in-out;
 
     &:hover,
     &:active {

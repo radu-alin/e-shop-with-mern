@@ -35,7 +35,7 @@ const LatestProducts = ({ productsAll, isError, onProductListFetch }) => {
   return (
     <section id="LatestProducts">
       <div className="latest-products py-1">
-        <h3 className="bg-gray-light">LatestProducts</h3>
+        <h3 className="bg-gray-medium">Latest Products</h3>
         {renderLatestProductsHandler()}
       </div>
     </section>

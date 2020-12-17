@@ -1,0 +1,15 @@
+.nav-dropdown-header {
+  width: 7rem;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 5px;
+  transition: all 0.2s ease-in-out;
+
+  cursor: pointer;
+
+  &:hover {
+    color: #919aa1;
+  }
+}

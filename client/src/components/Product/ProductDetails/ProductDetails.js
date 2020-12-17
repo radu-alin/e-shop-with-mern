@@ -10,47 +10,49 @@ const ProductDetails = ({
   onCartAddProduct,
 }) => {
   const productDetailsView = () => (
-    <div className="product-details-content">
-      <div
-        className="product-details-content-image"
-        style={{ backgroundImage: `url(${productDetails.image})` }}
-      />
-      <div className="product-details-content-text-left">
-        <h3>{productDetails.name}</h3>
-        <Rating
-          value={productDetails.rating}
-          numReviews={productDetails.numReviews}
+    <section id="ProductDetails">
+      <div className="product-details-content">
+        <div
+          className="product-details-content-image"
+          style={{ backgroundImage: `url(${productDetails.image})` }}
         />
-        <hr className="my-1"></hr>
-        <h3>${productDetails.price}</h3>
-        <hr></hr>
-        <p>{productDetails.description}</p>
-      </div>
-      <div className="product-details-content-text-right">
-        <div className="product-details-content-text-right-price">
-          <span>Price:</span>
-          <span>
-            <strong> ${productDetails.price}</strong>
-          </span>
+        <div className="product-details-content-text-left">
+          <h3>{productDetails.name}</h3>
+          <Rating
+            value={productDetails.rating}
+            numReviews={productDetails.numReviews}
+          />
+          <hr className="my-1"></hr>
+          <h3>${productDetails.price}</h3>
+          <hr></hr>
+          <p>{productDetails.description}</p>
         </div>
-        <hr></hr>
-        <div className="product-details-content-text-right-stock">
-          <span>Status: </span>
-          <span>
-            <strong>
-              {productDetails.countInStock ? 'In Stock' : 'Out of Stock'}
-            </strong>
-          </span>
+        <div className="product-details-content-text-right">
+          <div className="product-details-content-text-right-price">
+            <span>Price:</span>
+            <span>
+              <strong> ${productDetails.price}</strong>
+            </span>
+          </div>
+          <hr></hr>
+          <div className="product-details-content-text-right-stock">
+            <span>Status: </span>
+            <span>
+              <strong>
+                {productDetails.countInStock ? 'In Stock' : 'Out of Stock'}
+              </strong>
+            </span>
+          </div>
+          <hr></hr>
+          <Button
+            onClickAction={() => onCartAddProduct(productDetails)}
+            type="btn-gray-dark "
+          >
+            ADD TO CHART
+          </Button>
         </div>
-        <hr></hr>
-        <Button
-          onClickAction={() => onCartAddProduct(productDetails)}
-          type="btn-gray-dark "
-        >
-          ADD TO CHART
-        </Button>
       </div>
-    </div>
+    </section>
   );
 
   const renderProductDetailsHandler = () =>
