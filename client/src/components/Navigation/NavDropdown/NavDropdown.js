@@ -6,45 +6,32 @@ import NavigationItem from '../NavigationItems/NavigationItem/Navigationitem';
 import './NavDropdown.scss';
 
 const NavDropdown = ({ name }) => {
-  console.log('NavDropdown - render()');
   const [isShowDropdown, setIsShowDropdown] = useState(false);
 
-  const showDropdownHandler = useCallback(() => {
+  const dropdownIsShowHandler = useCallback(() => {
     setIsShowDropdown(true);
   }, [setIsShowDropdown]);
 
-  const hideDropDownHandler = useCallback(() => {
+  const dropdownIsHideHandler = useCallback(() => {
     setIsShowDropdown(false);
   }, [setIsShowDropdown]);
 
   const dropdownItems = isShowDropdown && (
     <>
-      <NavigationItem
-        link="/profile"
-        showDropdown={showDropdownHandler}
-        hideDropDown={hideDropDownHandler}
-      >
-        Profile
-      </NavigationItem>
-      <NavigationItem
-        link="/logout"
-        showDropdown={showDropdownHandler}
-        hideDropDown={hideDropDownHandler}
-      >
-        Logout
-      </NavigationItem>
+      <NavigationItem link="/profile">Profile</NavigationItem>
+      <NavigationItem link="/logout">Logout</NavigationItem>
     </>
   );
 
   return (
     <nav>
-      <ul id="NavDropdown" className="nav-dropdown show-effect">
-        <NavDropdownHeader
-          showDropdown={showDropdownHandler}
-          hideDropDown={hideDropDownHandler}
-        >
-          {name}
-        </NavDropdownHeader>
+      <ul
+        id="NavDropdown"
+        className="nav-dropdown show-effect"
+        onMouseEnter={dropdownIsShowHandler}
+        onMouseLeave={dropdownIsHideHandler}
+      >
+        <NavDropdownHeader isActive={isShowDropdown}>{name}</NavDropdownHeader>
         {dropdownItems}
       </ul>
     </nav>

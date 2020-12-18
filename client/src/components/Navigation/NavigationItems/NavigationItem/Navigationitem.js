@@ -2,18 +2,12 @@ import { NavLink } from 'react-router-dom';
 
 import './NavigationItem.scss';
 
-const NavigationItem = ({ children, link, active, showDropdown, hideDropDown }) => {
+const NavigationItem = ({ children, link, active }) => {
   const classes = `${active ? 'active' : ''}`;
 
   return (
     <li className="navigation-item">
-      <NavLink
-        to={link}
-        exact
-        className={classes}
-        onMouseEnter={showDropdown}
-        onMouseLeave={hideDropDown}
-      >
+      <NavLink to={link} exact className={classes}>
         {children}
       </NavLink>
     </li>

@@ -2,13 +2,14 @@ import { connect } from 'react-redux';
 
 import NavigationItem from './NavigationItem/Navigationitem';
 import NavDropdown from '../NavDropdown/NavDropdown.js';
-import CartIcon from '../../Cart/CartIcon/CartIcon';
 
 import './NavigationItems.scss';
 
 const NavigationItems = ({ userName }) => {
   const renderSignInOrProfileHandler = userName ? (
-    <NavDropdown name={userName} />
+    <li>
+      <NavDropdown name={userName} />
+    </li>
   ) : (
     <NavigationItem link="/auth">
       <i className="fas fa-user"></i>
@@ -23,9 +24,6 @@ const NavigationItems = ({ userName }) => {
           <i className="fas fa-shopping-cart"></i>CHECKOUT
         </NavigationItem>
         {renderSignInOrProfileHandler}
-        <div className="navigation-items-cart-icon">
-          <CartIcon />
-        </div>
       </ul>
     </nav>
   );

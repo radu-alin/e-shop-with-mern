@@ -1,11 +1,8 @@
 .nav-dropdown {
   height: 100%;
+
   & li:first-child {
     height: 100%;
-    color: #fff;
-    &:hover {
-      color: #919aa1;
-    }
   }
   & li {
     height: 60%;

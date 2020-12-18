@@ -15,5 +15,11 @@
     @media (max-width: 319px) {
       justify-content: space-around;
     }
+
+    &-right {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
   }
 }
