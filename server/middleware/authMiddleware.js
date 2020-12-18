@@ -4,6 +4,10 @@ import User from '../models/userModel.js';
 
 export const authProtectMiddleware = asyncHandler(async (req, res, next) => {
   let tokenWithBearer = req.headers.authorization;
+  if (!tokenWithBearer) {
+    res.status(401);
+    throw new Error('Not authorized, token verification failed.');
+  }
   let token = tokenWithBearer.split(' ')[1];
 
   if (tokenWithBearer && tokenWithBearer.startsWith('Bearer')) {
