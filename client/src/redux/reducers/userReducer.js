@@ -18,7 +18,6 @@ export const userReducer = (state = ininitialState, action) => {
         isError: false,
       };
     case actionTypes.USER_LOGIN_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         isLoading: false,

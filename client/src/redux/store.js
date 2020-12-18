@@ -17,21 +17,6 @@ const logger = createLogger({
   },
 });
 
-const userFromLocalStorage = localStorage.getItem('user')
-  ? JSON.parse(localStorage.getItem('user'))
-  : {};
-
-const initialState = {
-  user: {
-    userName: userFromLocalStorage.name,
-    userId: userFromLocalStorage._id,
-    userToken: userFromLocalStorage.token,
-    userInfo: userFromLocalStorage,
-    isLoading: false,
-    isError: false,
-  },
-};
-
 const middlewares = [thunk];
 
 if (process.env.NODE_ENV === 'development') {
@@ -46,4 +31,4 @@ const composedEnhancers =
     ? composeWithDevTools({ trace: true, traceLimit: 10 })(...enhancers)
     : compose(...enhancers);
 
-export const store = createStore(rootReducer, initialState, composedEnhancers);
+export const store = createStore(rootReducer, composedEnhancers);

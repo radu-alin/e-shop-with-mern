@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import NavDropdownHeader from './NavDropdownHeader/NavDropdownHeader.js';
 import NavigationItem from '../NavigationItems/NavigationItem/Navigationitem';
@@ -6,15 +6,16 @@ import NavigationItem from '../NavigationItems/NavigationItem/Navigationitem';
 import './NavDropdown.scss';
 
 const NavDropdown = ({ name }) => {
+  console.log('NavDropdown - render()');
   const [isShowDropdown, setIsShowDropdown] = useState(false);
 
-  const showDropdownHandler = () => {
+  const showDropdownHandler = useCallback(() => {
     setIsShowDropdown(true);
-  };
+  }, [setIsShowDropdown]);
 
-  const hideDropDownHandler = () => {
+  const hideDropDownHandler = useCallback(() => {
     setIsShowDropdown(false);
-  };
+  }, [setIsShowDropdown]);
 
   const dropdownItems = isShowDropdown && (
     <>

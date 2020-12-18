@@ -1,6 +1,11 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+export const userVerifyToken = (user) => ({
+  type: actionTypes.USER_LOGIN_SUCCESS,
+  payload: user,
+});
+
 export const userLogout = () => {
   localStorage.removeItem('user');
   return {

@@ -8,6 +8,7 @@ const NavDropdownHeader = ({ children, showDropdown, hideDropDown }) => (
       onMouseLeave={hideDropDown}
     >
       <i className="fas fa-user"></i>
+      {console.log(' NavDropdownHeader - render()')}
       {children}
     </li>
   </>
