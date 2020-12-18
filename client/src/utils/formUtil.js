@@ -1,35 +1,38 @@
-const checkValidity = (value, rules) => {
-  let isValid = true;
-  if (!rules) {
-    return true;
-  }
+export const formRenderInputsUtil = (Element, data, setData) => {
+  const checkValidity = (value, rules) => {
+    let isValid = true;
+    if (!rules) {
+      return true;
+    }
 
-  if (rules.isRequired) {
-    isValid = value.trim() !== '' && isValid;
-  }
+    if (rules.isRequired) {
+      isValid = value.trim() !== '' && isValid;
+    }
 
-  if (rules.isMinLength) {
-    isValid = value.length >= rules.isMinLength && isValid;
-  }
+    if (rules.isMinLength) {
+      isValid = value.length >= rules.isMinLength && isValid;
+    }
 
-  if (rules.isMaxLength) {
-    isValid = value.length <= rules.isMaxLength && isValid;
-  }
+    if (rules.isMaxLength) {
+      isValid = value.length <= rules.isMaxLength && isValid;
+    }
+    if (rules.isIdentic) {
+      isValid = value === data.formInputsData.password.value && isValid;
+    }
 
-  if (rules.isEmail) {
-    const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-    isValid = pattern.test(value) && isValid;
-  }
+    if (rules.isEmail) {
+      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      isValid = pattern.test(value) && isValid;
+    }
 
-  if (rules.isNumeric) {
-    const pattern = /^\d+$/;
-    isValid = pattern.test(value) && isValid;
-  }
+    if (rules.isNumeric) {
+      const pattern = /^\d+$/;
+      isValid = pattern.test(value) && isValid;
+    }
 
-  return isValid;
-};
+    return isValid;
+  };
 
-export const renderInputs = (Element, data, setData) => {
   const updatedformInputsData = { ...data.formInputsData };
 
   const isValidFormHandler = (newData) => {
@@ -89,4 +92,13 @@ export const renderInputs = (Element, data, setData) => {
   });
 
   return inputs;
+};
+
+export const formInputsDataUtil = (data) => {
+  const orderData = {};
+  for (let key in data) {
+    orderData[key] = data[key].value;
+  }
+
+  return orderData;
 };

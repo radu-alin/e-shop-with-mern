@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userVerifyToken as onUserVerifyToken } from './redux/actions/index';
+import { userVerifyAuth as onUserVerifyAuth } from './redux/actions/index';
 
 import Layout from './components/Layout/Layout';
 import HomePage from './pages/HomePage/HomePage';
@@ -15,7 +15,7 @@ const App = ({ dispatch }) => {
   useEffect(() => {
     const userFromLocalStorage =
       localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'));
-    return userFromLocalStorage && dispatch(onUserVerifyToken(userFromLocalStorage));
+    return userFromLocalStorage && dispatch(onUserVerifyAuth(userFromLocalStorage));
   }, [dispatch]);
 
   return (

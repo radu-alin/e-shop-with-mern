@@ -11,13 +11,13 @@ const ininitialState = {
 
 export const userReducer = (state = ininitialState, action) => {
   switch (action.type) {
-    case actionTypes.USER_LOGIN_START:
+    case actionTypes.USER_AUTH_START:
       return {
         ...state,
         isLoading: true,
         isError: false,
       };
-    case actionTypes.USER_LOGIN_SUCCESS:
+    case actionTypes.USER_AUTH_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -26,7 +26,7 @@ export const userReducer = (state = ininitialState, action) => {
         userName: action.payload.name,
         userInfo: action.payload,
       };
-    case actionTypes.USER_LOGIN_FAIL:
+    case actionTypes.USER_AUTH_FAIL:
       return {
         ...state,
         isLoading: false,

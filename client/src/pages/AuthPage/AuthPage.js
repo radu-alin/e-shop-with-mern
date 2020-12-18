@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import SignIn from '../../components/Auth/SignIn/SignIn';
+import AuthForm from '../../components/Auth/AuthForm/AuthForm';
 
 const AuthPage = ({ isAuth }) => (
-  <main id="AuthPage">{isAuth ? <Redirect to="/" /> : <SignIn />}</main>
+  <main id="AuthPage">{isAuth ? <Redirect to="/" /> : <AuthForm />}</main>
 );
 
 const mapStateToProps = ({ user: { userId } }) => ({

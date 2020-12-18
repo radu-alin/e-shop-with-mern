@@ -1,5 +1,19 @@
 export const defaultState = {
   formInputsData: {
+    name: {
+      label: 'Name',
+      elementType: 'input',
+      value: '',
+      elementConfig: {
+        type: 'text',
+        placeholder: 'Your Name',
+      },
+      validation: {
+        isRequired: 'true',
+      },
+      isValid: false,
+      isTouched: false,
+    },
     email: {
       label: 'E-mail',
       elementType: 'input',
@@ -30,7 +44,21 @@ export const defaultState = {
       isValid: false,
       isTouched: false,
     },
+    confirmPassword: {
+      label: 'Confirm Password',
+      elementType: 'input',
+      value: '',
+      elementConfig: {
+        type: 'password',
+        placeholder: 'Password',
+      },
+      validation: {
+        isRequired: true,
+        isIdentic: true,
+      },
+      isValid: false,
+      isTouched: false,
+    },
   },
-  isFormValid: false,
-  isNewAccount: true,
+  isValidForm: false,
 };

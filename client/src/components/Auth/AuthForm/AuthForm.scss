@@ -1,4 +1,4 @@
-.sign-in-form {
+.auth-from {
   &-spinner {
     margin-top: 1rem;
     height: 3rem;
@@ -9,7 +9,7 @@
   &-footer {
     color: #adb5bd;
     text-align: center;
-    & a {
+    & span {
       color: #343a40;
       font-weight: bolder;
       cursor: pointer;

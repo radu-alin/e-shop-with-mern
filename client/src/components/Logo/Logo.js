@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { NavLink } from 'react-router-dom';
 
 import './Logo.scss';
@@ -8,4 +10,4 @@ const Logo = () => (
   </div>
 );
 
-export default Logo;
+export default memo(Logo);

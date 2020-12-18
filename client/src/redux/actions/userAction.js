@@ -1,8 +1,8 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const userVerifyToken = (user) => ({
-  type: actionTypes.USER_LOGIN_SUCCESS,
+export const userVerifyAuth = (user) => ({
+  type: actionTypes.USER_AUTH_SUCCESS,
   payload: user,
 });
 
@@ -13,33 +13,32 @@ export const userLogout = () => {
   };
 };
 
-export const userLoginStart = () => ({
-  type: actionTypes.USER_LOGIN_START,
+export const userAuthStart = () => ({
+  type: actionTypes.USER_AUTH_START,
 });
 
-export const userLoginSuccess = (user) => ({
-  type: actionTypes.USER_LOGIN_SUCCESS,
+export const userAuthSuccess = (user) => ({
+  type: actionTypes.USER_AUTH_SUCCESS,
   payload: user,
 });
-export const userLoginFail = (error) => ({
-  type: actionTypes.USER_LOGIN_FAIL,
+export const userAuthFail = (error) => ({
+  type: actionTypes.USER_AUTH_FAIL,
   payload: error,
 });
 
-export const userLogin = (email, password) => async (dispatch) => {
-  dispatch(userLoginStart());
-  const body = {
-    email,
-    password,
-  };
+export const userAuth = (userData, isNewAccount) => async (dispatch) => {
+  dispatch(userAuthStart());
+  const body = { ...userData };
+  console.log('body - ', body);
   const options = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
+  const url = isNewAccount ? '/api/users/' : '/api/users/login';
   try {
-    const { data } = await axios.post('/api/users/login', body, options);
-    dispatch(userLoginSuccess(data));
+    const { data } = await axios.post(url, body, options);
+    dispatch(userAuthSuccess(data));
     localStorage.setItem('user', JSON.stringify(data));
   } catch (err) {
     const isError =
@@ -47,6 +46,6 @@ export const userLogin = (email, password) => async (dispatch) => {
         ? err.response.data.message
         : err.message;
     console.log('isError - ', isError);
-    dispatch(userLoginFail(isError));
+    dispatch(userAuthFail(isError));
   }
 };
