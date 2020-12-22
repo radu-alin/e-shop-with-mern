@@ -8,7 +8,7 @@ import './NavigationItems.scss';
 const NavigationItems = ({ isAuth }) => {
   const renderSignInOrProfileHandler = isAuth ? (
     <li>
-      <NavDropdown isAuth={isAuth} />
+      <NavDropdown />
     </li>
   ) : (
     <NavigationItem link="/auth">
