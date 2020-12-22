@@ -5,10 +5,10 @@ import NavDropdown from '../NavDropdown/NavDropdown.js';
 
 import './NavigationItems.scss';
 
-const NavigationItems = ({ userName }) => {
-  const renderSignInOrProfileHandler = userName ? (
+const NavigationItems = ({ isAuth }) => {
+  const renderSignInOrProfileHandler = isAuth ? (
     <li>
-      <NavDropdown name={userName} />
+      <NavDropdown isAuth={isAuth} />
     </li>
   ) : (
     <NavigationItem link="/auth">
@@ -21,7 +21,7 @@ const NavigationItems = ({ userName }) => {
     <nav>
       <ul id="NavigationItems" className="navigation-items ">
         <NavigationItem link="/checkout">
-          <i className="fas fa-shopping-cart"></i>CHECKOUT
+          <i className="fas fa-shopping-cart"></i>Checkout
         </NavigationItem>
         {renderSignInOrProfileHandler}
       </ul>
@@ -29,6 +29,6 @@ const NavigationItems = ({ userName }) => {
   );
 };
 
-const mapStateToProps = ({ user: { userName } }) => ({ userName });
+const mapStateToProps = ({ user: { userToken } }) => ({ isAuth: !!userToken });
 
 export default connect(mapStateToProps)(NavigationItems);

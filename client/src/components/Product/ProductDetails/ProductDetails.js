@@ -1,4 +1,4 @@
-import Button from '../../UI/Button /Button';
+import Button from '../../UI/Button/Button';
 import Rating from '../../Rating/Rating';
 import Spinner from '../../UI/Spinner/Spinner';
 import './ProductDetails.scss';

@@ -9,4 +9,9 @@ export {
   cartClearProduct,
 } from './cartAction';
 
-export { userAuth, userLogout, userVerifyAuth } from './userAction';
+export {
+  userAuth,
+  userLogout,
+  userAuthSuccess,
+  userProfileFetch,
+} from './userAction';

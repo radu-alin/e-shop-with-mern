@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import reportWebVitals from './reportWebVitals';
-
 import App from './App';
 
 import { store } from './redux/store';
@@ -20,4 +18,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-reportWebVitals();
+// import reportWebVitals from './reportWebVitals';
+// reportWebVitals();

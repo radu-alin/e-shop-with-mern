@@ -1,0 +1,22 @@
+.user-profile {
+  width: 100%;
+  max-width: 350px;
+
+  &-spinner {
+    margin-top: 1rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-button {
+    height: 73px;
+    & button {
+      width: 100%;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      padding: 10px;
+    }
+  }
+}

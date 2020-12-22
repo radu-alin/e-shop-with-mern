@@ -16,7 +16,7 @@ const LatestProducts = ({ productsAll, isError, onProductListFetch }) => {
   }, [onProductListFetch]);
 
   const renderLatestProductsHandler = () =>
-    !productsAll ? (
+    productsAll.length === 0 ? (
       <Spinner />
     ) : isError ? (
       <h3>{isError}</h3>

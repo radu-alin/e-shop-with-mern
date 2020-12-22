@@ -3,45 +3,57 @@ import { connect } from 'react-redux';
 
 import { defaultState as defaultStateSignIn } from './stateSignIn';
 import { defaultState as defaultStateSignUp } from './stateSignUp';
-import { formRenderInputsUtil, formInputsDataUtil } from '../../../utils/formUtil';
+import {
+  formRenderInputsUtil,
+  allInputsValidForValidForm,
+  formInputsDataUtil,
+} from '../../../utils/formUtil';
 import { userAuth } from '../../../redux/actions/index';
 
 import Input from '../../UI/Input/Input';
-import Button from '../../UI/Button /Button';
+import Button from '../../UI/Button/Button';
 import Spinner from '../../UI/Spinner/Spinner';
-import FormAuthContainer from '../AuthFormContainer/FormAuthContainer';
+import FormContainer from '../../FormContainer/FormContainer';
 
 import './AuthForm.scss';
 
-const AuthForm = ({ isLoading, isError, onUserLogin }) => {
+const AuthForm = ({ isAuth, isLoading, isError, onUserLogin }) => {
   const [isNewAccount, setIsNewAccount] = useState(false);
   const defaultState = !isNewAccount && defaultStateSignIn;
   const [formData, setFormData] = useState({ ...defaultState });
-  console.log('defaultState - ', defaultState);
+  console.log('formData - ', formData);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
     const userData = formInputsDataUtil(formData.formInputsData);
-    console.log('data - ', userData);
     onUserLogin(userData, isNewAccount);
   };
 
-  const renderFormHandler = () => formRenderInputsUtil(Input, formData, setFormData);
+  const renderFormHandler = () =>
+    formRenderInputsUtil(Input, formData, setFormData, allInputsValidForValidForm);
 
   const onRegisterClickHandler = () => {
     setIsNewAccount(true);
     setFormData({ ...defaultStateSignUp });
   };
+  const onLoginClickHandler = () => {
+    setIsNewAccount(false);
+    setFormData({ ...defaultStateSignIn });
+  };
 
   return (
     <section id="SignInForm">
-      <FormAuthContainer
-        title={isNewAccount ? 'Sign Up' : 'Sign In'}
-        message={isError}
-      >
-        <div className="auth-from">
+      <div className="auth-form">
+        <FormContainer
+          title={isNewAccount ? 'Sign Up' : 'Sign In'}
+          message={[
+            isAuth,
+            !!isError,
+            !!isError ? isError : isAuth ? 'Operation success.' : null,
+          ]}
+        >
           {renderFormHandler()}
-          <div className="auth-from-spinner">
+          <div className="auth-form-spinner">
             {isLoading && <Spinner type="small" />}
           </div>
           <Button
@@ -52,19 +64,25 @@ const AuthForm = ({ isLoading, isError, onUserLogin }) => {
             {formData.isFormValid ? 'Submit' : ' Please enter your credentials.'}
           </Button>
           <hr></hr>
-          {!isNewAccount && (
-            <p className="auth-from-footer">
+          {isNewAccount ? (
+            <p className="auth-form-footer">
+              Back to
+              <span onClick={onLoginClickHandler}>&nbsp; Sign In </span>
+            </p>
+          ) : (
+            <p className="auth-form-footer">
               If you don't have an account please
               <span onClick={onRegisterClickHandler}>&nbsp; REGISTER</span>
             </p>
           )}
-        </div>
-      </FormAuthContainer>
+        </FormContainer>
+      </div>
     </section>
   );
 };
 
-const mapStateToPros = ({ user: { isLoading, isError } }) => ({
+const mapStateToPros = ({ user: { userToken, isLoading, isError } }) => ({
+  isAuth: !!userToken,
   isLoading,
   isError,
 });

@@ -3,11 +3,12 @@ import { combineReducers } from 'redux';
 import { productListReducer } from './productListReducer';
 import { productSelectedReducer } from './productSelectedReducer';
 import { cartReducer } from './cartReducer';
-import { userReducer } from './userReducer';
+import { userAuthReducer, userProfileReducer } from './userReducer';
 
 export const rootReducer = combineReducers({
   productList: productListReducer,
   productSelected: productSelectedReducer,
   cart: cartReducer,
-  user: userReducer,
+  user: userAuthReducer,
+  userProfile: userProfileReducer,
 });

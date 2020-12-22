@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { cartToggleHidden as onCartToggleHidden } from '../../../redux/actions/index';
 
 import CartProducts from '../CartProducts/CartProducts';
-import Button from '../../UI/Button /Button';
+import Button from '../../UI/Button/Button';
 
 import './CartDropdown.scss';
 

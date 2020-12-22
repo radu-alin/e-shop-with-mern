@@ -1,4 +1,28 @@
-export const formRenderInputsUtil = (Element, data, setData) => {
+export const allInputsValidForValidForm = (newData) => {
+  let isValidForm = true;
+  for (let key in newData) {
+    isValidForm = newData[key].isValid && isValidForm;
+  }
+  return isValidForm;
+};
+export const oneInputValidForValidForm = (newData) => {
+  let isValidForm = false;
+  for (let key in newData) {
+    if (newData[key].isTouched && newData[key].value === '') {
+      newData[key].validation.isRequired = false;
+      newData[key].isTouched = false;
+    }
+    if (newData[key].isTouched && newData[key].value.length > 0) {
+      newData[key].validation.isRequired = true;
+    }
+    if (newData[key].validation.isRequired) {
+      isValidForm = newData[key].isValid;
+    }
+  }
+  return isValidForm;
+};
+
+export const formRenderInputsUtil = (Element, data, setData, formValidator) => {
   const checkValidity = (value, rules) => {
     let isValid = true;
     if (!rules) {
@@ -35,14 +59,6 @@ export const formRenderInputsUtil = (Element, data, setData) => {
 
   const updatedformInputsData = { ...data.formInputsData };
 
-  const isValidFormHandler = (newData) => {
-    let isValidForm = true;
-    for (let key in newData) {
-      isValidForm = newData[key].isValid && isValidForm;
-    }
-    return isValidForm;
-  };
-
   const inputChangedHandler = (event, inputId) => {
     const updatedInput = {
       ...updatedformInputsData[inputId],
@@ -55,7 +71,7 @@ export const formRenderInputsUtil = (Element, data, setData) => {
     };
 
     updatedformInputsData[inputId] = updatedInput;
-    const isFormValid = isValidFormHandler(updatedformInputsData);
+    const isFormValid = formValidator(updatedformInputsData);
 
     setData({
       ...data,

@@ -9,7 +9,7 @@ export const defaultState = {
         placeholder: 'Your Name',
       },
       validation: {
-        isRequired: 'true',
+        isRequired: true,
       },
       isValid: false,
       isTouched: false,
@@ -60,5 +60,5 @@ export const defaultState = {
       isTouched: false,
     },
   },
-  isValidForm: false,
+  isFormValid: false,
 };

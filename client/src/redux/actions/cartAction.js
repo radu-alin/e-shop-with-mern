@@ -18,6 +18,3 @@ export const cartClearProduct = (productId) => ({
   type: actionTypes.CART_CLEAR_PRODUCT,
   payload: productId,
 });
-
-// localStorage.setItem('cartProducts', JSON.stringify(getState().cart.cartProducts));
-// localStorage.setItem('cartProducts', JSON.stringify(getState().cart.cartProducts));

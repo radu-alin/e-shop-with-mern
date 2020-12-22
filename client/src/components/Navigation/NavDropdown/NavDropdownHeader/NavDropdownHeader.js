@@ -6,8 +6,8 @@ const NavDropdownHeader = ({ children, isActive }) => {
   return (
     <>
       <li className={classes}>
-        <i className="fas fa-user"></i>
         {children}
+        <i className="fas fa-chevron-down"></i>
       </li>
     </>
   );

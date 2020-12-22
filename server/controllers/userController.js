@@ -62,6 +62,7 @@ export const postUserLogin = asyncHandler(async (req, res) => {
 //@route GET /api/users/profile
 //@access Private
 export const getUserProfile = asyncHandler(async (req, res) => {
+  console.log('getUserProfile - ');
   const user = await User.findById(req.user._id);
   if (user) {
     res.json({

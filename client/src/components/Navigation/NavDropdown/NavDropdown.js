@@ -5,7 +5,7 @@ import NavigationItem from '../NavigationItems/NavigationItem/Navigationitem';
 
 import './NavDropdown.scss';
 
-const NavDropdown = ({ name }) => {
+const NavDropdown = ({ isAuth }) => {
   const [isShowDropdown, setIsShowDropdown] = useState(false);
 
   const dropdownIsShowHandler = useCallback(() => {
@@ -18,7 +18,7 @@ const NavDropdown = ({ name }) => {
 
   const dropdownItems = isShowDropdown && (
     <>
-      <NavigationItem link="/profile">Profile</NavigationItem>
+      <NavigationItem link="/account">Profile</NavigationItem>
       <NavigationItem link="/logout">Logout</NavigationItem>
     </>
   );
@@ -31,7 +31,7 @@ const NavDropdown = ({ name }) => {
         onMouseEnter={dropdownIsShowHandler}
         onMouseLeave={dropdownIsHideHandler}
       >
-        <NavDropdownHeader isActive={isShowDropdown}>{name}</NavDropdownHeader>
+        <NavDropdownHeader isActive={isShowDropdown}>Account</NavDropdownHeader>
         {dropdownItems}
       </ul>
     </nav>
