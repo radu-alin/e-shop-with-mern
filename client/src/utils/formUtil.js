@@ -22,7 +22,7 @@ export const oneInputValidForValidForm = (newData) => {
   return isValidForm;
 };
 
-export const formRenderInputsUtil = (Element, data, setData, formValidator) => {
+export const formRenderInputsUtil = (Element, ref, data, setData, formValidator) => {
   const checkValidity = (value, rules) => {
     let isValid = true;
     if (!rules) {
@@ -95,6 +95,7 @@ export const formRenderInputsUtil = (Element, data, setData, formValidator) => {
     return (
       <Element
         key={formEl.id}
+        ref={formEl.config.isRef ? ref : null}
         label={formEl.config.label}
         elementType={formEl.config.elementType}
         value={formEl.config.value}

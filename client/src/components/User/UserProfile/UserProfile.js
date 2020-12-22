@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import { defaultState } from './stateUserProfile';
@@ -30,6 +30,9 @@ const UserProfile = ({
   });
   const [editProfile, setEditProfile] = useState(false);
 
+  const firstInputRef = useRef(null);
+  useEffect(() => editProfile && firstInputRef.current.focus(), [editProfile]);
+
   useEffect(() => !name && userId && onUserProfileFetch(userId, userToken), [
     onUserProfileFetch,
     userId,
@@ -40,12 +43,20 @@ const UserProfile = ({
   useEffect(() => name && setFormData({ ...defaultState(name, email) }), [
     name,
     email,
+    editProfile,
   ]);
 
   const renderFormHandler = () =>
-    formRenderInputsUtil(Input, formData, setFormData, oneInputValidForValidForm);
+    formRenderInputsUtil(
+      Input,
+      firstInputRef,
+      formData,
+      setFormData,
+      oneInputValidForValidForm
+    );
 
-  const editIconClickHandler = () => setEditProfile(true);
+  const editTrueIconClickHandler = () => setEditProfile(true);
+  const editFalseIconClickHandler = () => setEditProfile(false);
 
   const formContainerView = () => (
     <FormContainer
@@ -55,7 +66,7 @@ const UserProfile = ({
         !!isError,
         !!isError ? isError : isAuth ? 'Operation done successfully.' : null,
       ]}
-      editIconClickAction={editIconClickHandler}
+      editIconClickAction={editTrueIconClickHandler}
     >
       {renderFormHandler()}
       <div className="user-profile-spinner">
@@ -73,6 +84,11 @@ const UserProfile = ({
         ) : null}
       </div>
       <hr></hr>
+      {editProfile && (
+        <p className="user-profile-footer">
+          Keep old data <span onClick={editFalseIconClickHandler}>&nbsp; BACK </span>
+        </p>
+      )}
     </FormContainer>
   );
 
@@ -103,17 +119,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
-
-// {
-//   editProfile ? (
-//     <p className="auth-from-footer">
-//       Back to
-//       <span onClick={onLoginClickHandler}>&nbsp; Sign In </span>
-//     </p>
-//   ) : (
-//     <p className="auth-from-footer">
-//       If you don't have an account please
-//       <span onClick={onRegisterClickHandler}>&nbsp; REGISTER</span>
-//     </p>
-//   );
-// }

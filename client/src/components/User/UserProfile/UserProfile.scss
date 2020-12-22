@@ -19,4 +19,13 @@
       padding: 10px;
     }
   }
+  &-footer {
+    color: #adb5bd;
+    text-align: center;
+    & span {
+      color: #343a40;
+      font-weight: bolder;
+      cursor: pointer;
+    }
+  }
 }

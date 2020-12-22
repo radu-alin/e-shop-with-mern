@@ -1,15 +1,20 @@
+import { forwardRef } from 'react';
+
 import './Input.scss';
 
-const Input = ({
-  label,
-  elementType,
-  value,
-  onChangeAction,
-  shouldValidate,
-  isTouched,
-  isValid,
-  ...elementConfig
-}) => {
+const Input = (
+  {
+    label,
+    elementType,
+    value,
+    onChangeAction,
+    shouldValidate,
+    isTouched,
+    isValid,
+    ...elementConfig
+  },
+  ref
+) => {
   let inputElement = null;
   let classes = 'input-element';
   if (!isValid && shouldValidate && isTouched) {
@@ -28,6 +33,7 @@ const Input = ({
     case 'input':
       inputElement = (
         <input
+          ref={ref}
           className={classes}
           value={value}
           onChange={onChangeAction}
@@ -71,4 +77,6 @@ const Input = ({
   );
 };
 
-export default Input;
+const forwardedInput = forwardRef(Input);
+
+export default forwardedInput;

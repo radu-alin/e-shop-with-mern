@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import { defaultState as defaultStateSignIn } from './stateSignIn';
@@ -21,7 +21,9 @@ const AuthForm = ({ isAuth, isLoading, isError, onUserLogin }) => {
   const [isNewAccount, setIsNewAccount] = useState(false);
   const defaultState = !isNewAccount && defaultStateSignIn;
   const [formData, setFormData] = useState({ ...defaultState });
-  console.log('formData - ', formData);
+
+  const firstInputRef = useRef(null);
+  useEffect(() => firstInputRef.current.focus(), [isNewAccount]);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -30,7 +32,13 @@ const AuthForm = ({ isAuth, isLoading, isError, onUserLogin }) => {
   };
 
   const renderFormHandler = () =>
-    formRenderInputsUtil(Input, formData, setFormData, allInputsValidForValidForm);
+    formRenderInputsUtil(
+      Input,
+      firstInputRef,
+      formData,
+      setFormData,
+      allInputsValidForValidForm
+    );
 
   const onRegisterClickHandler = () => {
     setIsNewAccount(true);
