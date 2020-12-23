@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
+// userAuth
 const initialAuthState = {
   userId: null,
   userToken: null,
@@ -12,7 +13,7 @@ export const userAuthReducer = (state = initialAuthState, action) => {
     case actionTypes.USER_AUTH_START:
       return {
         ...state,
-        isLoading: true,
+        // isLoading: true,
         isError: false,
       };
     case actionTypes.USER_AUTH_SUCCESS:
@@ -34,25 +35,38 @@ export const userAuthReducer = (state = initialAuthState, action) => {
         userId: null,
         userToken: null,
       };
+    case actionTypes.USER_RESET_ERROR:
+      return {
+        ...state,
+        isError: false,
+      };
     default:
       return state;
   }
 };
 
-const initialProfileState = {
+// userProfileFetch
+const initialProfileFetchState = {
   name: null,
   email: null,
   isLoading: false,
   isError: false,
 };
-
-export const userProfileReducer = (state = initialProfileState, action) => {
+export const userProfileFetchReducer = (
+  state = initialProfileFetchState,
+  action
+) => {
   switch (action.type) {
     case actionTypes.USER_PROFILE_FETCH_START:
       return {
         ...state,
-        isLoading: true,
         isError: false,
+      };
+    case actionTypes.USER_PROFILE_FETCH_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.payload,
       };
     case actionTypes.USER_PROFILE_FETCH_SUCCESS:
       return {
@@ -61,11 +75,55 @@ export const userProfileReducer = (state = initialProfileState, action) => {
         name: action.payload.name,
         email: action.payload.email,
       };
-    case actionTypes.USER_PROFILE_FETCH_FAIL:
+    case actionTypes.USER_PROFILE_FETCHED_CLEAR:
+      return {
+        ...state,
+        name: null,
+        email: null,
+        isLoading: false,
+        isError: false,
+      };
+    default:
+      return state;
+  }
+};
+
+// userProfileUpdate
+const initialProfileUpdateState = {
+  isUpdated: false,
+  isLoading: false,
+  isError: false,
+};
+
+export const userProfileUpdateReducer = (
+  state = initialProfileUpdateState,
+  action
+) => {
+  switch (action.type) {
+    case actionTypes.USER_PROFILE_UPDATE_START:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case actionTypes.USER_PROFILE_UPDATE_FAIL:
       return {
         ...state,
         isLoading: false,
         isError: action.payload,
+      };
+    case actionTypes.USER_PROFILE_UPDATE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isUpdated: true,
+      };
+    case actionTypes.USER_PROFILE_UPDATE_CLEAR:
+      return {
+        ...state,
+        isUpdated: false,
+        isLoading: false,
+        isError: false,
       };
     default:
       return state;

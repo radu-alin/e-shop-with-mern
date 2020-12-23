@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 
 export const authProtectMiddleware = asyncHandler(async (req, res, next) => {
-  console.log('authProtectMiddleware - ');
+  console.log('middleware-authProtectMiddleware - ');
 
   let tokenWithBearer = req.headers.authorization;
   if (!tokenWithBearer) {

@@ -1,50 +1,86 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { connect } from 'react-redux';
 
 import { defaultState } from './stateUserProfile';
 import {
+  formInputsDataUtil,
   formRenderInputsUtil,
-  oneInputValidForValidForm,
+  oneInputValidForValidFormUtil,
 } from '../../../utils/formUtil.js';
-import { userProfileFetch } from '../../../redux/actions/index';
+import {
+  userProfileFetch,
+  userProfileFetchedClear,
+  userProfileUpdate,
+  userProfileUpdateClear,
+} from '../../../redux/actions/index';
 
 import FormContainer from '../../FormContainer/FormContainer';
 import Input from '../../UI/Input/Input';
 import Button from '../../UI/Button/Button';
 import Spinner from '../../UI/Spinner/Spinner';
+import Message from '../../UI/Message/Message';
 
 import './UserProfile.scss';
 
 const UserProfile = ({
-  isAuth,
-  userId,
   userToken,
   name,
   email,
-  isLoading,
-  isError,
+  isErrorFetch,
+  isLoadingUpdate,
+  isUpdated,
+  isErrorUpdate,
   onUserProfileFetch,
+  onUserProfileFetchedClear,
+  onUserProfileUpdate,
+  onUserProfileUpdateClear,
 }) => {
   const [formData, setFormData] = useState({
     ...defaultState(),
   });
   const [editProfile, setEditProfile] = useState(false);
-
   const firstInputRef = useRef(null);
-  useEffect(() => editProfile && firstInputRef.current.focus(), [editProfile]);
+  const isUpdatedRef = useRef(isUpdated);
+  isUpdatedRef.current = isUpdated;
+  console.log('isUpdated - ', isUpdated);
+  console.log('isUpdatedRef.current ----------- ', isUpdatedRef.current);
+  console.log('editProfile - ', editProfile);
 
-  useEffect(() => !name && userId && onUserProfileFetch(userId, userToken), [
-    onUserProfileFetch,
-    userId,
-    userToken,
-    name,
-  ]);
+  useEffect(() => {
+    userToken && onUserProfileFetch(userToken);
+  }, [userToken, onUserProfileFetch]);
+
+  useEffect(() => {
+    return () => {
+      name && onUserProfileFetchedClear();
+      onUserProfileUpdateClear();
+    };
+  }, [name, onUserProfileFetchedClear, onUserProfileUpdateClear]);
 
   useEffect(() => name && setFormData({ ...defaultState(name, email) }), [
     name,
     email,
-    editProfile,
   ]);
+
+  const editTrueIconClickHandler = useCallback(() => {
+    setEditProfile(true);
+    firstInputRef.current.focus();
+  }, [setEditProfile, firstInputRef]);
+
+  const editFalseIconClickHandler = useCallback(() => setEditProfile(false), [
+    setEditProfile,
+  ]);
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    const userData = formInputsDataUtil(formData.formInputsData);
+    onUserProfileUpdate(userToken, userData);
+    setTimeout(() => {
+      if (isUpdatedRef.current) {
+        setEditProfile(false);
+      }
+    }, 500);
+  };
 
   const renderFormHandler = () =>
     formRenderInputsUtil(
@@ -52,31 +88,32 @@ const UserProfile = ({
       firstInputRef,
       formData,
       setFormData,
-      oneInputValidForValidForm
+      oneInputValidForValidFormUtil
     );
 
-  const editTrueIconClickHandler = () => setEditProfile(true);
-  const editFalseIconClickHandler = () => setEditProfile(false);
-
-  const formContainerView = () => (
+  const formContainerView = (
     <FormContainer
       title="My Profile"
       message={[
-        isAuth,
-        !!isError,
-        !!isError ? isError : isAuth ? 'Operation done successfully.' : null,
+        !!isUpdated,
+        !!isErrorUpdate,
+        !!isErrorUpdate
+          ? isErrorUpdate
+          : isUpdated
+          ? 'Operation done successfully.'
+          : null,
       ]}
       editIconClickAction={editTrueIconClickHandler}
     >
       {renderFormHandler()}
       <div className="user-profile-spinner">
-        {isLoading && <Spinner type="small" />}
+        {isLoadingUpdate && <Spinner type="small" />}
       </div>
       <div className="user-profile-button">
         {editProfile ? (
           <Button
             type="btn-gray-dark"
-            // onClickAction={onSubmitHandler}
+            onClickAction={onSubmitHandler}
             disabled={!formData.isFormValid}
           >
             {formData.isFormValid ? 'Submit' : ' Please enter your new credentials.'}
@@ -92,30 +129,46 @@ const UserProfile = ({
     </FormContainer>
   );
 
-  const renderFormContainerHandler = () =>
-    !name ? <Spinner /> : isError ? <h3>{isError}</h3> : formContainerView();
+  const renderFormContainerHandler = !!isErrorFetch ? (
+    <Message type="error" message={isErrorFetch} />
+  ) : !name ? (
+    <Spinner />
+  ) : (
+    formContainerView
+  );
 
   return (
     <section id="UserProfile">
-      <div className="user-profile">{renderFormContainerHandler()}</div>
+      <div className={`user-profile${editProfile ? '-edit' : ''}`}>
+        {renderFormContainerHandler}
+      </div>
     </section>
   );
 };
 
 const mapStateToProps = ({
-  user: { userId, userToken, isError },
-  userProfile: { name, email },
+  user: { userToken },
+  userProfile: { name, email, isError: isErrorFetch },
+  userProfileUpdate: {
+    isLoading: isLoadingUpdate,
+    isError: isErrorUpdate,
+    isUpdated,
+  },
 }) => ({
-  isAuth: !!userToken,
-  userId,
   userToken,
   name,
   email,
-  isError,
+  isErrorFetch,
+  isLoadingUpdate,
+  isUpdated,
+  isErrorUpdate,
 });
 const mapDispatchToProps = (dispatch) => ({
-  onUserProfileFetch: (userId, userToken) =>
-    dispatch(userProfileFetch(userId, userToken)),
+  onUserProfileFetch: (userToken) => dispatch(userProfileFetch(userToken)),
+  onUserProfileUpdate: (userToken, userData) =>
+    dispatch(userProfileUpdate(userToken, userData)),
+  onUserProfileFetchedClear: () => dispatch(userProfileFetchedClear()),
+  onUserProfileUpdateClear: () => dispatch(userProfileUpdateClear()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

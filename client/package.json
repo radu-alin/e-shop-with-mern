@@ -46,7 +46,6 @@
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
-    "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6"
+    "redux-devtools-extension": "^2.13.8"
   }
 }

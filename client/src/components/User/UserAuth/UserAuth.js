@@ -5,10 +5,10 @@ import { defaultState as defaultStateSignIn } from './stateSignIn';
 import { defaultState as defaultStateSignUp } from './stateSignUp';
 import {
   formRenderInputsUtil,
-  allInputsValidForValidForm,
+  allInputsValidForValidFormUtil,
   formInputsDataUtil,
 } from '../../../utils/formUtil';
-import { userAuth } from '../../../redux/actions/index';
+import { userAuth, userResetError } from '../../../redux/actions/index';
 
 import Input from '../../UI/Input/Input';
 import Button from '../../UI/Button/Button';
@@ -17,28 +17,30 @@ import FormContainer from '../../FormContainer/FormContainer';
 
 import './AuthForm.scss';
 
-const AuthForm = ({ isAuth, isLoading, isError, onUserLogin }) => {
+const AuthForm = ({ isAuth, isLoading, isError, onUserLogin, onUserResetError }) => {
   const [isNewAccount, setIsNewAccount] = useState(false);
   const defaultState = !isNewAccount && defaultStateSignIn;
   const [formData, setFormData] = useState({ ...defaultState });
 
   const firstInputRef = useRef(null);
-  useEffect(() => firstInputRef.current.focus(), [isNewAccount]);
+
+  useEffect(() => {
+    firstInputRef.current.focus();
+  }, [isNewAccount]);
+
+  useEffect(() => {
+    return () => {
+      if (isError) {
+        onUserResetError();
+      }
+    };
+  });
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
     const userData = formInputsDataUtil(formData.formInputsData);
     onUserLogin(userData, isNewAccount);
   };
-
-  const renderFormHandler = () =>
-    formRenderInputsUtil(
-      Input,
-      firstInputRef,
-      formData,
-      setFormData,
-      allInputsValidForValidForm
-    );
 
   const onRegisterClickHandler = () => {
     setIsNewAccount(true);
@@ -48,6 +50,15 @@ const AuthForm = ({ isAuth, isLoading, isError, onUserLogin }) => {
     setIsNewAccount(false);
     setFormData({ ...defaultStateSignIn });
   };
+
+  const renderFormHandler = () =>
+    formRenderInputsUtil(
+      Input,
+      firstInputRef,
+      formData,
+      setFormData,
+      allInputsValidForValidFormUtil
+    );
 
   return (
     <section id="SignInForm">
@@ -98,6 +109,7 @@ const mapStateToPros = ({ user: { userToken, isLoading, isError } }) => ({
 const mapDispatchToPros = (dispatch) => ({
   onUserLogin: (userData, isNewAccount) =>
     dispatch(userAuth(userData, isNewAccount)),
+  onUserResetError: () => dispatch(userResetError()),
 });
 
 export default connect(mapStateToPros, mapDispatchToPros)(AuthForm);

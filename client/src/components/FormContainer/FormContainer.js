@@ -1,14 +1,14 @@
 import './FormContainer.scss';
 
 const FormAuthContainer = ({ title, editIconClickAction, message, children }) => {
-  const [isAuth, isError, messageContent] = message;
+  const [isSuccess, isError, messageContent] = message;
 
   const messageDisplayHandler = () => {
     let messageDisplay = { classType: '', messageToDisplay: '' };
     if (isError) {
       messageDisplay = { classType: 'danger', messageToDisplay: messageContent };
     }
-    if (isAuth) {
+    if (isSuccess && !isError) {
       messageDisplay = { classType: 'success', messageToDisplay: messageContent };
     }
     return messageDisplay;

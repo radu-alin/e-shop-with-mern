@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, memo } from 'react';
 
 import './Input.scss';
 
@@ -71,7 +71,7 @@ const Input = (
 
   return (
     <div className="input">
-      <label>{label}</label>
+      <label htmlFor={label}>{label}</label>
       {inputElement}
     </div>
   );
@@ -79,4 +79,4 @@ const Input = (
 
 const forwardedInput = forwardRef(Input);
 
-export default forwardedInput;
+export default memo(forwardedInput);

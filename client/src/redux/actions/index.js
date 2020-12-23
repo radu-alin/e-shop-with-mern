@@ -14,4 +14,8 @@ export {
   userLogout,
   userAuthSuccess,
   userProfileFetch,
+  userProfileFetchedClear,
+  userProfileUpdate,
+  userProfileUpdateClear,
+  userResetError,
 } from './userAction';

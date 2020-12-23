@@ -1,6 +1,32 @@
-.user-profile {
+.user-profile,
+.user-profile-edit {
   width: 100%;
   max-width: 350px;
+
+  & input {
+    border: none;
+  }
+
+  & input[type='password'],
+  label[for='Confirm Password'] {
+    display: none;
+  }
+
+  & input {
+    pointer-events: none;
+  }
+  &-edit {
+    & input[type='password'],
+    label[for='Password'],
+    label[for='Confirm Password'] {
+      display: block;
+    }
+
+    & input {
+      border: 1px solid #000;
+      pointer-events: visible;
+    }
+  }
 
   &-spinner {
     margin-top: 1rem;

@@ -40,6 +40,7 @@ export const postUserRegister = asyncHandler(async (req, res) => {
 //@route POST /api/users/login
 //@access Public
 export const postUserLogin = asyncHandler(async (req, res) => {
+  console.log('controllers-postUserLogin - ');
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   const passwordConfirm = user && (await user.matchPassword(password));
@@ -62,7 +63,7 @@ export const postUserLogin = asyncHandler(async (req, res) => {
 //@route GET /api/users/profile
 //@access Private
 export const getUserProfile = asyncHandler(async (req, res) => {
-  console.log('getUserProfile - ');
+  console.log('controllers-getUserProfile - ');
   const user = await User.findById(req.user._id);
   if (user) {
     res.json({
