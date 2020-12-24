@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import { defaultState } from './stateUserProfile';
 import {
-  formInputsDataUtil,
   formRenderInputsUtil,
+  formInputsDataUtil,
   oneInputValidForValidFormUtil,
 } from '../../../utils/formUtil.js';
 import {
@@ -26,8 +26,8 @@ const UserProfile = ({
   userToken,
   name,
   email,
-  isErrorFetch,
   isLoadingUpdate,
+  isErrorFetch,
   isUpdated,
   isErrorUpdate,
   onUserProfileFetch,
@@ -42,25 +42,22 @@ const UserProfile = ({
   const firstInputRef = useRef(null);
   const isUpdatedRef = useRef(isUpdated);
   isUpdatedRef.current = isUpdated;
-  console.log('isUpdated - ', isUpdated);
-  console.log('isUpdatedRef.current ----------- ', isUpdatedRef.current);
-  console.log('editProfile - ', editProfile);
 
   useEffect(() => {
     userToken && onUserProfileFetch(userToken);
   }, [userToken, onUserProfileFetch]);
 
-  useEffect(() => {
-    return () => {
-      name && onUserProfileFetchedClear();
-      onUserProfileUpdateClear();
-    };
-  }, [name, onUserProfileFetchedClear, onUserProfileUpdateClear]);
-
   useEffect(() => name && setFormData({ ...defaultState(name, email) }), [
     name,
     email,
   ]);
+
+  useEffect(() => {
+    return () => {
+      onUserProfileFetchedClear();
+      onUserProfileUpdateClear();
+    };
+  }, [onUserProfileFetchedClear, onUserProfileUpdateClear]);
 
   const editTrueIconClickHandler = useCallback(() => {
     setEditProfile(true);
@@ -79,7 +76,7 @@ const UserProfile = ({
       if (isUpdatedRef.current) {
         setEditProfile(false);
       }
-    }, 500);
+    }, 700);
   };
 
   const renderFormHandler = () =>
@@ -109,7 +106,7 @@ const UserProfile = ({
       <div className="user-profile-spinner">
         {isLoadingUpdate && <Spinner type="small" />}
       </div>
-      <div className="user-profile-button">
+      <div className="user-profile-button btn-red btn-apply">
         {editProfile ? (
           <Button
             type="btn-gray-dark"
@@ -163,6 +160,7 @@ const mapStateToProps = ({
   isUpdated,
   isErrorUpdate,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   onUserProfileFetch: (userToken) => dispatch(userProfileFetch(userToken)),
   onUserProfileUpdate: (userToken, userData) =>
