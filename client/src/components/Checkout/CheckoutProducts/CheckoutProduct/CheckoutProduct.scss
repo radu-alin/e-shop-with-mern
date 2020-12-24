@@ -1,53 +1,96 @@
 .checkout-product {
   width: 100%;
   display: flex;
-  min-height: 100px;
-  border-bottom: 1px solid darkgrey;
-  padding: 15px 0;
-  font-size: 1rem;
-  align-items: center;
 
-  &-image-container {
-    width: 23%;
-    padding-right: 15px;
+  @media (max-width: 576px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  border-bottom: 1px solid darkgrey;
+  padding: 1rem 0;
+  cursor: default;
+  font-size: 1.2rem;
+
+  &-image {
+    min-width: 180px;
+    min-height: 180px;
+
+    @media (max-width: 576px) {
+      width: 100%;
+    }
 
     img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-  &-name,
-  &-quantity,
-  &-price {
-    width: 23%;
-  }
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
 
-  &-name {
-    & a {
-      color: #000;
+      @media (max-width: 576px) {
+        width: 100%;
+        height: auto;
+      }
     }
   }
 
-  &-quantity {
-    padding-left: 20px;
+  &-content {
+    width: 100%;
     display: flex;
-    // flex-direction: row;
-    &-arrow-left {
-      padding-right: 9px;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    &-arrow-right {
-      padding-left: 9px;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
+    justify-content: space-between;
 
-  &-remove-button {
-    margin-left: 30px;
-    cursor: pointer;
+    &-left {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0 1rem 0 1rem;
+
+      &-title {
+        & a {
+          color: #000;
+        }
+      }
+
+      &-quantity {
+        display: flex;
+        &-arrow-left {
+          padding-right: 10px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+        &-arrow-right {
+          padding-left: 10px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    &-right {
+      min-width: 100px;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &-price {
+        span:last-of-type {
+          font-size: 1rem;
+        }
+        text-align: right;
+        width: 100%;
+      }
+      &-action-icons {
+        &-remove-button {
+          padding-top: 1rem;
+          i {
+            margin-top: 1rem;
+            cursor: pointer;
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
   }
 }

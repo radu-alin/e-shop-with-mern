@@ -14,33 +14,54 @@ const CheckoutProduct = ({
   return (
     <article id="CheckoutProduct">
       <div className="checkout-product">
-        <div className="checkout-product-image-container">
+        <div className="checkout-product-image">
           <img src={image} alt="product" />
         </div>
-        <span className="checkout-product-name">
-          <Link to={'/products/' + _id}>{name}</Link>
-        </span>
-        <span className="checkout-product-quantity">
-          <div
-            className="checkout-product-quantity-arrow-left"
-            onClick={() => onCartDecreaseProduct(cartProductDetails)}
-          >
-            &#60;
+        <div className="checkout-product-content">
+          <div className="checkout-product-content-left">
+            <div className="checkout-product-content-left-title">
+              <span>
+                <strong>
+                  <Link to={'/products/' + _id}>{name}</Link>
+                </strong>
+              </span>
+            </div>
+            <div className="checkout-product-content-left-quantity">
+              <div
+                className="checkout-product-content-left-quantity-arrow-left"
+                onClick={() => onCartDecreaseProduct(cartProductDetails)}
+              >
+                &#60;
+              </div>
+              <span className="checkout-product-content-left-quantity-value">
+                <span>
+                  <strong>{quantity}</strong>
+                </span>
+              </span>
+              <div
+                className="checkout-product-content-left-quantity-arrow-right"
+                onClick={() => onCartAddProduct(cartProductDetails)}
+              >
+                &#62;
+              </div>
+            </div>
           </div>
-          <span className="checkout-product-quantity-value">{quantity}</span>
-          <div
-            className="checkout-product-quantity-arrow-right"
-            onClick={() => onCartAddProduct(cartProductDetails)}
-          >
-            &#62;
+          <div className="checkout-product-content-right">
+            <div className="checkout-product-content-right-price">
+              <span>
+                <strong>&#36; {price}</strong>
+              </span>
+              <span> per/item</span>
+            </div>
+            <div className="checkout-product-content-right-action-icons">
+              <div
+                className="checkout-product-content-right-action-icons-remove-button"
+                onClick={() => onCartClearProduct(_id)}
+              >
+                <i className="far fa-trash-alt"></i>
+              </div>
+            </div>
           </div>
-        </span>
-        <span className="checkout-product-price">{price}</span>
-        <div
-          className="checkout-product-remove-button"
-          onClick={() => onCartClearProduct(_id)}
-        >
-          &#10005;
         </div>
       </div>
     </article>
@@ -48,3 +69,36 @@ const CheckoutProduct = ({
 };
 
 export default memo(CheckoutProduct);
+
+// const [quantitySelected, setQuantitySelected] = useState(0);
+
+// const renderInputSelectHandler = () => {
+//   const maxLenght = productDetails.countInStock;
+//   const renderInputSelect = [];
+//   for (let i = 0; i <= maxLenght; i++) {
+//     renderInputSelect.push(
+//       <option key={i} value={i}>
+//         {i}
+//       </option>
+//     );
+//   }
+//   return renderInputSelect;
+// };
+
+// const renderFormHandler = () => (
+//   <>
+//     {productDetails.countInStock ? (
+//       <>
+//         <div className="product-details-content-text-right-quantity">
+//           <form onChange={(e) => submitFormHandler(e)}>
+//             <label>Quantity:</label>
+//             <select>{renderInputSelectHandler()}</select>
+//           </form>
+//         </div>
+//         <hr></hr>
+//       </>
+//     ) : null}
+//   </>
+// );
+
+// const submitFormHandler = (e) => setQuantitySelected(e.target.value);
