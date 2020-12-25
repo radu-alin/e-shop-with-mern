@@ -11,7 +11,7 @@ export const productListReducer = (state = initialState, action) => {
     case actionTypes.PRODUCT_LIST_FETCH_START:
       return {
         ...state,
-        isLoading: true,
+        isError: null,
       };
     case actionTypes.PRODUCT_LIST_FETCH_SUCCESS:
       return {

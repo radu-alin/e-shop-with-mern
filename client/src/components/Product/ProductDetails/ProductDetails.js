@@ -1,21 +1,44 @@
+import { useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+
+import { cartAddProduct, productSelectedFetch } from '../../../redux/actions';
+
 import Button from '../../UI/Button/Button';
 import Rating from '../../Rating/Rating';
 import Spinner from '../../UI/Spinner/Spinner';
+import Message from '../../UI/Message/Message';
 import './ProductDetails.scss';
 
 const ProductDetails = ({
+  productSelectedId,
   productDetails,
   isError,
   buttonGoBackClickHandler,
   onCartAddProduct,
+  onProductSelectedFetch,
 }) => {
+  const productDetailsRef = useRef(productDetails);
+  productDetailsRef.current = productDetails;
+
+  const productDetailsClear = () => {
+    if (productSelectedId !== productDetails._id) {
+      productDetailsRef.current = null;
+    }
+    return productDetailsRef.current;
+  };
+
+  productDetails && productDetailsClear();
+
+  useEffect(() => {
+    onProductSelectedFetch(productSelectedId);
+  }, [onProductSelectedFetch, productSelectedId]);
+
   const productDetailsView = () => (
     <section id="ProductDetails">
       <div className="product-details-content">
-        <div
-          className="product-details-content-image"
-          style={{ backgroundImage: `url(${productDetails.image})` }}
-        />
+        <div className="product-details-content-image">
+          <img src={productDetails.image} alt="product" />
+        </div>
         <div className="product-details-content-text-left">
           <h3>{productDetails.name}</h3>
           <Rating
@@ -47,22 +70,22 @@ const ProductDetails = ({
           <Button
             onClickAction={() => onCartAddProduct(productDetails)}
             type="btn-gray-dark "
+            disabled={productDetails.countInStock <= 0}
           >
-            ADD TO CHART
+            {productDetails.countInStock <= 0 ? 'OUT OF STOCK' : 'ADD TO CHART'}
           </Button>
         </div>
       </div>
     </section>
   );
 
-  const renderProductDetailsHandler = () =>
-    !productDetails ? (
-      <Spinner />
-    ) : isError ? (
-      <h3>{isError}</h3>
-    ) : (
-      productDetailsView()
-    );
+  const renderProductDetails = isError ? (
+    <Message type={isError && 'error'} message={isError} />
+  ) : !productDetailsRef.current ? (
+    <Spinner />
+  ) : (
+    productDetailsView()
+  );
 
   return (
     <section id="ProductDetails">
@@ -72,10 +95,22 @@ const ProductDetails = ({
             Go Back
           </Button>
         </div>
-        {renderProductDetailsHandler()}
+        {renderProductDetails}
       </div>
     </section>
   );
 };
 
-export default ProductDetails;
+const mapStateToProps = ({
+  productSelected: { productSelectedDetails: productDetails, isError },
+}) => ({
+  productDetails,
+  isError,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onProductSelectedFetch: (id) => dispatch(productSelectedFetch(id)),
+  onCartAddProduct: (product) => dispatch(cartAddProduct(product)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

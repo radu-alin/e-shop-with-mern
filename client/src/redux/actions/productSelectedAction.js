@@ -4,17 +4,14 @@ import axios from 'axios';
 export const productSelectedFetchStart = () => ({
   type: actionTypes.PRODUCT_SELECTED_FETCH_START,
 });
-
-export const productSelectedFetchSuccess = (product) => ({
-  type: actionTypes.PRODUCT_SELECTED_FETCH_SUCCESS,
-  payload: product,
-});
-
 export const productSelectedFetchFail = (error) => ({
   type: actionTypes.PRODUCT_SELECTED_FETCH_FAIL,
   payload: error,
 });
-
+export const productSelectedFetchSuccess = (product) => ({
+  type: actionTypes.PRODUCT_SELECTED_FETCH_SUCCESS,
+  payload: product,
+});
 export const productSelectedFetch = (id) => async (dispatch) => {
   dispatch(productSelectedFetchStart());
   try {

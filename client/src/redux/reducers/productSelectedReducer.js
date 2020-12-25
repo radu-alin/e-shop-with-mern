@@ -12,19 +12,19 @@ export const productSelectedReducer = (state = initialState, action) => {
     case actionTypes.PRODUCT_SELECTED_FETCH_START:
       return {
         ...state,
-        isLoading: true,
-      };
-    case actionTypes.PRODUCT_SELECTED_FETCH_SUCCESS:
-      return {
-        ...state,
-        productSelectedDetails: { ...action.payload },
-        isLoading: false,
+        isError: null,
       };
     case actionTypes.PRODUCT_SELECTED_FETCH_FAIL:
       return {
         ...state,
         isLoading: false,
         isError: action.payload,
+      };
+    case actionTypes.PRODUCT_SELECTED_FETCH_SUCCESS:
+      return {
+        ...state,
+        productSelectedDetails: { ...action.payload },
+        isLoading: false,
       };
 
     default:
