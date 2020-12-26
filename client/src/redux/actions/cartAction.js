@@ -9,9 +9,9 @@ export const cartAddProduct = (product) => ({
   payload: product,
 });
 
-export const cartDecreaseProduct = (product) => ({
-  type: actionTypes.CART_DECREASE_PRODUCT,
-  payload: product,
+export const cartModifyQuantityProduct = (product, selectedQuantity) => ({
+  type: actionTypes.CART_MODIFY_QUANTITY_PRODUCT,
+  payload: { product, selectedQuantity },
 });
 
 export const cartClearProduct = (productId) => ({

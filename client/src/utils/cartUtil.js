@@ -28,15 +28,19 @@ export const cartAddProductUtil = (cartProducts, productToAdd) => {
   ];
 };
 
-export const cartDecreaseProductUtil = (cartProducts, productToDecrease) => {
+export const cartModifyQuantityProductUtil = (
+  cartProducts,
+  productToDecrease,
+  quantitySelected
+) => {
   const cartProductsUpdated = cartProducts.map((cartProduct) =>
     cartProduct._id === productToDecrease._id
       ? {
           _id: cartProduct._id,
-          quantity: cartProduct.quantity - 1,
+          quantity: quantitySelected,
           cartProductDetails: {
             ...productToDecrease,
-            quantity: cartProduct.quantity - 1,
+            quantity: quantitySelected,
           },
         }
       : cartProduct

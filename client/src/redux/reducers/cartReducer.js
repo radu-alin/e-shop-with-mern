@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import {
   cartAddProductUtil,
-  cartDecreaseProductUtil,
+  cartModifyQuantityProductUtil,
   cartProductsFromLocalStorageUtil,
 } from '../../utils/cartUtil';
 
@@ -22,11 +22,17 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         cartProducts: cartAddProductUtil(state.cartProducts, action.payload),
       };
-    case actionTypes.CART_DECREASE_PRODUCT:
+
+    case actionTypes.CART_MODIFY_QUANTITY_PRODUCT:
       return {
         ...state,
-        cartProducts: cartDecreaseProductUtil(state.cartProducts, action.payload),
+        cartProducts: cartModifyQuantityProductUtil(
+          state.cartProducts,
+          action.payload.product,
+          action.payload.selectedQuantity
+        ),
       };
+
     case actionTypes.CART_CLEAR_PRODUCT:
       return {
         ...state,

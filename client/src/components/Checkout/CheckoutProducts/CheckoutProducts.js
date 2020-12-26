@@ -4,8 +4,7 @@ import { cartProductsSelector } from '../../../redux/selectors/cartSelector';
 
 import {
   cartClearProduct,
-  cartAddProduct,
-  cartDecreaseProduct,
+  cartModifyQuantityProduct,
 } from '../../../redux/actions/index.js';
 
 import CheckoutProduct from './CheckoutProduct/CheckoutProduct';
@@ -13,8 +12,7 @@ import CheckoutProduct from './CheckoutProduct/CheckoutProduct';
 const CheckoutProducts = ({
   cartProducts,
   onCartClearProduct,
-  onCartAddProduct,
-  onCartDecreaseProduct,
+  onCartModifyQuatityProduct,
 }) => {
   const renderCheckoutProductsHandler = () =>
     cartProducts.map(({ _id, quantity, cartProductDetails }) => {
@@ -23,9 +21,8 @@ const CheckoutProducts = ({
           key={_id}
           quantity={quantity}
           cartProductDetails={cartProductDetails}
+          onCartModifyQuatityProduct={onCartModifyQuatityProduct}
           onCartClearProduct={onCartClearProduct}
-          onCartAddProduct={onCartAddProduct}
-          onCartDecreaseProduct={onCartDecreaseProduct}
         />
       );
     });
@@ -39,8 +36,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onCartClearProduct: (id) => dispatch(cartClearProduct(id)),
-  onCartAddProduct: (product) => dispatch(cartAddProduct(product)),
-  onCartDecreaseProduct: (product) => dispatch(cartDecreaseProduct(product)),
+  onCartModifyQuatityProduct: (product, selectedQuantity) =>
+    dispatch(cartModifyQuantityProduct(product, selectedQuantity)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutProducts);

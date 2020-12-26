@@ -6,11 +6,41 @@ import './CheckoutProduct.scss';
 const CheckoutProduct = ({
   quantity,
   cartProductDetails,
+  onCartModifyQuatityProduct,
   onCartClearProduct,
-  onCartAddProduct,
-  onCartDecreaseProduct,
 }) => {
-  const { name, image, price, _id } = cartProductDetails;
+  const { _id, name, image, price, countInStock } = cartProductDetails;
+  const renderInputSelectHandler = () => {
+    const maxLenght = countInStock;
+    const renderInputSelect = [];
+    for (let i = 0; i <= maxLenght; i++) {
+      renderInputSelect.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
+    }
+    return renderInputSelect;
+  };
+
+  const submitFormHandler = (e) =>
+    onCartModifyQuatityProduct(cartProductDetails, +e.target.value);
+
+  const renderFormHandler = () => (
+    <>
+      {countInStock ? (
+        <>
+          <div className="checkout-product-content-left-quantity-option">
+            <form onChange={(e) => submitFormHandler(e)}>
+              <label>Quantity: </label>
+              <select defaultValue={quantity}>{renderInputSelectHandler()}</select>
+            </form>
+          </div>
+        </>
+      ) : null}
+    </>
+  );
+
   return (
     <article id="CheckoutProduct">
       <div className="checkout-product">
@@ -27,23 +57,7 @@ const CheckoutProduct = ({
               </span>
             </div>
             <div className="checkout-product-content-left-quantity">
-              <div
-                className="checkout-product-content-left-quantity-arrow-left"
-                onClick={() => onCartDecreaseProduct(cartProductDetails)}
-              >
-                &#60;
-              </div>
-              <span className="checkout-product-content-left-quantity-value">
-                <span>
-                  <strong>{quantity}</strong>
-                </span>
-              </span>
-              <div
-                className="checkout-product-content-left-quantity-arrow-right"
-                onClick={() => onCartAddProduct(cartProductDetails)}
-              >
-                &#62;
-              </div>
+              {renderFormHandler()}
             </div>
           </div>
           <div className="checkout-product-content-right">
@@ -69,36 +83,3 @@ const CheckoutProduct = ({
 };
 
 export default memo(CheckoutProduct);
-
-// const [quantitySelected, setQuantitySelected] = useState(0);
-
-// const renderInputSelectHandler = () => {
-//   const maxLenght = productDetails.countInStock;
-//   const renderInputSelect = [];
-//   for (let i = 0; i <= maxLenght; i++) {
-//     renderInputSelect.push(
-//       <option key={i} value={i}>
-//         {i}
-//       </option>
-//     );
-//   }
-//   return renderInputSelect;
-// };
-
-// const renderFormHandler = () => (
-//   <>
-//     {productDetails.countInStock ? (
-//       <>
-//         <div className="product-details-content-text-right-quantity">
-//           <form onChange={(e) => submitFormHandler(e)}>
-//             <label>Quantity:</label>
-//             <select>{renderInputSelectHandler()}</select>
-//           </form>
-//         </div>
-//         <hr></hr>
-//       </>
-//     ) : null}
-//   </>
-// );
-
-// const submitFormHandler = (e) => setQuantitySelected(e.target.value);
