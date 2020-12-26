@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { cartAddProduct, productSelectedFetch } from '../../../redux/actions';
@@ -17,17 +17,11 @@ const ProductDetails = ({
   onCartAddProduct,
   onProductSelectedFetch,
 }) => {
-  const productDetailsRef = useRef(productDetails);
-  productDetailsRef.current = productDetails;
-
-  const productDetailsClear = () => {
-    if (productSelectedId !== productDetails._id) {
-      productDetailsRef.current = null;
-    }
-    return productDetailsRef.current;
-  };
-
-  productDetails && productDetailsClear();
+  const productDetailsIsNew = productDetails
+    ? productSelectedId !== productDetails._id
+      ? null
+      : productDetails
+    : null;
 
   useEffect(() => {
     onProductSelectedFetch(productSelectedId);
@@ -81,7 +75,7 @@ const ProductDetails = ({
 
   const renderProductDetails = isError ? (
     <Message type={isError && 'error'} message={isError} />
-  ) : !productDetailsRef.current ? (
+  ) : !productDetailsIsNew ? (
     <Spinner />
   ) : (
     productDetailsView()

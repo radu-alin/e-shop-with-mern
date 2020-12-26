@@ -11,9 +11,6 @@ import ProductOverview from '../ProductOverview/ProductOverview';
 import './LatestProducts.scss';
 
 const LatestProducts = ({ productsAll, isError, onProductListFetch }) => {
-  console.log('isError - ', isError);
-  console.log('productsAll - ', productsAll);
-  console.log('productsAll.length - ', productsAll.length);
   useEffect(() => {
     onProductListFetch();
   }, [onProductListFetch]);
