@@ -1,3 +1,13 @@
+import { connect } from 'react-redux';
+
+import { cartProductsSelector } from '../../../redux/selectors/cartSelector';
+
+import {
+  cartClearProduct,
+  cartAddProduct,
+  cartDecreaseProduct,
+} from '../../../redux/actions/index.js';
+
 import CheckoutProduct from './CheckoutProduct/CheckoutProduct';
 
 const CheckoutProducts = ({
@@ -23,4 +33,14 @@ const CheckoutProducts = ({
   return <>{renderCheckoutProductsHandler()}</>;
 };
 
-export default CheckoutProducts;
+const mapStateToProps = (state) => ({
+  cartProducts: cartProductsSelector(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCartClearProduct: (id) => dispatch(cartClearProduct(id)),
+  onCartAddProduct: (product) => dispatch(cartAddProduct(product)),
+  onCartDecreaseProduct: (product) => dispatch(cartDecreaseProduct(product)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutProducts);

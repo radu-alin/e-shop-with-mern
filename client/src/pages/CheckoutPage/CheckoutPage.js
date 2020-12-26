@@ -4,33 +4,13 @@ import CheckoutProducts from '../../components/Checkout/CheckoutProducts/Checkou
 
 import Button from '../../components/UI/Button/Button';
 
-import {
-  cartClearProduct,
-  cartAddProduct,
-  cartDecreaseProduct,
-} from '../../redux/actions/index';
-
-import {
-  cartProductsSelector,
-  cartTotalValueSelector,
-} from '../../redux/selectors/cartSelector';
+import { cartTotalValueSelector } from '../../redux/selectors/cartSelector';
 
 import './CheckoutPage.scss';
 
-const CheckoutPage = ({
-  cartProducts,
-  cartTotalValue,
-  onCartClearProduct,
-  onCartAddProduct,
-  onCartDecreaseProduct,
-}) => {
-  const checkoutProductsView = cartProducts.length ? (
-    <CheckoutProducts
-      cartProducts={cartProducts}
-      onCartClearProduct={onCartClearProduct}
-      onCartAddProduct={onCartAddProduct}
-      onCartDecreaseProduct={onCartDecreaseProduct}
-    />
+const CheckoutPage = ({ cartTotalValue }) => {
+  const checkoutProductsView = cartTotalValue ? (
+    <CheckoutProducts />
   ) : (
     <h1 className="py-1">Please Add Products for Checkout</h1>
   );
@@ -65,14 +45,7 @@ const CheckoutPage = ({
 };
 
 const mapStateToProps = (state) => ({
-  cartProducts: cartProductsSelector(state),
   cartTotalValue: cartTotalValueSelector(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onCartClearProduct: (id) => dispatch(cartClearProduct(id)),
-  onCartAddProduct: (product) => dispatch(cartAddProduct(product)),
-  onCartDecreaseProduct: (product) => dispatch(cartDecreaseProduct(product)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPage);
+export default connect(mapStateToProps)(CheckoutPage);
