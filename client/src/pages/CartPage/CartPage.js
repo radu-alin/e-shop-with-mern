@@ -1,33 +1,31 @@
 import { connect } from 'react-redux';
 
-import CheckoutProducts from '../../components/Checkout/CheckoutProducts/CheckoutProducts';
+import CartProducts from '../../components/Cart/CartProducts/CartProducts';
 
 import Button from '../../components/UI/Button/Button';
 
 import { cartTotalValueSelector } from '../../redux/selectors/cartSelector';
 
-import './CheckoutPage.scss';
+import './CartPage.scss';
 
-const CheckoutPage = ({ cartTotalValue }) => {
-  const checkoutProductsView = cartTotalValue ? (
-    <CheckoutProducts />
+const CartPage = ({ cartTotalValue }) => {
+  const cartProductsView = cartTotalValue ? (
+    <CartProducts />
   ) : (
     <h1 className="py-1">Please Add Products for Checkout</h1>
   );
   return (
-    <main id="CheckoutPage">
-      <div className="checkout-page">
-        <div className="checkout-page-header py-1">
+    <main id="CartPage">
+      <div className="cart-page">
+        <div className="cart-page-header py-1">
           <h1>
             <strong>My cart</strong>
           </h1>
         </div>
-        <div className="checkout-page-content">
-          <div className="checkout-page-content-products">
-            {checkoutProductsView}
-          </div>
-          <div className="checkout-page-content-total">
-            <div className="checkout-page-content-total-sum">
+        <div className="cart-page-content">
+          <div className="cart-page-content-products">{cartProductsView}</div>
+          <div className="cart-page-content-total">
+            <div className="cart-page-content-total-sum">
               <span>
                 <strong>TOTAL:</strong>
               </span>
@@ -48,4 +46,4 @@ const mapStateToProps = (state) => ({
   cartTotalValue: cartTotalValueSelector(state),
 });
 
-export default connect(mapStateToProps)(CheckoutPage);
+export default connect(mapStateToProps)(CartPage);

@@ -20,8 +20,8 @@ const NavigationItems = ({ isAuth }) => {
   return (
     <nav>
       <ul id="NavigationItems" className="navigation-items ">
-        <NavigationItem link="/checkout">
-          <i className="fas fa-shopping-cart"></i>Checkout
+        <NavigationItem link="/cart">
+          <i className="fas fa-shopping-cart"></i>Cart
         </NavigationItem>
         {renderSignInOrProfileHandler}
       </ul>

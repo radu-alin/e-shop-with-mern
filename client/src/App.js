@@ -7,7 +7,7 @@ import { userAuthSuccess as onUserAuthSuccess } from './redux/actions/index';
 import Layout from './components/Layout/Layout';
 import HomePage from './pages/HomePage/HomePage';
 import ProductDetailsPage from './pages/ProductDetailsPage/ProductDetailsPage';
-import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+import CartPage from './pages/CartPage/CartPage';
 import AuthPage from './pages/AuthPage/AuthPage';
 import UserAccountPage from './pages/UserAccountPage/UserAccountPage';
 import LogoutPage from './pages/LogoutPage/LogoutPage';
@@ -19,10 +19,8 @@ const App = ({ dispatch }) => {
     const userTokenFromLocalStorage =
       localStorage.getItem('userToken') &&
       JSON.parse(localStorage.getItem('userToken'));
-    return (
-      userIdFromLocalStorage &&
-      dispatch(onUserAuthSuccess(userIdFromLocalStorage, userTokenFromLocalStorage))
-    );
+    userIdFromLocalStorage &&
+      dispatch(onUserAuthSuccess(userIdFromLocalStorage, userTokenFromLocalStorage));
   }, [dispatch]);
 
   return (
@@ -30,7 +28,7 @@ const App = ({ dispatch }) => {
       <Layout>
         <Switch>
           <Route path="/products/:id" component={ProductDetailsPage} />
-          <Route path="/checkout" component={CheckoutPage} />
+          <Route path="/cart" component={CartPage} />
           <Route path="/logout" component={LogoutPage} />
           <Route path="/account/" component={UserAccountPage} />
           <Route path="/auth" component={AuthPage} />

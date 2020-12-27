@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import Toolbar from '../Navigation/Toolbar/Toolbar';
-import CartDropdown from '../Cart/CartDropdown/CartDropdown';
+import CartDropdown from '../CartDropdown/CartDropdown';
 import Footer from '../Footer/Footer';
 
 import './Layout.scss';

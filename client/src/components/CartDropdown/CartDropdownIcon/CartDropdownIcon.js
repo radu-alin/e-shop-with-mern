@@ -10,16 +10,22 @@ import { cartToggleHidden } from '../../../redux/actions/index';
 
 import { ReactComponent as ShoppingIcon } from '../../../assets/svg/shopping-bag.svg';
 
-import './CartIcon.scss';
+import './CartDropdownIcon.scss';
 
-const CartIcon = ({ cartProducts, cartProductsCount, onCartToggleHidden }) => {
+const CartDropdownIcon = ({
+  cartProducts,
+  cartProductsCount,
+  onCartToggleHidden,
+}) => {
   cartUpdateLocalStorageUtil(cartProducts);
   return (
-    <div className="cart-icon">
-      <div className="cart-icon-content" onClick={onCartToggleHidden}>
-        <ShoppingIcon className="cart-icon-content-img" />
-        <div className="cart-icon-content-count">
-          <div className="cart-icon-content-count-num">{cartProductsCount}</div>
+    <div className="cart-dropdown-icon">
+      <div className="cart-dropdown-icon-content" onClick={onCartToggleHidden}>
+        <ShoppingIcon className="cart-dropdown-icon-content-img" />
+        <div className="cart-dropdown-icon-content-count">
+          <div className="cart-dropdown-icon-content-count-num">
+            {cartProductsCount}
+          </div>
         </div>
       </div>
     </div>
@@ -35,4 +41,4 @@ const mapDispatchToProps = (dispatch) => ({
   onCartToggleHidden: () => dispatch(cartToggleHidden()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartIcon);
+export default connect(mapStateToProps, mapDispatchToProps)(CartDropdownIcon);

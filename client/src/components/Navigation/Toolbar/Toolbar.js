@@ -1,6 +1,6 @@
 import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import CartIcon from '../../Cart/CartIcon/CartIcon';
+import CartDropdownIcon from '../../CartDropdown/CartDropdownIcon/CartDropdownIcon';
 
 import './Toolbar.scss';
 
@@ -14,7 +14,7 @@ const Toolbar = () => (
           </div>
           <div className="toolbar-content-right">
             <NavigationItems />
-            <CartIcon />
+            <CartDropdownIcon />
           </div>
         </div>
       </div>
