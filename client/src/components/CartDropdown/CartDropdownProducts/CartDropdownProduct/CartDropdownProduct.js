@@ -10,7 +10,7 @@ const CartDropdownProduct = ({
       <div className="cart-dropdown-product-details">
         <span className="cart-dropdown-product-details-name">{name}</span>
         <span className="cart-dropdown-product-details-price">
-          {quantity} x ${price}
+          {quantity} x ${price} = ${(quantity * price).toFixed(2)}.
         </span>
       </div>
     </div>

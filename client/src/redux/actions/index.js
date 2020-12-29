@@ -5,6 +5,7 @@ export { productSelectedFetch } from './productSelectedAction';
 export {
   cartToggleHidden,
   cartSaveShippingAddress,
+  cartSavePaymentMethod,
   cartAddProduct,
   cartModifyQuantityProduct,
   cartClearProduct,

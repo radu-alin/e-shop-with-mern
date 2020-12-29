@@ -8,6 +8,10 @@ export const cartSaveShippingAddress = (shippingData) => ({
   type: actionTypes.CART_SAVE_SHIPPING_ADDRESS,
   payload: shippingData,
 });
+export const cartSavePaymentMethod = (paymentMethod) => ({
+  type: actionTypes.CART_SAVE_PAYMENT_METHOD,
+  payload: paymentMethod,
+});
 
 export const cartAddProduct = (product) => ({
   type: actionTypes.CART_ADD_PRODUCT,

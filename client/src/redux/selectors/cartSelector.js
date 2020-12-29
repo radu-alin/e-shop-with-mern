@@ -27,3 +27,8 @@ export const cartTotalValueSelector = createSelector(
       0
     )
 );
+
+export const cartShippingCostSelector = createSelector(
+  [cartTotalValueSelector],
+  (cartTotalValueSelector) => (cartTotalValueSelector > 2000 ? 0 : 100)
+);

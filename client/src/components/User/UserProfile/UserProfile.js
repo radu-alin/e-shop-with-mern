@@ -109,7 +109,7 @@ const UserProfile = ({
       <div className="user-profile-button btn-red btn-apply">
         {editProfile ? (
           <Button
-            type="btn-gray-dark"
+            type="btn-gray-dark animation"
             onClickAction={onSubmitHandler}
             disabled={!formData.isFormValid}
           >

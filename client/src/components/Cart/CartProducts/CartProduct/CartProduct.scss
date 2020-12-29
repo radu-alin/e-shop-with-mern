@@ -23,6 +23,7 @@
     img {
       width: 180px;
       height: 100%;
+      border: 1px solid #ced4da;
       object-fit: cover;
 
       @media (max-width: 576px) {

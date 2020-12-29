@@ -66,7 +66,6 @@ const CheckoutShipping = ({
     event.preventDefault();
     const shippingAddress = formInputsDataUtil(formData.formInputsData);
     localStorageSetItemUtil('shippingAddress', shippingAddress);
-    console.log('shippingAddress - ', shippingAddress);
     onCartSaveShippingAddress(shippingAddress);
     history.push('/checkout/payment');
   };
@@ -103,9 +102,7 @@ const CheckoutShipping = ({
             onClickAction={onSubmitHandler}
             disabled={!formData.isFormValid}
           >
-            {formData.isFormValid
-              ? 'Continue to payment'
-              : ' Please enter valid data.'}
+            {formData.isFormValid ? 'Next Step' : ' Enter shipping details.'}
           </Button>
           <hr></hr>
           {shippingPageFooterView}

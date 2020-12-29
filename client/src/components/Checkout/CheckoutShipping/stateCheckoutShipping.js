@@ -8,6 +8,7 @@ export const defaultState = (address, city, postalCode, country) => ({
         type: 'text',
         name: 'address',
         id: 'address',
+        spellCheck: false,
         placeholder: address || 'Your Address',
       },
       validation: {
@@ -25,6 +26,7 @@ export const defaultState = (address, city, postalCode, country) => ({
         type: 'text',
         name: 'city',
         id: 'city',
+        spellCheck: false,
         placeholder: city || 'City',
       },
       validation: {
@@ -42,6 +44,7 @@ export const defaultState = (address, city, postalCode, country) => ({
         type: 'text',
         name: 'postalCode',
         id: 'postalCode',
+        spellCheck: false,
         placeholder: postalCode || 'Postal Code',
       },
       validation: {
@@ -62,6 +65,7 @@ export const defaultState = (address, city, postalCode, country) => ({
         type: 'text',
         name: 'country',
         id: 'country',
+        spellCheck: false,
         placeholder: country || 'Country',
       },
       validation: {

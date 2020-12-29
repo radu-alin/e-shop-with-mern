@@ -9,7 +9,7 @@ export const defaultState = {
         autoFocus: true,
         name: 'name',
         id: 'name',
-
+        spellCheck: false,
         placeholder: 'Your Name',
       },
       validation: {
@@ -26,6 +26,7 @@ export const defaultState = {
         type: 'email',
         name: 'email',
         id: 'email',
+        spellCheck: false,
         placeholder: 'Your E-Mail',
       },
       validation: {

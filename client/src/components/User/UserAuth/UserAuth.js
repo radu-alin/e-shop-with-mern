@@ -69,7 +69,7 @@ const AuthForm = ({ isAuth, isLoading, isError, onUserLogin, onUserResetError })
             {isLoading && <Spinner type="small" />}
           </div>
           <Button
-            type="btn-gray-dark"
+            type="btn-gray-dark animation"
             onClickAction={onSubmitHandler}
             disabled={!formData.isFormValid}
           >

@@ -1,0 +1,50 @@
+.checkout-order {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-content {
+    width: 100%;
+    padding-right: 1rem;
+
+    &-section {
+      & img {
+        border: 1px solid #ced4da;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  &-summary {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    padding: 1rem 0 1rem 1rem;
+
+    @media (max-width: 768px) {
+      text-align: left;
+      padding: 1rem 0 1rem 0;
+    }
+
+    & p {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    & button {
+      margin-top: 1rem;
+      padding: 10px;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+  }
+  @media (max-width: 768px) {
+    padding: 1rem 0 1rem 0;
+  }
+}

@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import { connect } from 'react-redux';
+
+import { localStorageSetItemUtil } from '../../../utils/localStorageUtil';
+import { cartSavePaymentMethod } from '../../../redux/actions/index';
 
 import InputRadio from '../../UI/InputRadio/InputRadio';
 import Button from '../../UI/Button/Button';
@@ -7,14 +10,16 @@ import FormContainer from '../../FormContainer/FormContainer';
 
 import './CheckoutPayment.scss';
 
-const CheckoutPayment = () => {
-  const [paymentMethod, setPaymentMethod] = useState('PayPal');
-
-  const inputSelectChangeHandler = (event) => setPaymentMethod(event.target.value);
+const CheckoutPayment = ({ paymentMethod, onCartSavePaymentMethod, history }) => {
+  const inputSelectChangeHandler = (event) => {
+    let methodChoosed = event.target.value;
+    onCartSavePaymentMethod(methodChoosed);
+    localStorageSetItemUtil('paymentMethod', methodChoosed);
+  };
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    console.log('paymentMethod - ', paymentMethod);
+    history.push('/checkout/place-order');
   };
 
   return (
@@ -25,7 +30,7 @@ const CheckoutPayment = () => {
             label="Cash on Delivery"
             name="paymentMethod"
             value="CashOnDelivery"
-            onChangeAction={(e) => inputSelectChangeHandler(e)}
+            onChangeAction={(event) => inputSelectChangeHandler(event)}
             paymentState={paymentMethod}
           />
           <InputRadio
@@ -45,8 +50,12 @@ const CheckoutPayment = () => {
           <div className="checkout-payment-spinner">
             {false && <Spinner type="small" />}
           </div>
-          <Button type="btn-gray-dark" onClickAction={onSubmitHandler}>
-            Place Order
+          <Button
+            type="btn-gray-dark"
+            onClickAction={onSubmitHandler}
+            disabled={paymentMethod.length === 0}
+          >
+            {paymentMethod.length === 0 ? 'Select a Payment Method' : 'Next Step'}
           </Button>
           <hr></hr>
         </FormContainer>
@@ -55,4 +64,13 @@ const CheckoutPayment = () => {
   );
 };
 
-export default CheckoutPayment;
+const mapStateToProps = ({ cart: { paymentMethod } }) => ({
+  paymentMethod,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCartSavePaymentMethod: (paymentMethod) =>
+    dispatch(cartSavePaymentMethod(paymentMethod)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPayment);

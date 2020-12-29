@@ -8,6 +8,7 @@ export const defaultState = (name, email) => ({
         type: 'text',
         name: 'name',
         id: 'name',
+        spellCheck: false,
         placeholder: name || 'Your Name',
       },
       validation: {
@@ -25,6 +26,7 @@ export const defaultState = (name, email) => ({
         type: 'email',
         name: 'email',
         id: 'email',
+        spellCheck: false,
         placeholder: email || 'Your E-Mail',
       },
       validation: {

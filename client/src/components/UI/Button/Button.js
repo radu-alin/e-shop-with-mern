@@ -1,9 +1,10 @@
 import './Button.scss';
 
-const Button = ({ children, type, onClickAction, disabled }) => {
-  //type: btn-gray-dark, btn-gray-light
+const Button = ({ children, type, animation, onClickAction, disabled }) => {
+  //type: btn-gray-dark , btn-gray-light
+  //animation: animation
 
-  const classes = `btn ${type}`;
+  const classes = `btn ${type} ${animation}`;
 
   return (
     <button className={classes} onClick={onClickAction} disabled={disabled}>

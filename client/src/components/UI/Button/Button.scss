@@ -21,9 +21,27 @@
     }
     &:disabled,
     &:disabled:hover {
-      background-color: #343a40; //gray-800
+      background-color: #919aa1; //gray-600
       color: #f8f9fa; //gray-100
       cursor: not-allowed;
+    }
+
+    &.animation {
+      &:not(:disabled) {
+        animation: enable 0.5s linear;
+      }
+
+      @keyframes enable {
+        0% {
+          transform: scale(1);
+        }
+        60% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
     }
   }
   &.btn-gray-light {

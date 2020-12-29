@@ -9,6 +9,7 @@ export const defaultState = {
         autoFocus: true,
         name: 'email',
         id: 'email',
+        spellCheck: false,
         placeholder: 'Your E-Mail',
       },
       validation: {

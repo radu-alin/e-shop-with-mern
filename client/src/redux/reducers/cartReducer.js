@@ -9,6 +9,7 @@ import { localStorageGetItemUtil } from '../../utils/localStorageUtil';
 const initialState = {
   cartProducts: localStorageGetItemUtil('cartProducts'),
   shippingAddress: localStorageGetItemUtil('shippingAddress'),
+  paymentMethod: localStorageGetItemUtil('paymentMethod'),
   isHidden: true,
 };
 
@@ -23,6 +24,11 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         shippingAddress: action.payload,
+      };
+    case actionTypes.CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
       };
     case actionTypes.CART_ADD_PRODUCT:
       return {

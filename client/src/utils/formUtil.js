@@ -77,17 +77,6 @@ export const formRenderInputsUtil = (
       isTouched: true,
     };
 
-    const inputElement = event.target;
-    let validityState_Object = inputElement.validity;
-    console.log('validityState_Object - ', validityState_Object);
-    if (validityState_Object.valueMissing) {
-      inputElement.setCustomValidity('A value is required');
-    }
-    console.log(
-      'inputElement.setCustomValidity - ',
-      inputElement.setCustomValidity('A value is required')
-    );
-
     updatedformInputsData[inputId] = updatedInput;
     const isFormValid = formValidator(updatedformInputsData);
 
