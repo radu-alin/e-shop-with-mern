@@ -8,12 +8,16 @@ import { cartTotalValueSelector } from '../../redux/selectors/cartSelector';
 
 import './CartPage.scss';
 
-const CartPage = ({ cartTotalValue }) => {
+const CartPage = ({ cartTotalValue, history }) => {
   const cartProductsView = cartTotalValue ? (
     <CartProducts />
   ) : (
     <h1 className="py-1">Please Add Products for Checkout</h1>
   );
+
+  const checkoutButtonClickHandler = () => {
+    history.push('/checkout');
+  };
   return (
     <main id="CartPage">
       <div className="cart-page">
@@ -34,7 +38,13 @@ const CartPage = ({ cartTotalValue }) => {
               </span>
             </div>
             <hr></hr>
-            <Button type="btn-gray-dark">Checkout</Button>
+            <Button
+              type="btn-gray-dark"
+              onClickAction={checkoutButtonClickHandler}
+              disabled={cartTotalValue === 0}
+            >
+              Checkout
+            </Button>
           </div>
         </div>
       </div>

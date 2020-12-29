@@ -13,7 +13,7 @@ const CartProduct = ({
   const renderInputSelectHandler = () => {
     const maxLenght = countInStock;
     const renderInputSelect = [];
-    for (let i = 0; i <= maxLenght; i++) {
+    for (let i = 1; i <= maxLenght; i++) {
       renderInputSelect.push(
         <option key={i} value={i}>
           {i}
@@ -32,8 +32,10 @@ const CartProduct = ({
         <>
           <div className="cart-product-content-left-quantity-option">
             <form onChange={(e) => submitFormHandler(e)}>
-              <label>Quantity: </label>
-              <select defaultValue={quantity}>{renderInputSelectHandler()}</select>
+              <label htmlFor="quantity">Quantity: </label>
+              <select id="quantity" defaultValue={quantity}>
+                {renderInputSelectHandler()}
+              </select>
             </form>
           </div>
         </>

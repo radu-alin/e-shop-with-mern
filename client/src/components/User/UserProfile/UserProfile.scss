@@ -8,7 +8,8 @@
   }
 
   & input[type='password'],
-  label[for='Confirm Password'] {
+  label[for='password'],
+  label[for='confirmPassword'] {
     visibility: hidden;
   }
 
@@ -17,8 +18,8 @@
   }
   &-edit {
     & input[type='password'],
-    label[for='Password'],
-    label[for='Confirm Password'] {
+    label[for='password'],
+    label[for='confirmPassword'] {
       visibility: visible;
     }
 

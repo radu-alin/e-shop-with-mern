@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { defaultState as defaultStateSignIn } from './stateSignIn';
 import { defaultState as defaultStateSignUp } from './stateSignUp';
 import {
   formRenderInputsUtil,
-  allInputsValidForValidFormUtil,
   formInputsDataUtil,
+  formAllInputsValidForValidFormUtil,
 } from '../../../utils/formUtil';
 import { userAuth, userResetError } from '../../../redux/actions/index';
 
@@ -15,18 +15,12 @@ import Button from '../../UI/Button/Button';
 import Spinner from '../../UI/Spinner/Spinner';
 import FormContainer from '../../FormContainer/FormContainer';
 
-import './AuthForm.scss';
+import './UserAuth.scss';
 
 const AuthForm = ({ isAuth, isLoading, isError, onUserLogin, onUserResetError }) => {
   const [isNewAccount, setIsNewAccount] = useState(false);
   const defaultState = !isNewAccount && defaultStateSignIn;
   const [formData, setFormData] = useState({ ...defaultState });
-
-  const firstInputRef = useRef(null);
-
-  useEffect(() => {
-    firstInputRef.current.focus();
-  }, [isNewAccount]);
 
   useEffect(() => {
     return () => {
@@ -54,15 +48,14 @@ const AuthForm = ({ isAuth, isLoading, isError, onUserLogin, onUserResetError })
   const renderFormHandler = () =>
     formRenderInputsUtil(
       Input,
-      firstInputRef,
       formData,
       setFormData,
-      allInputsValidForValidFormUtil
+      formAllInputsValidForValidFormUtil
     );
 
   return (
-    <section id="SignInForm">
-      <div className="auth-form">
+    <section id="UserAuth">
+      <div className="user-auth p-1">
         <FormContainer
           title={isNewAccount ? 'Sign Up' : 'Sign In'}
           message={[
@@ -72,7 +65,7 @@ const AuthForm = ({ isAuth, isLoading, isError, onUserLogin, onUserResetError })
           ]}
         >
           {renderFormHandler()}
-          <div className="auth-form-spinner">
+          <div className="user-auth-spinner">
             {isLoading && <Spinner type="small" />}
           </div>
           <Button
@@ -84,12 +77,12 @@ const AuthForm = ({ isAuth, isLoading, isError, onUserLogin, onUserResetError })
           </Button>
           <hr></hr>
           {isNewAccount ? (
-            <p className="auth-form-footer">
+            <p className="user-auth-footer">
               Back to
               <span onClick={onLoginClickHandler}>&nbsp; Sign In </span>
             </p>
           ) : (
-            <p className="auth-form-footer">
+            <p className="user-auth-footer">
               If you don't have an account please
               <span onClick={onRegisterClickHandler}>&nbsp; REGISTER</span>
             </p>

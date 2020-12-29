@@ -6,14 +6,16 @@ export const defaultState = (name, email) => ({
       value: '',
       elementConfig: {
         type: 'text',
+        name: 'name',
+        id: 'name',
         placeholder: name || 'Your Name',
       },
       validation: {
         isRequired: false,
       },
       isRef: true,
-      isValid: false,
       isTouched: false,
+      isValid: false,
     },
     email: {
       label: 'E-mail',
@@ -21,6 +23,8 @@ export const defaultState = (name, email) => ({
       value: '',
       elementConfig: {
         type: 'email',
+        name: 'email',
+        id: 'email',
         placeholder: email || 'Your E-Mail',
       },
       validation: {
@@ -28,8 +32,8 @@ export const defaultState = (name, email) => ({
         isEmail: true,
       },
       isRef: false,
-      isValid: false,
       isTouched: false,
+      isValid: false,
     },
     password: {
       label: 'Password',
@@ -37,6 +41,8 @@ export const defaultState = (name, email) => ({
       value: '',
       elementConfig: {
         type: 'password',
+        name: 'password',
+        id: 'password',
         placeholder: 'Password',
       },
       validation: {
@@ -44,8 +50,8 @@ export const defaultState = (name, email) => ({
         isMinLength: 6,
       },
       isRef: false,
-      isValid: false,
       isTouched: false,
+      isValid: false,
     },
     confirmPassword: {
       label: 'Confirm Password',
@@ -53,6 +59,8 @@ export const defaultState = (name, email) => ({
       value: '',
       elementConfig: {
         type: 'password',
+        name: 'confirmPassword',
+        id: 'confirmPassword',
         placeholder: 'Password',
       },
       validation: {
@@ -60,8 +68,8 @@ export const defaultState = (name, email) => ({
         isIdentic: true,
       },
       isRef: false,
-      isValid: false,
       isTouched: false,
+      isValid: false,
     },
   },
   isFormValid: false,

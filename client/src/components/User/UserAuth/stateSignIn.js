@@ -6,13 +6,15 @@ export const defaultState = {
       value: '',
       elementConfig: {
         type: 'email',
+        autoFocus: true,
+        name: 'email',
+        id: 'email',
         placeholder: 'Your E-Mail',
       },
       validation: {
         isRequired: true,
         isEmail: true,
       },
-      isRef: true,
       isValid: false,
       isTouched: false,
     },
@@ -22,13 +24,14 @@ export const defaultState = {
       value: '',
       elementConfig: {
         type: 'password',
+        name: 'password',
+        id: 'password',
         placeholder: 'Password',
       },
       validation: {
         isRequired: true,
         isMinLength: 6,
       },
-      isRef: false,
       isValid: false,
       isTouched: false,
     },

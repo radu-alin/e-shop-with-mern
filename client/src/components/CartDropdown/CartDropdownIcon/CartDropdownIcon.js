@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { cartUpdateLocalStorageUtil } from '../../../utils/cartUtil';
+import { localStorageSetItemUtil } from '../../../utils/localStorageUtil';
 import {
   cartProductsSelector,
   cartProductsCountSelector,
@@ -17,7 +17,7 @@ const CartDropdownIcon = ({
   cartProductsCount,
   onCartToggleHidden,
 }) => {
-  cartUpdateLocalStorageUtil(cartProducts);
+  localStorageSetItemUtil('cartProducts', cartProducts);
   return (
     <div className="cart-dropdown-icon">
       <div className="cart-dropdown-icon-content" onClick={onCartToggleHidden}>

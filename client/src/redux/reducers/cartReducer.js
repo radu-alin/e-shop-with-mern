@@ -2,11 +2,13 @@ import * as actionTypes from '../actions/actionTypes';
 import {
   cartAddProductUtil,
   cartModifyQuantityProductUtil,
-  cartProductsFromLocalStorageUtil,
 } from '../../utils/cartUtil';
 
+import { localStorageGetItemUtil } from '../../utils/localStorageUtil';
+
 const initialState = {
-  cartProducts: cartProductsFromLocalStorageUtil('cartProducts'),
+  cartProducts: localStorageGetItemUtil('cartProducts'),
+  shippingAddress: localStorageGetItemUtil('shippingAddress'),
   isHidden: true,
 };
 
@@ -16,6 +18,11 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         isHidden: !state.isHidden,
+      };
+    case actionTypes.CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
       };
     case actionTypes.CART_ADD_PRODUCT:
       return {

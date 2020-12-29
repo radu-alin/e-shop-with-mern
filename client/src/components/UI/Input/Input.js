@@ -71,7 +71,9 @@ const Input = (
 
   return (
     <div className="input">
-      <label htmlFor={label}>{label}</label>
+      <label className="input-label" htmlFor={elementConfig.id}>
+        {label}
+      </label>
       {inputElement}
     </div>
   );

@@ -7,9 +7,10 @@ import { userAuthSuccess as onUserAuthSuccess } from './redux/actions/index';
 import Layout from './components/Layout/Layout';
 import HomePage from './pages/HomePage/HomePage';
 import ProductDetailsPage from './pages/ProductDetailsPage/ProductDetailsPage';
-import CartPage from './pages/CartPage/CartPage';
 import AuthPage from './pages/AuthPage/AuthPage';
 import UserAccountPage from './pages/UserAccountPage/UserAccountPage';
+import CartPage from './pages/CartPage/CartPage';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import LogoutPage from './pages/LogoutPage/LogoutPage';
 
 const App = ({ dispatch }) => {
@@ -24,19 +25,18 @@ const App = ({ dispatch }) => {
   }, [dispatch]);
 
   return (
-    <Route>
-      <Layout>
-        <Switch>
-          <Route path="/products/:id" component={ProductDetailsPage} />
-          <Route path="/cart" component={CartPage} />
-          <Route path="/logout" component={LogoutPage} />
-          <Route path="/account/" component={UserAccountPage} />
-          <Route path="/auth" component={AuthPage} />
-          <Route path="/" exact component={HomePage} />
-          <Redirect to="/" />
-        </Switch>
-      </Layout>
-    </Route>
+    <Layout>
+      <Switch>
+        <Route path="/products/:id" component={ProductDetailsPage} />
+        <Route path="/auth" component={AuthPage} />
+        <Route path="/account/" component={UserAccountPage} />
+        <Route path="/cart" component={CartPage} />
+        <Route path="/checkout" component={CheckoutPage} />
+        <Route path="/logout" component={LogoutPage} />
+        <Route path="/" exact component={HomePage} />
+        <Redirect to="/" />
+      </Switch>
+    </Layout>
   );
 };
 

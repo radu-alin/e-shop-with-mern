@@ -5,7 +5,7 @@ import { defaultState } from './stateUserProfile';
 import {
   formRenderInputsUtil,
   formInputsDataUtil,
-  oneInputValidForValidFormUtil,
+  formOneInputValidForValidFormUtil,
 } from '../../../utils/formUtil.js';
 import {
   userProfileFetch,
@@ -82,10 +82,10 @@ const UserProfile = ({
   const renderFormHandler = () =>
     formRenderInputsUtil(
       Input,
-      firstInputRef,
       formData,
       setFormData,
-      oneInputValidForValidFormUtil
+      formOneInputValidForValidFormUtil,
+      firstInputRef
     );
 
   const formContainerView = (

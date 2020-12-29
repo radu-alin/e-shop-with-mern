@@ -1,4 +1,5 @@
 export const cartAddProductUtil = (cartProducts, productToAdd) => {
+  console.log('cartAddProductUtil - render()');
   const cartContainProductToAdd = cartProducts.find(
     (cartProduct) => cartProduct._id === productToAdd._id
   );
@@ -48,11 +49,3 @@ export const cartModifyQuantityProductUtil = (
 
   return cartProductsUpdated.filter((cartProduct) => cartProduct.quantity > 0);
 };
-
-export const cartUpdateLocalStorageUtil = (cartProducts) =>
-  localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
-
-export const cartProductsFromLocalStorageUtil = (cartProducts) =>
-  localStorage.getItem(cartProducts)
-    ? JSON.parse(localStorage.getItem(cartProducts))
-    : [];

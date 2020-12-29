@@ -18,28 +18,32 @@ const FormAuthContainer = ({ title, editIconClickAction, message, children }) =>
 
   return (
     <section id="FormAuthContainer">
-      <div className="form-container">
-        <div className="form-container-header">
-          <div className="form-container-header-title">
-            <h1>{title}</h1>
+      <form id={title}>
+        <div className="form-container">
+          <div className="form-container-header">
+            <div className="form-container-header-title">
+              <legend>
+                <h1>{title}</h1>
+              </legend>
+            </div>
+            {editIconClickAction ? (
+              <div className="form-container-header-edit">
+                <h3>Edit</h3>
+                <i className="far fa-edit" onClick={editIconClickAction}></i>
+              </div>
+            ) : null}
           </div>
-          {editIconClickAction ? (
-            <div className="form-container-header-edit">
-              <h3>Edit</h3>
-              <i className="far fa-edit" onClick={editIconClickAction}></i>
-            </div>
-          ) : null}
+          <hr></hr>
+          <div className="form-container-message">
+            {messageContent ? (
+              <div className={`form-container-message-${classType}`}>
+                <h3>{messageToDisplay}</h3>
+              </div>
+            ) : null}
+          </div>
+          <div className="form-container-content py-1">{children}</div>
         </div>
-        <hr></hr>
-        <div className="form-container-message">
-          {messageContent ? (
-            <div className={`form-container-message-${classType}`}>
-              <h3>{messageToDisplay}</h3>
-            </div>
-          ) : null}
-        </div>
-        <div className="form-container-content py-1">{children}</div>
-      </div>
+      </form>
     </section>
   );
 };

@@ -1,0 +1,12 @@
+.checkout-payment {
+  max-width: 350px;
+  margin: 1rem auto 1rem auto;
+
+  &-spinner {
+    margin-top: 1rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

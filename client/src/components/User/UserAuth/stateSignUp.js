@@ -6,12 +6,15 @@ export const defaultState = {
       value: '',
       elementConfig: {
         type: 'text',
+        autoFocus: true,
+        name: 'name',
+        id: 'name',
+
         placeholder: 'Your Name',
       },
       validation: {
         isRequired: true,
       },
-      isRef: true,
       isValid: false,
       isTouched: false,
     },
@@ -21,6 +24,8 @@ export const defaultState = {
       value: '',
       elementConfig: {
         type: 'email',
+        name: 'email',
+        id: 'email',
         placeholder: 'Your E-Mail',
       },
       validation: {
@@ -37,13 +42,14 @@ export const defaultState = {
       value: '',
       elementConfig: {
         type: 'password',
+        name: 'password',
+        id: 'password',
         placeholder: 'Password',
       },
       validation: {
         isRequired: true,
         isMinLength: 6,
       },
-      isRef: false,
       isValid: false,
       isTouched: false,
     },
@@ -53,13 +59,14 @@ export const defaultState = {
       value: '',
       elementConfig: {
         type: 'password',
+        name: 'password',
+        id: 'password',
         placeholder: 'Password',
       },
       validation: {
         isRequired: true,
         isIdentic: true,
       },
-      isRef: false,
       isValid: false,
       isTouched: false,
     },

@@ -5,6 +5,7 @@ const UserAccountMenu = () => (
   <AccountMenu title="My account">
     <AccountMenuItem link="/account">My profile</AccountMenuItem>
     <AccountMenuItem link="/account/orders">My orders</AccountMenuItem>
+    <AccountMenuItem link="/account/addresses">My addresses</AccountMenuItem>
   </AccountMenu>
 );
 

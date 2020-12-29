@@ -3,6 +3,9 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  & li {
+    width: 8rem;
+  }
 
   i {
     padding-right: 5px;

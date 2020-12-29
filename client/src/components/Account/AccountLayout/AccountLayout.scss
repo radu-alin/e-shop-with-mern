@@ -6,6 +6,8 @@
   grid-template-columns: 1fr 3fr;
 
   @media (max-width: 576px) {
+    max-width: 350px;
     display: block;
+    margin: 1rem auto 0 auto;
   }
 }
