@@ -3,13 +3,13 @@ export { productListFetch } from './productListAction';
 export { productSelectedFetch } from './productSelectedAction';
 
 export {
-  cartToggleHidden,
-  cartSaveShippingAddress,
-  cartSavePaymentMethod,
-  cartItemsDetailFetch,
   cartAddItem,
   cartModifyQuantityForItem,
   cartClearItem,
+  cartItemsDetailFetch,
+  cartDropdownToggleHidden,
+  cartSaveShippingAddress,
+  cartSavePaymentMethod,
 } from './cartAction';
 
 export {

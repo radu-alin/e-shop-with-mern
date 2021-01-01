@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { cartToggleHidden as onCartToggleHidden } from '../../redux/actions/index';
+import { cartDropdownToggleHidden as onCartDropdownToggleHidden } from '../../redux/actions/index';
 
 import CartDropdownProducts from './CartDropdownProducts/CartDropdownProducts';
 import Button from '../UI/Button/Button';
@@ -16,7 +16,7 @@ const CartDropdown = ({ history, dispatch }) => (
         type="btn-gray-dark"
         onClickAction={() => {
           history.push('/checkout');
-          dispatch(onCartToggleHidden());
+          dispatch(onCartDropdownToggleHidden());
         }}
       >
         GO TO CHECKOUT

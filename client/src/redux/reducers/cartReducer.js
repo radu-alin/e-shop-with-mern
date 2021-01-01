@@ -9,28 +9,14 @@ import { localStorageGetItemUtil } from '../../utils/localStorageUtil';
 const initialState = {
   cartItemsIdAndQuantity: localStorageGetItemUtil('cartItems'),
   cartItemsDetail: [],
+  isError: false,
   shippingAddress: localStorageGetItemUtil('shippingAddress'),
   paymentMethod: localStorageGetItemUtil('paymentMethod'),
-  isHidden: true,
+  isDropdownHidden: true,
 };
 
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.CART_TOGGLE_HIDDEN:
-      return {
-        ...state,
-        isHidden: !state.isHidden,
-      };
-    case actionTypes.CART_SAVE_SHIPPING_ADDRESS:
-      return {
-        ...state,
-        shippingAddress: action.payload,
-      };
-    case actionTypes.CART_SAVE_PAYMENT_METHOD:
-      return {
-        ...state,
-        paymentMethod: action.payload,
-      };
     case actionTypes.CART_ADD_ITEM:
       return {
         ...state,
@@ -57,6 +43,11 @@ export const cartReducer = (state = initialState, action) => {
           ),
         ],
       };
+    case actionTypes.CART_ITEMS_DETAIL_FETCH_START:
+      return {
+        ...state,
+        isError: false,
+      };
     case actionTypes.CART_ITEMS_DETAIL_FETCH_FAIL:
       return {
         ...state,
@@ -66,6 +57,21 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cartItemsDetail: action.payload,
+      };
+    case actionTypes.CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
+      };
+    case actionTypes.CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
+      };
+    case actionTypes.CART_DROPDOWN_TOGGLE_HIDDEN:
+      return {
+        ...state,
+        isDropdownHidden: !state.isDropdownHidden,
       };
     default:
       return state;

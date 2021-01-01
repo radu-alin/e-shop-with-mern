@@ -1,19 +1,7 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
-export const cartToggleHidden = () => ({
-  type: actionTypes.CART_TOGGLE_HIDDEN,
-});
-
-export const cartSaveShippingAddress = (shippingData) => ({
-  type: actionTypes.CART_SAVE_SHIPPING_ADDRESS,
-  payload: shippingData,
-});
-export const cartSavePaymentMethod = (paymentMethod) => ({
-  type: actionTypes.CART_SAVE_PAYMENT_METHOD,
-  payload: paymentMethod,
-});
-
+//cartModifyItem
 export const cartAddItem = (item) => ({
   type: actionTypes.CART_ADD_ITEM,
   payload: item,
@@ -29,7 +17,7 @@ export const cartClearItem = (itemId) => ({
   payload: itemId,
 });
 
-//cartProductListFetch
+//cartItemsDetailFetch
 export const cartItemsDetailFetchStart = () => ({
   type: actionTypes.CART_ITEMS_DETAIL_FETCH_START,
 });
@@ -65,3 +53,18 @@ export const cartItemsDetailFetch = (cartItemsId) => async (dispatch) => {
       dispatch(cartItemsDetailFetchFail(isError));
     });
 };
+
+//cartCheckout
+export const cartSaveShippingAddress = (shippingData) => ({
+  type: actionTypes.CART_SAVE_SHIPPING_ADDRESS,
+  payload: shippingData,
+});
+export const cartSavePaymentMethod = (paymentMethod) => ({
+  type: actionTypes.CART_SAVE_PAYMENT_METHOD,
+  payload: paymentMethod,
+});
+
+//cartDropdown
+export const cartDropdownToggleHidden = () => ({
+  type: actionTypes.CART_DROPDOWN_TOGGLE_HIDDEN,
+});

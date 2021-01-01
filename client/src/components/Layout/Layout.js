@@ -6,12 +6,14 @@ import Footer from '../Footer/Footer';
 
 import './Layout.scss';
 
-const Layout = ({ children, isHidden }) => (
+const Layout = ({ children, isDropdownHidden }) => (
   <>
     <Toolbar />
     <main id="Layout">
       <div className="layout">
-        <div className="layout-cart">{isHidden ? null : <CartDropdown />}</div>
+        <div className="layout-cart">
+          {isDropdownHidden ? null : <CartDropdown />}
+        </div>
         {children}
       </div>
     </main>
@@ -19,8 +21,8 @@ const Layout = ({ children, isHidden }) => (
   </>
 );
 
-const mapStateToProps = ({ cart: { isHidden } }) => ({
-  isHidden,
+const mapStateToProps = ({ cart: { isDropdownHidden } }) => ({
+  isDropdownHidden,
 });
 
 export default connect(mapStateToProps)(Layout);
