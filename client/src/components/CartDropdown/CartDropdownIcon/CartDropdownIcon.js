@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 
 import { localStorageSetItemUtil } from '../../../utils/localStorageUtil';
 import {
-  cartProductsSelector,
-  cartProductsCountSelector,
+  cartItemsIdAndQuantitySelector,
+  cartItemsCountSelector,
 } from '../../../redux/selectors/cartSelector';
 
 import { cartToggleHidden } from '../../../redux/actions/index';
@@ -13,18 +13,18 @@ import { ReactComponent as ShoppingIcon } from '../../../assets/svg/shopping-bag
 import './CartDropdownIcon.scss';
 
 const CartDropdownIcon = ({
-  cartProducts,
-  cartProductsCount,
+  cartItemsIdAndQuantity,
+  cartItemsCount,
   onCartToggleHidden,
 }) => {
-  localStorageSetItemUtil('cartProducts', cartProducts);
+  localStorageSetItemUtil('cartItems', cartItemsIdAndQuantity);
   return (
     <div className="cart-dropdown-icon">
       <div className="cart-dropdown-icon-content" onClick={onCartToggleHidden}>
         <ShoppingIcon className="cart-dropdown-icon-content-img" />
         <div className="cart-dropdown-icon-content-count">
           <div className="cart-dropdown-icon-content-count-num">
-            {cartProductsCount}
+            {cartItemsCount}
           </div>
         </div>
       </div>
@@ -33,8 +33,8 @@ const CartDropdownIcon = ({
 };
 
 const mapStateToProps = (state) => ({
-  cartProducts: cartProductsSelector(state),
-  cartProductsCount: cartProductsCountSelector(state),
+  cartItemsIdAndQuantity: cartItemsIdAndQuantitySelector(state),
+  cartItemsCount: cartItemsCountSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

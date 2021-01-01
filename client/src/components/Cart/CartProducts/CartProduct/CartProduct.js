@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 import './CartProduct.scss';
 
 const CartProduct = ({
-  quantity,
-  cartProductDetails,
-  onCartModifyQuatityProduct,
-  onCartClearProduct,
+  cartItemDetails,
+  onCartModifyQuantityForItem,
+  onCartClearItem,
 }) => {
-  const { _id, name, image, price, countInStock } = cartProductDetails;
+  const { _id, name, image, price, countInStock, cartQuantity } = cartItemDetails;
   const renderInputSelectHandler = () => {
     const maxLenght = countInStock;
     const renderInputSelect = [];
@@ -24,7 +23,7 @@ const CartProduct = ({
   };
 
   const submitFormHandler = (e) =>
-    onCartModifyQuatityProduct(cartProductDetails, +e.target.value);
+    onCartModifyQuantityForItem(cartItemDetails._id, +e.target.value);
 
   const renderFormHandler = () => (
     <>
@@ -33,7 +32,7 @@ const CartProduct = ({
           <div className="cart-product-content-left-quantity-option">
             <form onChange={(e) => submitFormHandler(e)}>
               <label htmlFor="quantity">Quantity: </label>
-              <select id="quantity" defaultValue={quantity}>
+              <select id="quantity" defaultValue={cartQuantity}>
                 {renderInputSelectHandler()}
               </select>
             </form>
@@ -72,7 +71,7 @@ const CartProduct = ({
             <div className="cart-product-content-right-action-icons">
               <div
                 className="cart-product-content-right-action-icons-remove-button"
-                onClick={() => onCartClearProduct(_id)}
+                onClick={() => onCartClearItem(_id)}
               >
                 <i className="far fa-trash-alt"></i>
               </div>

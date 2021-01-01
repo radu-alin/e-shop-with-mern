@@ -1,16 +1,45 @@
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
+
+import {
+  cartClearItem,
+  cartModifyQuantityForItem,
+  cartItemsDetailFetch,
+} from '../../redux/actions/index.js';
+
+import {
+  cartItemsIdSelector,
+  cartItemsDetailAndCartQuantitySelector,
+  cartProductsTotalValueSelector,
+} from '../../redux/selectors/cartSelector';
 
 import CartProducts from '../../components/Cart/CartProducts/CartProducts';
 
 import Button from '../../components/UI/Button/Button';
-
-import { cartTotalValueSelector } from '../../redux/selectors/cartSelector';
+// import Spinner from '../../components/UI/Spinner/Spinner';
 
 import './CartPage.scss';
 
-const CartPage = ({ cartTotalValue, history }) => {
-  const cartProductsView = cartTotalValue ? (
-    <CartProducts />
+const CartPage = ({
+  cartItemsId,
+  cartItemsDetailAndCartQuantity,
+  cartProductsTotalValue,
+  onCartItemsDetailFetch,
+  onCartClearItem,
+  onCartModifyQuantityForItem,
+  history,
+}) => {
+  useEffect(() => onCartItemsDetailFetch(cartItemsId), [
+    cartItemsId,
+    onCartItemsDetailFetch,
+  ]);
+
+  const cartProductsView = cartProductsTotalValue ? (
+    <CartProducts
+      cartItemsDetail={cartItemsDetailAndCartQuantity}
+      onCartClearItem={onCartClearItem}
+      onCartModifyQuantityForItem={onCartModifyQuantityForItem}
+    />
   ) : (
     <h1 className="py-1">Please Add Products for Checkout</h1>
   );
@@ -34,14 +63,14 @@ const CartPage = ({ cartTotalValue, history }) => {
                 <strong>TOTAL:</strong>
               </span>
               <span>
-                <strong>${cartTotalValue.toFixed(2)}</strong>
+                <strong>${cartProductsTotalValue.toFixed(2)}</strong>
               </span>
             </div>
             <hr></hr>
             <Button
               type="btn-gray-dark"
               onClickAction={checkoutButtonClickHandler}
-              disabled={cartTotalValue === 0}
+              disabled={cartProductsTotalValue === 0}
             >
               Checkout
             </Button>
@@ -53,7 +82,25 @@ const CartPage = ({ cartTotalValue, history }) => {
 };
 
 const mapStateToProps = (state) => ({
-  cartTotalValue: cartTotalValueSelector(state),
+  cartItemsId: cartItemsIdSelector(state),
+  cartItemsDetailAndCartQuantity: cartItemsDetailAndCartQuantitySelector(state),
+  cartProductsTotalValue: cartProductsTotalValueSelector(state),
 });
 
-export default connect(mapStateToProps)(CartPage);
+const mapDispatchToProps = (dispatch) => ({
+  onCartClearItem: (itemId) => dispatch(cartClearItem(itemId)),
+  onCartModifyQuantityForItem: (item, quantity) =>
+    dispatch(cartModifyQuantityForItem(item, quantity)),
+  onCartItemsDetailFetch: (cartItemsId) =>
+    dispatch(cartItemsDetailFetch(cartItemsId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartPage);
+
+// const cartItemsView = isError ? (
+//   <Message type={isError && 'error'} message={isError} />
+// ) : cartItemsDetail.length === 0 ? (
+//   <Spinner />
+// ) : (
+
+// );

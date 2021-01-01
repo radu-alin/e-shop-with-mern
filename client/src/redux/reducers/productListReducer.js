@@ -13,17 +13,17 @@ export const productListReducer = (state = initialState, action) => {
         ...state,
         isError: null,
       };
-    case actionTypes.PRODUCT_LIST_FETCH_SUCCESS:
-      return {
-        ...state,
-        productsAll: action.payload,
-        isLoading: false,
-      };
     case actionTypes.PRODUCT_LIST_FETCH_FAIL:
       return {
         ...state,
         isLoading: false,
         isError: action.payload,
+      };
+    case actionTypes.PRODUCT_LIST_FETCH_SUCCESS:
+      return {
+        ...state,
+        productsAll: action.payload,
+        isLoading: false,
       };
 
     default:

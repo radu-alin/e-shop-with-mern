@@ -1,13 +1,14 @@
 import * as actionTypes from '../actions/actionTypes';
 import {
-  cartAddProductUtil,
-  cartModifyQuantityProductUtil,
+  cartAddItemUtil,
+  cartModifyQuantityForItemUtil,
 } from '../../utils/cartUtil';
 
 import { localStorageGetItemUtil } from '../../utils/localStorageUtil';
 
 const initialState = {
-  cartProducts: localStorageGetItemUtil('cartProducts'),
+  cartItemsIdAndQuantity: localStorageGetItemUtil('cartItems'),
+  cartItemsDetail: [],
   shippingAddress: localStorageGetItemUtil('shippingAddress'),
   paymentMethod: localStorageGetItemUtil('paymentMethod'),
   isHidden: true,
@@ -30,30 +31,41 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         paymentMethod: action.payload,
       };
-    case actionTypes.CART_ADD_PRODUCT:
+    case actionTypes.CART_ADD_ITEM:
       return {
         ...state,
-        cartProducts: cartAddProductUtil(state.cartProducts, action.payload),
-      };
-
-    case actionTypes.CART_MODIFY_QUANTITY_PRODUCT:
-      return {
-        ...state,
-        cartProducts: cartModifyQuantityProductUtil(
-          state.cartProducts,
-          action.payload.product,
-          action.payload.selectedQuantity
+        cartItemsIdAndQuantity: cartAddItemUtil(
+          state.cartItemsIdAndQuantity,
+          action.payload
         ),
       };
-
-    case actionTypes.CART_CLEAR_PRODUCT:
+    case actionTypes.CART_MODIFY_QUANTITY_FOR_ITEM:
       return {
         ...state,
-        cartProducts: [
-          ...state.cartProducts.filter(
-            (cartProduct) => cartProduct._id !== action.payload
+        cartItemsIdAndQuantity: cartModifyQuantityForItemUtil(
+          state.cartItemsIdAndQuantity,
+          action.payload.itemId,
+          action.payload.quantity
+        ),
+      };
+    case actionTypes.CART_CLEAR_ITEM:
+      return {
+        ...state,
+        cartItemsIdAndQuantity: [
+          ...state.cartItemsIdAndQuantity.filter(
+            (cartItem) => cartItem.productId !== action.payload
           ),
         ],
+      };
+    case actionTypes.CART_ITEMS_DETAIL_FETCH_FAIL:
+      return {
+        ...state,
+        isError: action.payload,
+      };
+    case actionTypes.CART_ITEMS_DETAIL_FETCH_SUCCESS:
+      return {
+        ...state,
+        cartItemsDetail: action.payload,
       };
     default:
       return state;

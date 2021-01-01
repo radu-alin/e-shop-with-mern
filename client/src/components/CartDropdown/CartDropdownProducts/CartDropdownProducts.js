@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
 
-import { cartProductsSelector } from '../../../redux/selectors/cartSelector';
+import { cartItemsDetailSelector } from '../../../redux/selectors/cartSelector';
 
 import CartDropdownProduct from './CartDropdownProduct/CartDropdownProduct';
 
 import './CartDropdownProducts.scss';
 
-const CartDropdownProducts = ({ cartProducts }) => {
+const CartDropdownProducts = ({ cartItemsDetail }) => {
   const renderCartDropdownProductsHandler = () =>
-    cartProducts.map(({ cartProductDetails, quantity }) => (
+    cartItemsDetail.map((cartItemDetail) => (
       <CartDropdownProduct
-        key={cartProductDetails._id}
-        quantity={quantity}
-        cartProductDetails={cartProductDetails}
+        key={cartItemDetail._id}
+        quantity={cartItemDetail.cartQuantity}
+        cartProductDetails={cartItemDetail}
       />
     ));
 
@@ -20,7 +20,7 @@ const CartDropdownProducts = ({ cartProducts }) => {
 };
 
 const mapStateToProps = (state) => ({
-  cartProducts: cartProductsSelector(state),
+  cartItemsDetail: cartItemsDetailSelector(state),
 });
 
 export default connect(mapStateToProps)(CartDropdownProducts);

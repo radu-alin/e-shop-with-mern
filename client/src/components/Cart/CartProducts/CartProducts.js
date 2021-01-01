@@ -1,43 +1,23 @@
-import { connect } from 'react-redux';
-
-import { cartProductsSelector } from '../../../redux/selectors/cartSelector';
-
-import {
-  cartClearProduct,
-  cartModifyQuantityProduct,
-} from '../../../redux/actions/index.js';
-
 import CartProduct from './CartProduct/CartProduct';
 
 const CartProducts = ({
-  cartProducts,
-  onCartClearProduct,
-  onCartModifyQuatityProduct,
+  cartItemsDetail,
+  onCartClearItem,
+  onCartModifyQuantityForItem,
 }) => {
-  const renderCartProductsHandler = () =>
-    cartProducts.map(({ _id, quantity, cartProductDetails }) => {
+  const renderCartItemsDetailHandler = () =>
+    cartItemsDetail.map((cartItemDetail) => {
       return (
         <CartProduct
-          key={_id}
-          quantity={quantity}
-          cartProductDetails={cartProductDetails}
-          onCartModifyQuatityProduct={onCartModifyQuatityProduct}
-          onCartClearProduct={onCartClearProduct}
+          key={cartItemDetail._id}
+          cartItemDetails={cartItemDetail}
+          onCartClearItem={onCartClearItem}
+          onCartModifyQuantityForItem={onCartModifyQuantityForItem}
         />
       );
     });
 
-  return <>{renderCartProductsHandler()}</>;
+  return <>{renderCartItemsDetailHandler()}</>;
 };
 
-const mapStateToProps = (state) => ({
-  cartProducts: cartProductsSelector(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onCartClearProduct: (id) => dispatch(cartClearProduct(id)),
-  onCartModifyQuatityProduct: (product, selectedQuantity) =>
-    dispatch(cartModifyQuantityProduct(product, selectedQuantity)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartProducts);
+export default CartProducts;

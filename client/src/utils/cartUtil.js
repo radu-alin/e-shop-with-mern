@@ -1,51 +1,44 @@
-export const cartAddProductUtil = (cartProducts, productToAdd) => {
-  console.log('cartAddProductUtil - render()');
-  const cartContainProductToAdd = cartProducts.find(
-    (cartProduct) => cartProduct._id === productToAdd._id
-  );
+export const cartAddItemUtil = (cartItems, item) => {
+  const existItemInCart = cartItems.find((cartItem) => {
+    return cartItem.productId === item._id;
+  });
 
-  if (cartContainProductToAdd) {
-    return cartProducts.map((cartProduct) =>
-      cartProduct._id === productToAdd._id
+  if (existItemInCart) {
+    return cartItems.map((cartItem) =>
+      cartItem.productId === item._id
         ? {
-            _id: cartProduct._id,
-            quantity: cartProduct.quantity + 1,
-            cartProductDetails: {
-              ...productToAdd,
-              quantity: cartProduct.quantity + 1,
-            },
+            productId: item._id,
+            quantity: cartItem.quantity + 1,
           }
-        : cartProduct
+        : cartItem
     );
   }
 
   return [
-    ...cartProducts,
+    ...cartItems,
     {
-      _id: productToAdd._id,
+      productId: item._id,
       quantity: 1,
-      cartProductDetails: { ...productToAdd, quantity: 1 },
     },
   ];
 };
 
-export const cartModifyQuantityProductUtil = (
-  cartProducts,
-  productToDecrease,
-  quantitySelected
+export const cartModifyQuantityForItemUtil = (
+  cartItems,
+  cartItemSelectedId,
+  quantity
 ) => {
-  const cartProductsUpdated = cartProducts.map((cartProduct) =>
-    cartProduct._id === productToDecrease._id
+  console.log('cartItems - ', cartItems);
+  console.log('cartItemSelected - ', cartItemSelectedId);
+  console.log('quantity - ', quantity);
+  const cartItemsUpdated = cartItems.map((cartItem) =>
+    cartItem.productId === cartItemSelectedId
       ? {
-          _id: cartProduct._id,
-          quantity: quantitySelected,
-          cartProductDetails: {
-            ...productToDecrease,
-            quantity: quantitySelected,
-          },
+          productId: cartItem.productId,
+          quantity,
         }
-      : cartProduct
+      : cartItems
   );
 
-  return cartProductsUpdated.filter((cartProduct) => cartProduct.quantity > 0);
+  return cartItemsUpdated.filter((cartItemUpdated) => cartItemUpdated.quantity > 0);
 };

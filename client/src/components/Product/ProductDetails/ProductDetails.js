@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { cartAddProduct, productSelectedFetch } from '../../../redux/actions';
+import { cartAddItem, productSelectedFetch } from '../../../redux/actions';
 
 import Button from '../../UI/Button/Button';
 import Rating from '../../Rating/Rating';
@@ -14,7 +14,7 @@ const ProductDetails = ({
   productDetails,
   isError,
   buttonGoBackClickHandler,
-  onCartAddProduct,
+  onCartAddItem,
   onProductSelectedFetch,
 }) => {
   const productDetailsIsNew = productDetails
@@ -62,7 +62,7 @@ const ProductDetails = ({
           </div>
           <hr></hr>
           <Button
-            onClickAction={() => onCartAddProduct(productDetails)}
+            onClickAction={() => onCartAddItem(productDetails)}
             type="btn-gray-dark "
             disabled={productDetails.countInStock <= 0}
           >
@@ -104,7 +104,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   onProductSelectedFetch: (id) => dispatch(productSelectedFetch(id)),
-  onCartAddProduct: (product) => dispatch(cartAddProduct(product)),
+  onCartAddItem: (itemToAdd) => dispatch(cartAddItem(itemToAdd)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

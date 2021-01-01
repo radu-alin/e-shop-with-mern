@@ -49,7 +49,6 @@ export const userAuth = (userData, isNewAccount) => async (dispatch) => {
 };
 
 // userProfileFetch
-
 export const userProfileFetchStart = () => ({
   type: actionTypes.USER_PROFILE_FETCH_START,
 });

@@ -16,18 +16,18 @@ export const userAuthReducer = (state = initialAuthState, action) => {
         // isLoading: true,
         isError: false,
       };
+    case actionTypes.USER_AUTH_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.payload,
+      };
     case actionTypes.USER_AUTH_SUCCESS:
       return {
         ...state,
         isLoading: false,
         userId: action.payload._id,
         userToken: action.payload.token,
-      };
-    case actionTypes.USER_AUTH_FAIL:
-      return {
-        ...state,
-        isLoading: false,
-        isError: action.payload,
       };
     case actionTypes.USER_LOGOUT:
       return {

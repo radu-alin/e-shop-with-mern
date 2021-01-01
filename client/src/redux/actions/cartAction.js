@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 export const cartToggleHidden = () => ({
@@ -13,17 +14,54 @@ export const cartSavePaymentMethod = (paymentMethod) => ({
   payload: paymentMethod,
 });
 
-export const cartAddProduct = (product) => ({
-  type: actionTypes.CART_ADD_PRODUCT,
-  payload: product,
+export const cartAddItem = (item) => ({
+  type: actionTypes.CART_ADD_ITEM,
+  payload: item,
 });
 
-export const cartModifyQuantityProduct = (product, selectedQuantity) => ({
-  type: actionTypes.CART_MODIFY_QUANTITY_PRODUCT,
-  payload: { product, selectedQuantity },
+export const cartModifyQuantityForItem = (itemId, quantity) => ({
+  type: actionTypes.CART_MODIFY_QUANTITY_FOR_ITEM,
+  payload: { itemId, quantity },
 });
 
-export const cartClearProduct = (productId) => ({
-  type: actionTypes.CART_CLEAR_PRODUCT,
-  payload: productId,
+export const cartClearItem = (itemId) => ({
+  type: actionTypes.CART_CLEAR_ITEM,
+  payload: itemId,
 });
+
+//cartProductListFetch
+export const cartItemsDetailFetchStart = () => ({
+  type: actionTypes.CART_ITEMS_DETAIL_FETCH_START,
+});
+export const cartItemsDetailFetchFail = (error) => ({
+  type: actionTypes.CART_ITEMS_DETAIL_FETCH_FAIL,
+  payload: error,
+});
+export const cartItemsDetailFetchSuccess = (itemsDetail) => ({
+  type: actionTypes.CART_ITEMS_DETAIL_FETCH_SUCCESS,
+  payload: itemsDetail,
+});
+
+export const cartItemsDetailFetch = (cartItemsId) => async (dispatch) => {
+  dispatch(cartItemsDetailFetchStart());
+
+  const fetchItem = async (id) => {
+    const { data } = await axios.get(`/api/products/${id}`);
+    return { ...data };
+  };
+
+  const fetchAllItems = async (ids) => {
+    const requests = ids.map((id) => fetchItem(id));
+    return Promise.all(requests);
+  };
+
+  fetchAllItems(cartItemsId)
+    .then((data) => dispatch(cartItemsDetailFetchSuccess(data)))
+    .catch((err) => {
+      const isError =
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message;
+      dispatch(cartItemsDetailFetchFail(isError));
+    });
+};

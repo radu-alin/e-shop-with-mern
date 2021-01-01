@@ -6,9 +6,10 @@ export {
   cartToggleHidden,
   cartSaveShippingAddress,
   cartSavePaymentMethod,
-  cartAddProduct,
-  cartModifyQuantityProduct,
-  cartClearProduct,
+  cartItemsDetailFetch,
+  cartAddItem,
+  cartModifyQuantityForItem,
+  cartClearItem,
 } from './cartAction';
 
 export {
@@ -21,3 +22,5 @@ export {
   userProfileUpdateClear,
   userResetError,
 } from './userAction';
+
+export { orderCreate } from './orderAction.js';
