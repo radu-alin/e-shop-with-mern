@@ -2,46 +2,59 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  cartClearItem,
   cartModifyQuantityForItem,
+  cartClearItem,
   cartItemsDetailFetch,
 } from '../../redux/actions/index.js';
 
 import {
   cartItemsIdSelector,
+  cartItemsIdsNotChangedSelector,
   cartItemsDetailAndCartQuantitySelector,
   cartProductsTotalValueSelector,
 } from '../../redux/selectors/cartSelector';
 
-import CartProducts from '../../components/Cart/CartProducts/CartProducts';
+import CartItems from '../../components/Cart/CartItems/CartItems';
 
 import Button from '../../components/UI/Button/Button';
-// import Spinner from '../../components/UI/Spinner/Spinner';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Message from '../../components/UI/Message/Message';
 
 import './CartPage.scss';
 
 const CartPage = ({
   cartItemsId,
+  cartItemsIdsNotChanged,
   cartItemsDetailAndCartQuantity,
   cartProductsTotalValue,
+  isError,
   onCartItemsDetailFetch,
   onCartClearItem,
   onCartModifyQuantityForItem,
   history,
 }) => {
-  useEffect(() => onCartItemsDetailFetch(cartItemsId), [
+  useEffect(() => !cartItemsIdsNotChanged && onCartItemsDetailFetch(cartItemsId), [
     cartItemsId,
+    cartItemsIdsNotChanged,
     onCartItemsDetailFetch,
   ]);
 
-  const cartProductsView = cartProductsTotalValue ? (
-    <CartProducts
+  const cartItemsView = isError ? (
+    <Message type={isError && 'error'} message={isError} />
+  ) : !cartItemsIdsNotChanged ? (
+    <Spinner />
+  ) : cartItemsId[0] ? (
+    <CartItems
       cartItemsDetail={cartItemsDetailAndCartQuantity}
       onCartClearItem={onCartClearItem}
       onCartModifyQuantityForItem={onCartModifyQuantityForItem}
     />
+  ) : null;
+
+  const renderCartItemsHandler = !!cartItemsId ? (
+    <>{cartItemsView}</>
   ) : (
-    <h1 className="py-1">Please Add Products for Checkout</h1>
+    <h1 className="py-1">Please Add Products to Cart</h1>
   );
 
   const checkoutButtonClickHandler = () => {
@@ -56,7 +69,7 @@ const CartPage = ({
           </h1>
         </div>
         <div className="cart-page-content">
-          <div className="cart-page-content-products">{cartProductsView}</div>
+          <div className="cart-page-content-products">{renderCartItemsHandler}</div>
           <div className="cart-page-content-total">
             <div className="cart-page-content-total-sum">
               <span>
@@ -83,8 +96,10 @@ const CartPage = ({
 
 const mapStateToProps = (state) => ({
   cartItemsId: cartItemsIdSelector(state),
+  cartItemsIdsNotChanged: cartItemsIdsNotChangedSelector(state),
   cartItemsDetailAndCartQuantity: cartItemsDetailAndCartQuantitySelector(state),
   cartProductsTotalValue: cartProductsTotalValueSelector(state),
+  isError: state.cart.isError,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -96,11 +111,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartPage);
-
-// const cartItemsView = isError ? (
-//   <Message type={isError && 'error'} message={isError} />
-// ) : cartItemsDetail.length === 0 ? (
-//   <Spinner />
-// ) : (
-
-// );

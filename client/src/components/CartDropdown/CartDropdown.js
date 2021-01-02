@@ -1,22 +1,22 @@
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { cartDropdownToggleHidden as onCartDropdownToggleHidden } from '../../redux/actions/index';
+import { cartDropdownToggleHidden } from '../../redux/actions/index';
 
-import CartDropdownProducts from './CartDropdownProducts/CartDropdownProducts';
+import CartDropdownItems from './CartDropdownItems/CartDropdownItems';
 import Button from '../UI/Button/Button';
 
 import './CartDropdown.scss';
 
-const CartDropdown = ({ history, dispatch }) => (
+const CartDropdown = ({ onCartDropdownToggleHidden, history }) => (
   <section id="CartDropdown">
     <div className="cart-dropdown">
-      <CartDropdownProducts />
+      {<CartDropdownItems /> || <h1>Please add products to Cart.</h1>}
       <Button
         type="btn-gray-dark"
         onClickAction={() => {
           history.push('/checkout');
-          dispatch(onCartDropdownToggleHidden());
+          onCartDropdownToggleHidden();
         }}
       >
         GO TO CHECKOUT
@@ -25,4 +25,8 @@ const CartDropdown = ({ history, dispatch }) => (
   </section>
 );
 
-export default withRouter(connect(null)(CartDropdown));
+const mapDispatchToProps = (dispatch) => ({
+  onCartDropdownToggleHidden: () => dispatch(cartDropdownToggleHidden()),
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(CartDropdown));

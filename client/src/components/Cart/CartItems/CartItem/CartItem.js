@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import './CartProduct.scss';
+import './CartItem.scss';
 
-const CartProduct = ({
+const CartItem = ({
   cartItemDetails,
   onCartModifyQuantityForItem,
   onCartClearItem,
@@ -29,7 +29,7 @@ const CartProduct = ({
     <>
       {countInStock ? (
         <>
-          <div className="cart-product-content-left-quantity-option">
+          <div className="cart-item-content-left-quantity-option">
             <form onChange={(e) => submitFormHandler(e)}>
               <label htmlFor="quantity">Quantity: </label>
               <select id="quantity" defaultValue={cartQuantity}>
@@ -43,34 +43,34 @@ const CartProduct = ({
   );
 
   return (
-    <article id="CartProduct">
-      <div className="cart-product">
-        <div className="cart-product-image">
-          <img src={image} alt="product" />
+    <article id="CartItem">
+      <div className="cart-item">
+        <div className="cart-item-image">
+          <img src={image} alt={name} />
         </div>
-        <div className="cart-product-content">
-          <div className="cart-product-content-left">
-            <div className="cart-product-content-left-title">
+        <div className="cart-item-content">
+          <div className="cart-item-content-left">
+            <div className="cart-item-content-left-title">
               <span>
                 <strong>
                   <Link to={'/products/' + _id}>{name}</Link>
                 </strong>
               </span>
             </div>
-            <div className="cart-product-content-left-quantity">
+            <div className="cart-item-content-left-quantity">
               {renderFormHandler()}
             </div>
           </div>
-          <div className="cart-product-content-right">
-            <div className="cart-product-content-right-price">
+          <div className="cart-item-content-right">
+            <div className="cart-item-content-right-price">
               <span>
                 <strong>&#36; {price}</strong>
               </span>
               <span> per/item</span>
             </div>
-            <div className="cart-product-content-right-action-icons">
+            <div className="cart-item-content-right-action-icons">
               <div
-                className="cart-product-content-right-action-icons-remove-button"
+                className="cart-item-content-right-action-icons-remove-button"
                 onClick={() => onCartClearItem(_id)}
               >
                 <i className="far fa-trash-alt"></i>
@@ -83,4 +83,4 @@ const CartProduct = ({
   );
 };
 
-export default memo(CartProduct);
+export default memo(CartItem);

@@ -35,6 +35,25 @@ export const cartItemsDetailAndCartQuantitySelector = createSelector(
   }
 );
 
+export const cartItemsIdsNotChangedSelector = createSelector(
+  [cartItemsIdSelector, cartItemsDetailSelector],
+  (cartItemsIds, cartItemsDetail) => {
+    const cartItemsDetailIds = cartItemsDetail.map(
+      (cartItemDetail) => cartItemDetail._id
+    );
+    const idsArrayNotChanged = (array1, array2) => {
+      if (array1.length === 0 && array2.length === 0) return true;
+      if (array1.length !== array2.length) return false;
+      if (array1.length === 0 || array2.length === 0) return false;
+      for (let i = 0; i < array1.length; i++) {
+        if (array1[i] === array2[i]) return true;
+      }
+    };
+
+    return idsArrayNotChanged(cartItemsIds, cartItemsDetailIds);
+  }
+);
+
 export const cartProductsTotalValueSelector = createSelector(
   [cartItemsDetailAndCartQuantitySelector],
   (cartItems) =>

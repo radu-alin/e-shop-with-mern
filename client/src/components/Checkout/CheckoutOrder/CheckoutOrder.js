@@ -8,7 +8,7 @@ import {
   cartCheckoutTotalValueSelector,
 } from '../../../redux/selectors/cartSelector';
 
-import CartDropdownProducts from '../../CartDropdown/CartDropdownProducts/CartDropdownProducts';
+import CartDropdownItems from '../../CartDropdown/CartDropdownItems/CartDropdownItems';
 import Button from '../../UI/Button/Button';
 
 import './CheckoutOrder.scss';
@@ -62,7 +62,7 @@ const CheckoutOrder = ({
           </div>
           <div className="checkout-order-content-section py-1">
             <h1>Order items</h1>
-            <CartDropdownProducts />
+            <CartDropdownItems />
           </div>
         </div>
         <div className="checkout-order-summary">
