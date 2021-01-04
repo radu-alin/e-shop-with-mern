@@ -54,7 +54,7 @@ const mapStateToProps = (state) => ({
   cartItemsId: cartItemsIdSelector(state),
   cartItemsIdsNotChanged: cartItemsIdsNotChangedSelector(state),
   cartItemsDetail: cartItemsDetailAndCartQuantitySelector(state),
-  isError: state.cart.isError,
+  isError: state.cartItemsDetail.isError,
 });
 
 const mapDispatchToProps = (dispatch) => ({

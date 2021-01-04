@@ -64,7 +64,7 @@ const CheckoutPayment = ({ paymentMethod, onCartSavePaymentMethod, history }) =>
   );
 };
 
-const mapStateToProps = ({ cart: { paymentMethod } }) => ({
+const mapStateToProps = ({ cartCheckoutDetails: { paymentMethod } }) => ({
   paymentMethod,
 });
 

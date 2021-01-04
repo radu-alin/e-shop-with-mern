@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { cartAddItem, productSelectedFetch } from '../../../redux/actions';
 
+import { productSelectedDetailsAndQuantityAvailableSelector } from '../../../redux/selectors/cartSelector';
+
 import Button from '../../UI/Button/Button';
 import Rating from '../../Rating/Rating';
 import Spinner from '../../UI/Spinner/Spinner';
@@ -95,11 +97,16 @@ const ProductDetails = ({
   );
 };
 
-const mapStateToProps = ({
-  productSelected: { productSelectedDetails: productDetails, isError },
-}) => ({
-  productDetails,
-  isError,
+// const mapStateToProps = ({
+//   productSelected: { productSelectedDetails: productDetails, isError },
+// }) => ({
+//   productDetails,
+//   isError,
+// });
+
+const mapStateToProps = (state) => ({
+  productDetails: productSelectedDetailsAndQuantityAvailableSelector(state),
+  isError: state.productSelectedDetails,
 });
 
 const mapDispatchToProps = (dispatch) => ({

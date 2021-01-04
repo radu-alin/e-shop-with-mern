@@ -1,53 +1,74 @@
 import { createSelector } from 'reselect';
 
-const cartSelector = (state) => state.cart;
-
-export const cartItemsIdAndQuantitySelector = createSelector(
-  [cartSelector],
-  (cart) => cart.cartItemsIdAndQuantity
-);
+const cartItemsIdAndQuantity = (state) =>
+  state.cartItemsIdAndQuantity.cartItemsIdAndQuantity;
 
 export const cartItemsIdSelector = createSelector(
-  [cartItemsIdAndQuantitySelector],
+  [cartItemsIdAndQuantity],
   (cartItems) => cartItems.map((cartItem) => cartItem.productId)
 );
 
 export const cartItemsCountSelector = createSelector(
-  [cartItemsIdAndQuantitySelector],
-  (cartItems) => cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0)
+  [cartItemsIdAndQuantity],
+  (cartItems) =>
+    cartItems && cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0)
 );
 
-export const cartItemsDetailSelector = createSelector(
-  [cartSelector],
-  (cart) => cart.cartItemsDetail
-);
+const cartItemsDetail = (state) => state.cartItemsDetail.cartItemsDetail;
 
 export const cartItemsDetailAndCartQuantitySelector = createSelector(
-  [cartItemsDetailSelector, cartItemsIdAndQuantitySelector],
+  [cartItemsDetail, cartItemsIdAndQuantity],
   (cartItemsDetail, cartItemsQuantity) => {
     const newItemsArray = cartItemsQuantity.map((cartItemQuantity) => {
       const a = cartItemsDetail.find(
         (cartItemDetail) => cartItemDetail._id === cartItemQuantity.productId
       );
-      return { ...a, cartQuantity: cartItemQuantity.quantity };
+      return {
+        ...a,
+        countInStock: a && a.countInStock,
+        countReserved: a && cartItemQuantity.quantity,
+      };
     });
     return newItemsArray;
   }
 );
 
+const selectedItemDetails = (state) => state.productSelected.productSelectedDetails;
+
+export const productSelectedDetailsAndQuantityAvailableSelector = createSelector(
+  [cartItemsIdAndQuantity, selectedItemDetails],
+  (cartItems, selectedItem) => {
+    if (selectedItem) {
+      const selectedItemExistInCart = cartItems.find(
+        (cartItem) => cartItem.productId === selectedItem._id
+      );
+      if (selectedItemExistInCart) {
+        return {
+          ...selectedItem,
+          countInStock: selectedItem.countInStock - selectedItemExistInCart.quantity,
+          countReserved: selectedItemExistInCart.quantity,
+        };
+      }
+    }
+    return selectedItem;
+  }
+);
+
 export const cartItemsIdsNotChangedSelector = createSelector(
-  [cartItemsIdSelector, cartItemsDetailSelector],
+  [cartItemsIdSelector, cartItemsDetail],
   (cartItemsIds, cartItemsDetail) => {
     const cartItemsDetailIds = cartItemsDetail.map(
       (cartItemDetail) => cartItemDetail._id
     );
+
+    const cartDetailsIncludeIds = (array1, array2) =>
+      array1.every((el) => array2.includes(el));
+
     const idsArrayNotChanged = (array1, array2) => {
+      if (array1.length === 0) return true;
+      if (array2.length === 0) return false;
       if (array1.length === 0 && array2.length === 0) return true;
-      if (array1.length !== array2.length) return false;
-      if (array1.length === 0 || array2.length === 0) return false;
-      for (let i = 0; i < array1.length; i++) {
-        if (array1[i] === array2[i]) return true;
-      }
+      return cartDetailsIncludeIds(array1, array2);
     };
 
     return idsArrayNotChanged(cartItemsIds, cartItemsDetailIds);
@@ -58,7 +79,7 @@ export const cartProductsTotalValueSelector = createSelector(
   [cartItemsDetailAndCartQuantitySelector],
   (cartItems) =>
     cartItems.reduce(
-      (acc, cartItem) => acc + cartItem.cartQuantity * cartItem.price,
+      (acc, cartItem) => acc + cartItem.countReserved * cartItem.price,
       0
     )
 );

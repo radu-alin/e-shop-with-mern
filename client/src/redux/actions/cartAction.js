@@ -1,15 +1,15 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
-//cartModifyItem
+//cartItemsIdAndQuantity
 export const cartAddItem = (item) => ({
   type: actionTypes.CART_ADD_ITEM,
   payload: item,
 });
 
-export const cartModifyQuantityForItem = (itemId, quantity) => ({
+export const cartModifyQuantityForItem = (itemId, quantitySelected) => ({
   type: actionTypes.CART_MODIFY_QUANTITY_FOR_ITEM,
-  payload: { itemId, quantity },
+  payload: { itemId, quantitySelected },
 });
 
 export const cartClearItem = (itemId) => ({

@@ -26,19 +26,21 @@ export const cartAddItemUtil = (cartItems, item) => {
 export const cartModifyQuantityForItemUtil = (
   cartItems,
   cartItemSelectedId,
-  quantity
+  quantitySelected
 ) => {
-  console.log('cartItems - ', cartItems);
-  console.log('cartItemSelected - ', cartItemSelectedId);
-  console.log('quantity - ', quantity);
+  console.log('cartItemsUtils - ', cartItems);
+  console.log('cartItemSelectedUtils - ', cartItemSelectedId);
+  console.log('quantityUtils - ', quantitySelected);
   const cartItemsUpdated = cartItems.map((cartItem) =>
     cartItem.productId === cartItemSelectedId
       ? {
           productId: cartItem.productId,
-          quantity,
+          quantity: quantitySelected,
         }
-      : cartItems
+      : cartItem
   );
 
-  return cartItemsUpdated.filter((cartItemUpdated) => cartItemUpdated.quantity > 0);
+  return [
+    ...cartItemsUpdated.filter((cartItemUpdated) => cartItemUpdated.quantity > 0),
+  ];
 };

@@ -1,10 +1,7 @@
 import { connect } from 'react-redux';
 
 import { localStorageSetItemUtil } from '../../../utils/localStorageUtil';
-import {
-  cartItemsIdAndQuantitySelector,
-  cartItemsCountSelector,
-} from '../../../redux/selectors/cartSelector';
+import { cartItemsCountSelector } from '../../../redux/selectors/cartSelector';
 
 import { cartDropdownToggleHidden } from '../../../redux/actions/index';
 
@@ -36,7 +33,7 @@ const CartDropdownIcon = ({
 };
 
 const mapStateToProps = (state) => ({
-  cartItemsIdAndQuantity: cartItemsIdAndQuantitySelector(state),
+  cartItemsIdAndQuantity: state.cartItemsIdAndQuantity.cartItemsIdAndQuantity,
   cartItemsCount: cartItemsCountSelector(state),
 });
 

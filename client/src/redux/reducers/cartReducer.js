@@ -6,16 +6,14 @@ import {
 
 import { localStorageGetItemUtil } from '../../utils/localStorageUtil';
 
-const initialState = {
+//cartItemsIdAndQuantity
+const initialStateCartItemsIdAndQuantity = {
   cartItemsIdAndQuantity: localStorageGetItemUtil('cartItems'),
-  cartItemsDetail: [],
-  isError: false,
-  shippingAddress: localStorageGetItemUtil('shippingAddress'),
-  paymentMethod: localStorageGetItemUtil('paymentMethod'),
-  isDropdownHidden: true,
 };
-
-export const cartReducer = (state = initialState, action) => {
+export const cartItemsIdAndQuantityReducer = (
+  state = initialStateCartItemsIdAndQuantity,
+  action
+) => {
   switch (action.type) {
     case actionTypes.CART_ADD_ITEM:
       return {
@@ -31,7 +29,7 @@ export const cartReducer = (state = initialState, action) => {
         cartItemsIdAndQuantity: cartModifyQuantityForItemUtil(
           state.cartItemsIdAndQuantity,
           action.payload.itemId,
-          action.payload.quantity
+          action.payload.quantitySelected
         ),
       };
     case actionTypes.CART_CLEAR_ITEM:
@@ -43,6 +41,22 @@ export const cartReducer = (state = initialState, action) => {
           ),
         ],
       };
+    default:
+      return state;
+  }
+};
+
+//cartItemsDetailFetch
+const initialStateCartItemsDetail = {
+  cartItemsDetail: [],
+  isLoading: false,
+  isError: false,
+};
+export const cartItemsDetailReducer = (
+  state = initialStateCartItemsDetail,
+  action
+) => {
+  switch (action.type) {
     case actionTypes.CART_ITEMS_DETAIL_FETCH_START:
       return {
         ...state,
@@ -58,6 +72,37 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         cartItemsDetail: action.payload,
       };
+
+    default:
+      return state;
+  }
+};
+
+//cartDropdown
+const initialStateCartDropdown = {
+  isDropdownHidden: true,
+};
+export const cartDropdownReducer = (state = initialStateCartDropdown, action) => {
+  switch (action.type) {
+    case actionTypes.CART_DROPDOWN_TOGGLE_HIDDEN:
+      return {
+        isDropdownHidden: !state.isDropdownHidden,
+      };
+    default:
+      return state;
+  }
+};
+
+//cartCheckoutDetails
+const initialStateCartCheckoutDetails = {
+  shippingAddress: localStorageGetItemUtil('shippingAddress'),
+  paymentMethod: localStorageGetItemUtil('paymentMethod'),
+};
+export const cartCheckoutDetailsReducer = (
+  state = initialStateCartCheckoutDetails,
+  action
+) => {
+  switch (action.type) {
     case actionTypes.CART_SAVE_SHIPPING_ADDRESS:
       return {
         ...state,
@@ -67,11 +112,6 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         paymentMethod: action.payload,
-      };
-    case actionTypes.CART_DROPDOWN_TOGGLE_HIDDEN:
-      return {
-        ...state,
-        isDropdownHidden: !state.isDropdownHidden,
       };
     default:
       return state;

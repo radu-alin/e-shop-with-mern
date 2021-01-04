@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { orderCreate } from '../../../redux/actions/index';
 
 import {
+  cartItemsDetailAndCartQuantitySelector,
   cartProductsTotalValueSelector,
   cartShippingCostSelector,
   cartCheckoutTotalValueSelector,
@@ -20,12 +21,12 @@ const CheckoutOrder = ({
   cartShippingCost,
   cartCheckoutTotalValue,
   userToken,
-  cartProducts,
+  cartItems,
   onOrderCreate,
 }) => {
   const placeOrderButtonClickHandler = () => {
     const orderData = {
-      orderItems: cartProducts,
+      orderItems: cartItems,
       shippingAddress,
       paymentMethod,
       itemsPrice: cartProductsTotalValue,
@@ -102,13 +103,13 @@ const CheckoutOrder = ({
 };
 
 const mapStateToProps = (state) => ({
-  cartProducts: state.cart.cartProducts,
   userToken: state.user.userToken,
-  shippingAddress: state.cart.shippingAddress,
-  paymentMethod: state.cart.paymentMethod,
+  shippingAddress: state.cartCheckoutDetails.shippingAddress,
+  paymentMethod: state.cartCheckoutDetails.paymentMethod,
   cartProductsTotalValue: cartProductsTotalValueSelector(state),
   cartShippingCost: cartShippingCostSelector(state),
   cartCheckoutTotalValue: cartCheckoutTotalValueSelector(state),
+  cartItems: cartItemsDetailAndCartQuantitySelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

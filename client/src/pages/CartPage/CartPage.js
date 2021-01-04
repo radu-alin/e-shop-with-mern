@@ -99,13 +99,13 @@ const mapStateToProps = (state) => ({
   cartItemsIdsNotChanged: cartItemsIdsNotChangedSelector(state),
   cartItemsDetailAndCartQuantity: cartItemsDetailAndCartQuantitySelector(state),
   cartProductsTotalValue: cartProductsTotalValueSelector(state),
-  isError: state.cart.isError,
+  isError: state.cartItemsDetail.isError,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCartClearItem: (itemId) => dispatch(cartClearItem(itemId)),
-  onCartModifyQuantityForItem: (item, quantity) =>
-    dispatch(cartModifyQuantityForItem(item, quantity)),
+  onCartModifyQuantityForItem: (item, quantitySelected) =>
+    dispatch(cartModifyQuantityForItem(item, quantitySelected)),
   onCartItemsDetailFetch: (cartItemsId) =>
     dispatch(cartItemsDetailFetch(cartItemsId)),
 });

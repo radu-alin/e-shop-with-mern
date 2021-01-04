@@ -8,11 +8,11 @@ const CartItem = ({
   onCartModifyQuantityForItem,
   onCartClearItem,
 }) => {
-  const { _id, name, image, price, countInStock, cartQuantity } = cartItemDetails;
+  const { _id, name, image, price, countInStock, countReserved } = cartItemDetails;
   const renderInputSelectHandler = () => {
     const maxLenght = countInStock;
     const renderInputSelect = [];
-    for (let i = 1; i <= maxLenght; i++) {
+    for (let i = 0; i <= maxLenght; i++) {
       renderInputSelect.push(
         <option key={i} value={i}>
           {i}
@@ -32,7 +32,7 @@ const CartItem = ({
           <div className="cart-item-content-left-quantity-option">
             <form onChange={(e) => submitFormHandler(e)}>
               <label htmlFor="quantity">Quantity: </label>
-              <select id="quantity" defaultValue={cartQuantity}>
+              <select id="quantity" defaultValue={countReserved}>
                 {renderInputSelectHandler()}
               </select>
             </form>
@@ -64,7 +64,9 @@ const CartItem = ({
           <div className="cart-item-content-right">
             <div className="cart-item-content-right-price">
               <span>
-                <strong>&#36; {price}</strong>
+                <strong>
+                  {countReserved} x &#36;{price}
+                </strong>
               </span>
               <span> per/item</span>
             </div>

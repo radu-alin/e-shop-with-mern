@@ -21,7 +21,7 @@ const Layout = ({ children, isDropdownHidden }) => (
   </>
 );
 
-const mapStateToProps = ({ cart: { isDropdownHidden } }) => ({
+const mapStateToProps = ({ cartDropdown: { isDropdownHidden } }) => ({
   isDropdownHidden,
 });
 

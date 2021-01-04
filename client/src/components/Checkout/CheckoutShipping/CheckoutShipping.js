@@ -113,7 +113,7 @@ const CheckoutShipping = ({
 };
 
 const mapStateToProps = ({
-  cart: {
+  cartCheckoutDetails: {
     shippingAddress: { address, city, postalCode, country },
   },
 }) => ({ address, city, postalCode, country });
