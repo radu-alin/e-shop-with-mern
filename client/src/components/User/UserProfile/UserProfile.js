@@ -127,7 +127,7 @@ const UserProfile = ({
   );
 
   const renderFormContainerHandler = !!isErrorFetch ? (
-    <Message type="error" message={isErrorFetch} />
+    <Message type="danger" message={isErrorFetch} />
   ) : !name ? (
     <Spinner />
   ) : (

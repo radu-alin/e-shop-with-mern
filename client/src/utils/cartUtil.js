@@ -28,9 +28,6 @@ export const cartModifyQuantityForItemUtil = (
   cartItemSelectedId,
   quantitySelected
 ) => {
-  console.log('cartItemsUtils - ', cartItems);
-  console.log('cartItemSelectedUtils - ', cartItemSelectedId);
-  console.log('quantityUtils - ', quantitySelected);
   const cartItemsUpdated = cartItems.map((cartItem) =>
     cartItem.productId === cartItemSelectedId
       ? {

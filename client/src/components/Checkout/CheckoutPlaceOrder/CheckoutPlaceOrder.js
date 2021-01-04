@@ -1,7 +1,7 @@
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { orderCreate } from '../../../redux/actions/index';
+import { orderCreate, orderSuccessReset } from '../../../redux/actions/index';
 
 import {
   cartItemsDetailAndCartQuantitySelector,
@@ -14,9 +14,9 @@ import CartDropdownItems from '../../CartDropdown/CartDropdownItems/CartDropdown
 import Spinner from '../../UI/Spinner/Spinner';
 import Button from '../../UI/Button/Button';
 
-import './CheckoutOrder.scss';
+import './CheckoutPlaceOrder.scss';
 
-const CheckoutOrder = ({
+const CheckoutPlaceOrder = ({
   shippingAddress,
   paymentMethod,
   cartProductsTotalValue,
@@ -24,20 +24,13 @@ const CheckoutOrder = ({
   cartCheckoutTotalValue,
   userToken,
   cartItems,
-  onOrderCreate,
   isLoading,
-  isError,
-  isSuccess,
-  order,
-  history,
+  onOrderCreate,
+  onOrderSuccessReset,
 }) => {
-  // useEffect(() => isSuccess && order._id && history.push(`/order/${order._id}`), [
-  //   history,
-  //   isSuccess,
-  //   order._id,
-  // ]);
-  console.log('cartItems - ', cartItems);
-  console.log('order - ', order);
+  useEffect(() => {
+    return () => onOrderSuccessReset();
+  }, [onOrderSuccessReset]);
 
   const placeOrderButtonClickHandler = () => {
     const orderData = {
@@ -48,16 +41,20 @@ const CheckoutOrder = ({
       shippingPrice: cartShippingCost,
       totalPrice: cartCheckoutTotalValue,
     };
-    onOrderCreate(userToken, orderData);
+    if (paymentMethod === 'CashOnDelivery') {
+      return onOrderCreate(userToken, orderData);
+    } else {
+      console.log('credit card pay');
+    }
   };
 
   const { address, city, postalCode, country } = shippingAddress;
 
   return (
-    <section id="CheckoutOrder">
-      <div className="checkout-order ">
-        <div className="checkout-order-content">
-          <div className="checkout-order-content-section py-1">
+    <section id="CheckoutPlaceOrder">
+      <div className="checkout-place-order ">
+        <div className="checkout-place-order-content">
+          <div className="checkout-place-order-content-section">
             <h1>Shipping</h1>
             <p>
               {address && city && postalCode && country
@@ -67,7 +64,7 @@ const CheckoutOrder = ({
             </p>
             <hr></hr>
           </div>
-          <div className="checkout-order-content-section py-1">
+          <div className="checkout-place-order-content-section">
             <h1>Payment method</h1>
             <p>
               {paymentMethod.length === 0
@@ -76,12 +73,12 @@ const CheckoutOrder = ({
             </p>
             <hr></hr>
           </div>
-          <div className="checkout-order-content-section py-1">
+          <div className="checkout-place-order-content-section">
             <h1>Order items</h1>
             <CartDropdownItems />
           </div>
         </div>
-        <div className="checkout-order-summary">
+        <div className="checkout-place-order-subtotal">
           <h1>Summary</h1>
           <p>
             <span>Items:</span>
@@ -104,7 +101,7 @@ const CheckoutOrder = ({
             </span>
           </p>
           <hr></hr>
-          <div className="checkout-order-summary-spinner">
+          <div className="checkout-place-order-subtotal-spinner">
             {isLoading && <Spinner type="small" />}
           </div>
           <Button
@@ -129,14 +126,12 @@ const mapStateToProps = (state) => ({
   cartCheckoutTotalValue: cartCheckoutTotalValueSelector(state),
   cartItems: cartItemsDetailAndCartQuantitySelector(state),
   isLoading: state.orderCreate.isLoading,
-  isError: state.orderCreate.isError,
-  isSuccess: state.orderCreate.isSuccess,
-  order: state.orderCreate.order,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onOrderCreate: (userToken, orderData) =>
     dispatch(orderCreate(userToken, orderData)),
+  onOrderSuccessReset: () => dispatch(orderSuccessReset()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutOrder);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPlaceOrder);

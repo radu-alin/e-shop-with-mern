@@ -1,9 +1,9 @@
 import { Route } from 'react-router-dom';
 
-import CheckoutSteps from '../../components/Checkout/CheckoutSteps/CheckoutSteps';
+import CheckoutHeader from '../../components/Checkout/CheckoutHeader/CheckoutHeader';
 import CheckoutShipping from '../../components/Checkout/CheckoutShipping/CheckoutShipping';
-import CheckoutPayment from '../../components/Checkout/CheckoutPayment/CheckoutPayment';
-import CheckoutOrder from '../../components/Checkout/CheckoutOrder/CheckoutOrder';
+import CheckoutPaymentMethod from '../../components/Checkout/CheckoutPaymentMethod/CheckoutPaymentMethod';
+import CheckoutPlaceOrder from '../../components/Checkout/CheckoutPlaceOrder/CheckoutPlaceOrder.js';
 
 import './CheckoutPage.scss';
 
@@ -11,20 +11,20 @@ const CheckoutPage = () => {
   return (
     <main id="CheckoutPage">
       <div className="checkout-page">
-        <div className="checkout-page-header py-1">
+        <div className="checkout-page-header">
           <div className="checkout-page-header-title">
             <h1>
               <strong>Checkout</strong>
             </h1>
           </div>
-          <div className="checkout-page-header-steps">
-            <CheckoutSteps />
+          <div className="checkout-page-header-content">
+            <CheckoutHeader />
           </div>
         </div>
         <div className="checkout-page-content">
           <Route path="/checkout/" exact component={CheckoutShipping} />
-          <Route path="/checkout/payment" component={CheckoutPayment} />
-          <Route path="/checkout/place-order" component={CheckoutOrder} />
+          <Route path="/checkout/payment-method" component={CheckoutPaymentMethod} />
+          <Route path="/checkout/place-order" component={CheckoutPlaceOrder} />
         </div>
       </div>
     </main>

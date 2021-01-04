@@ -37,7 +37,7 @@ const CartDropdownItems = ({
     ));
 
   const cartDropdownItemsView = isError ? (
-    <Message type={isError && 'error'} message={isError} />
+    <Message type={isError && 'danger'} message={isError} />
   ) : !cartItemsIdsNotChanged ? (
     <Spinner />
   ) : cartItemsId[0] ? (

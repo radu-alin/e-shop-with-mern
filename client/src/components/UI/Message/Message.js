@@ -1,10 +1,12 @@
 import './Message.scss';
 
 const Message = ({ type, message }) => (
-  //type: error
+  //type: danger
   <div className="message">
     <div className={`message-${type}`}>
-      <h3>{message}</h3>
+      <strong>
+        <h3>{message}</h3>
+      </strong>
     </div>
   </div>
 );

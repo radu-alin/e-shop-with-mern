@@ -23,7 +23,7 @@ const LatestProducts = ({ productsAll, isError, onProductListFetch }) => {
     ));
 
   const renderLatestProducts = isError ? (
-    <Message type={isError && 'error'} message={isError} />
+    <Message type={isError && 'danger'} message={isError} />
   ) : productsAll.length === 0 ? (
     <Spinner />
   ) : (

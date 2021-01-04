@@ -14,17 +14,18 @@ import {
   userProfileUpdateReducer,
 } from './userReducer';
 
-import { orderCreateReducer } from './orderReducer';
+import { orderCreateReducer, orderDetailsReducer } from './orderReducer';
 
 export const rootReducer = combineReducers({
+  user: userAuthReducer,
+  userProfileUpdate: userProfileUpdateReducer,
+  userProfile: userProfileFetchReducer,
   productList: productListReducer,
   productSelected: productSelectedReducer,
   cartItemsIdAndQuantity: cartItemsIdAndQuantityReducer,
   cartItemsDetail: cartItemsDetailReducer,
   cartCheckoutDetails: cartCheckoutDetailsReducer,
   cartDropdown: cartDropdownReducer,
-  user: userAuthReducer,
-  userProfile: userProfileFetchReducer,
-  userProfileUpdate: userProfileUpdateReducer,
   orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsReducer,
 });

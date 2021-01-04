@@ -8,9 +8,13 @@ import Button from '../../UI/Button/Button';
 import Spinner from '../../UI/Spinner/Spinner.js';
 import FormContainer from '../../FormContainer/FormContainer';
 
-import './CheckoutPayment.scss';
+import './CheckoutPaymentMethod.scss';
 
-const CheckoutPayment = ({ paymentMethod, onCartSavePaymentMethod, history }) => {
+const CheckoutPaymentMethod = ({
+  paymentMethod,
+  onCartSavePaymentMethod,
+  history,
+}) => {
   const inputSelectChangeHandler = (event) => {
     let methodChoosed = event.target.value;
     onCartSavePaymentMethod(methodChoosed);
@@ -23,8 +27,8 @@ const CheckoutPayment = ({ paymentMethod, onCartSavePaymentMethod, history }) =>
   };
 
   return (
-    <section id="CheckoutPayment">
-      <div className="checkout-payment">
+    <section id="CheckoutPaymentMethod">
+      <div className="checkout-payment-method">
         <FormContainer title="Payment details" message={[]}>
           <InputRadio
             label="Cash on Delivery"
@@ -47,7 +51,7 @@ const CheckoutPayment = ({ paymentMethod, onCartSavePaymentMethod, history }) =>
             onChangeAction={(e) => inputSelectChangeHandler(e)}
             paymentState={paymentMethod}
           />
-          <div className="checkout-payment-spinner">
+          <div className="checkout-payment-method-spinner">
             {false && <Spinner type="small" />}
           </div>
           <Button
@@ -73,4 +77,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(cartSavePaymentMethod(paymentMethod)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPayment);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPaymentMethod);

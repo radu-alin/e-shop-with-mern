@@ -76,7 +76,7 @@ const ProductDetails = ({
   );
 
   const renderProductDetails = isError ? (
-    <Message type={isError && 'error'} message={isError} />
+    <Message type={isError && 'danger'} message={isError} />
   ) : !productDetailsIsNew ? (
     <Spinner />
   ) : (
