@@ -8,7 +8,7 @@ const Spinner = ({ type }) => {
   //type: small(3rem).
   const classes = `loader ${type}`;
 
-  return <div className={classes}>Loading...</div>;
+  return <div className={classes}></div>;
 };
 
 export default Spinner;

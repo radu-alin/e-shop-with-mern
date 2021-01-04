@@ -30,7 +30,10 @@ const CartDropdownItems = ({
 
   const renderCartItems = () =>
     cartItemsDetail.map((cartItemDetail) => (
-      <CartDropdownItem key={cartItemDetail._id} cartItemsDetail={cartItemDetail} />
+      <CartDropdownItem
+        key={cartItemDetail.productId}
+        cartItemsDetail={cartItemDetail}
+      />
     ));
 
   const cartDropdownItemsView = isError ? (

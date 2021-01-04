@@ -1,3 +1,4 @@
+// import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { orderCreate } from '../../../redux/actions/index';
@@ -10,6 +11,7 @@ import {
 } from '../../../redux/selectors/cartSelector';
 
 import CartDropdownItems from '../../CartDropdown/CartDropdownItems/CartDropdownItems';
+import Spinner from '../../UI/Spinner/Spinner';
 import Button from '../../UI/Button/Button';
 
 import './CheckoutOrder.scss';
@@ -23,7 +25,20 @@ const CheckoutOrder = ({
   userToken,
   cartItems,
   onOrderCreate,
+  isLoading,
+  isError,
+  isSuccess,
+  order,
+  history,
 }) => {
+  // useEffect(() => isSuccess && order._id && history.push(`/order/${order._id}`), [
+  //   history,
+  //   isSuccess,
+  //   order._id,
+  // ]);
+  console.log('cartItems - ', cartItems);
+  console.log('order - ', order);
+
   const placeOrderButtonClickHandler = () => {
     const orderData = {
       orderItems: cartItems,
@@ -89,6 +104,9 @@ const CheckoutOrder = ({
             </span>
           </p>
           <hr></hr>
+          <div className="checkout-order-summary-spinner">
+            {isLoading && <Spinner type="small" />}
+          </div>
           <Button
             type="btn-gray-dark"
             disabled={paymentMethod.length === 0 || !address}
@@ -110,6 +128,10 @@ const mapStateToProps = (state) => ({
   cartShippingCost: cartShippingCostSelector(state),
   cartCheckoutTotalValue: cartCheckoutTotalValueSelector(state),
   cartItems: cartItemsDetailAndCartQuantitySelector(state),
+  isLoading: state.orderCreate.isLoading,
+  isError: state.orderCreate.isError,
+  isSuccess: state.orderCreate.isSuccess,
+  order: state.orderCreate.order,
 });
 
 const mapDispatchToProps = (dispatch) => ({

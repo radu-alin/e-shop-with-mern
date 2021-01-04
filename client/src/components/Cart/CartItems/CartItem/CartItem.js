@@ -23,7 +23,7 @@ const CartItem = ({
   };
 
   const submitFormHandler = (e) =>
-    onCartModifyQuantityForItem(cartItemDetails._id, +e.target.value);
+    onCartModifyQuantityForItem(cartItemDetails.productId, +e.target.value);
 
   const renderFormHandler = () => (
     <>

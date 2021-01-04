@@ -20,13 +20,21 @@ export const cartItemsDetailAndCartQuantitySelector = createSelector(
   [cartItemsDetail, cartItemsIdAndQuantity],
   (cartItemsDetail, cartItemsQuantity) => {
     const newItemsArray = cartItemsQuantity.map((cartItemQuantity) => {
-      const a = cartItemsDetail.find(
+      const findProduct = cartItemsDetail.find(
         (cartItemDetail) => cartItemDetail._id === cartItemQuantity.productId
       );
+
+      const productDetails = {
+        ...findProduct,
+      };
+
       return {
-        ...a,
-        countInStock: a && a.countInStock,
-        countReserved: a && cartItemQuantity.quantity,
+        productId: productDetails._id,
+        name: productDetails.name,
+        image: productDetails.image,
+        price: productDetails.price,
+        countInStock: productDetails && productDetails.countInStock,
+        countReserved: productDetails && cartItemQuantity.quantity,
       };
     });
     return newItemsArray;

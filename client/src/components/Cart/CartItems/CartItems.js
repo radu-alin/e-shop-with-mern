@@ -8,7 +8,7 @@ const CartItems = ({
   const renderCartItems = () =>
     cartItemsDetail.map((cartItemDetail) => (
       <CartItem
-        key={cartItemDetail._id}
+        key={cartItemDetail.productId}
         cartItemDetails={cartItemDetail}
         onCartClearItem={onCartClearItem}
         onCartModifyQuantityForItem={onCartModifyQuantityForItem}
