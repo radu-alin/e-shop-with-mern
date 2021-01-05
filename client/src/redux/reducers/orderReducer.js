@@ -1,8 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialStateOrderCreate = {
-  orderCreate: null,
-  isSuccess: false,
+  orderCreated: null,
   isLoading: false,
   isError: false,
 };
@@ -24,14 +23,12 @@ export const orderCreateReducer = (state = initialStateOrderCreate, action) => {
       return {
         ...state,
         isLoading: false,
-        isSuccess: true,
-        orderCreate: action.payload,
+        orderCreated: action.payload,
       };
-    case actionTypes.ORDER_SUCCESS_RESET:
+    case actionTypes.ORDER_CREATE_RESET:
       return {
         ...state,
-        orderCreate: null,
-        isSuccess: false,
+        orderCreated: null,
         isLoading: false,
         isError: false,
       };
@@ -40,12 +37,10 @@ export const orderCreateReducer = (state = initialStateOrderCreate, action) => {
   }
 };
 
+//orderDetailsFetch
 const initialStateOrderDetails = {
   orderDetails: null,
-  orderItems: [],
-  shippingAddress: [],
-  isSuccess: false,
-  isLoading: true,
+  isLoading: false,
   isError: false,
 };
 
@@ -54,6 +49,7 @@ export const orderDetailsReducer = (state = initialStateOrderDetails, action) =>
     case actionTypes.ORDER_DETAILS_FETCH_START:
       return {
         ...state,
+        isLoading: true,
         isError: false,
       };
     case actionTypes.ORDER_DETAILS_FETCH_FAIL:
@@ -67,6 +63,45 @@ export const orderDetailsReducer = (state = initialStateOrderDetails, action) =>
         ...state,
         isLoading: false,
         orderDetails: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+//orderPay
+const initialStateOrderPay = {
+  isSuccess: false,
+  isLoading: false,
+  isError: false,
+};
+
+export const orderPayReducer = (state = initialStateOrderPay, action) => {
+  switch (action.type) {
+    case actionTypes.ORDER_PAY_START:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case actionTypes.ORDER_PAY_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.payload,
+      };
+    case actionTypes.ORDER_PAY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+      };
+    case actionTypes.ORDER_PAY_RESET:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
+        isError: false,
       };
     default:
       return state;

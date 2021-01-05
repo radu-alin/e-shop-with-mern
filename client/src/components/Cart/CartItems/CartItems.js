@@ -1,5 +1,7 @@
 import CartItem from './CartItem/CartItem';
 
+import './CartItems.scss';
+
 const CartItems = ({
   cartItemsDetail,
   onCartClearItem,
@@ -15,7 +17,7 @@ const CartItems = ({
       />
     ));
 
-  return <>{renderCartItems()}</>;
+  return <div className="cart-items">{renderCartItems()}</div>;
 };
 
 export default CartItems;

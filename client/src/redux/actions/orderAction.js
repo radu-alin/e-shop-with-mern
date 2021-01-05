@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { localStorageSetItemUtil } from '../../utils/localStorageUtil';
+
 import * as actionTypes from '../actions/actionTypes';
 
 //orderCreate
@@ -15,7 +17,6 @@ export const orderCreateSuccess = (orderData) => ({
   type: actionTypes.ORDER_CREATE_SUCCESS,
   payload: orderData,
 });
-
 export const orderCreate = (token, orderData) => async (dispatch) => {
   dispatch(orderCreateStart());
   const url = '/api/orders';
@@ -28,6 +29,8 @@ export const orderCreate = (token, orderData) => async (dispatch) => {
   };
   try {
     const { data } = await axios.post(url, body, config);
+    orderData.paymentMethod === 'CashOnDelivery' &&
+      localStorageSetItemUtil('cartItems', []);
     dispatch(orderCreateSuccess(data));
   } catch (err) {
     const isError =
@@ -38,8 +41,8 @@ export const orderCreate = (token, orderData) => async (dispatch) => {
   }
 };
 
-export const orderSuccessReset = () => ({
-  type: actionTypes.ORDER_SUCCESS_RESET,
+export const orderCreateReset = () => ({
+  type: actionTypes.ORDER_CREATE_RESET,
 });
 
 //orderDetailsFetch
@@ -54,7 +57,6 @@ export const orderDetailsFetchSuccess = (orderDetails) => ({
   type: actionTypes.ORDER_DETAILS_FETCH_SUCCESS,
   payload: orderDetails,
 });
-
 export const orderDetailsFetch = (token, orderId) => async (dispatch) => {
   dispatch(orderDetailsFetchStart());
   const url = `/api/orders/${orderId}`;
@@ -74,3 +76,40 @@ export const orderDetailsFetch = (token, orderId) => async (dispatch) => {
     dispatch(orderDetailsFetchFail(isError));
   }
 };
+
+//orderPay
+export const orderPayStart = () => ({
+  type: actionTypes.ORDER_PAY_START,
+});
+export const orderPayFail = (error) => ({
+  type: actionTypes.ORDER_PAY_FAIL,
+  payload: error,
+});
+export const orderPaySuccess = (data) => ({
+  type: actionTypes.ORDER_PAY_SUCCESS,
+  payload: data,
+});
+export const orderPay = (token, orderId, paymentResult) => async (dispatch) => {
+  dispatch(orderPayStart());
+  const url = `/api/orders/${orderId}/pay`;
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const { data } = await axios.put(url, paymentResult, config);
+    localStorageSetItemUtil('cartItems', []);
+    dispatch(orderPaySuccess(data));
+  } catch (err) {
+    const isError =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    dispatch(orderPayFail(isError));
+  }
+};
+export const orderPayReset = () => ({
+  type: actionTypes.ORDER_PAY_RESET,
+});

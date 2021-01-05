@@ -41,6 +41,11 @@ export const cartItemsIdAndQuantityReducer = (
           ),
         ],
       };
+    case actionTypes.CART_RESET:
+      return {
+        ...state,
+        cartItemsIdAndQuantity: localStorageGetItemUtil('cartItems'),
+      };
     default:
       return state;
   }

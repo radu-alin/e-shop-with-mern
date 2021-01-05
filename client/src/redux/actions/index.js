@@ -6,6 +6,7 @@ export {
   cartAddItem,
   cartModifyQuantityForItem,
   cartClearItem,
+  cartReset,
   cartItemsDetailFetch,
   cartDropdownToggleHidden,
   cartSaveShippingAddress,
@@ -23,4 +24,10 @@ export {
   userResetError,
 } from './userAction';
 
-export { orderCreate, orderSuccessReset, orderDetailsFetch } from './orderAction.js';
+export {
+  orderCreate,
+  orderCreateReset,
+  orderPay,
+  orderPayReset,
+  orderDetailsFetch,
+} from './orderAction.js';

@@ -8,7 +8,14 @@ const CartItem = ({
   onCartModifyQuantityForItem,
   onCartClearItem,
 }) => {
-  const { _id, name, image, price, countInStock, countReserved } = cartItemDetails;
+  const {
+    productId,
+    name,
+    image,
+    price,
+    countInStock,
+    countReserved,
+  } = cartItemDetails;
   const renderInputSelectHandler = () => {
     const maxLenght = countInStock;
     const renderInputSelect = [];
@@ -53,7 +60,7 @@ const CartItem = ({
             <div className="cart-item-content-left-title">
               <span>
                 <strong>
-                  <Link to={'/products/' + _id}>{name}</Link>
+                  <Link to={'/products/' + productId}>{name}</Link>
                 </strong>
               </span>
             </div>
@@ -73,7 +80,7 @@ const CartItem = ({
             <div className="cart-item-content-right-action-icons">
               <div
                 className="cart-item-content-right-action-icons-remove-button"
-                onClick={() => onCartClearItem(_id)}
+                onClick={() => onCartClearItem(productId)}
               >
                 <i className="far fa-trash-alt"></i>
               </div>

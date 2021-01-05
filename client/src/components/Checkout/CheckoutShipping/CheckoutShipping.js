@@ -67,7 +67,7 @@ const CheckoutShipping = ({
     const shippingAddress = formInputsDataUtil(formData.formInputsData);
     localStorageSetItemUtil('shippingAddress', shippingAddress);
     onCartSaveShippingAddress(shippingAddress);
-    history.push('/checkout/payment');
+    history.push('/checkout/payment-method');
   };
 
   const shippingPageFooterView = !editShipping ? (

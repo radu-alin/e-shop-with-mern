@@ -1,0 +1,31 @@
+.order-summary {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  padding: 1rem 0 1rem 1rem;
+
+  &-spinner {
+    margin-top: 1rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    text-align: left;
+    padding: 1rem 0 1rem 0;
+  }
+
+  & p {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  & button {
+    margin-top: 1rem;
+    padding: 10px;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+}

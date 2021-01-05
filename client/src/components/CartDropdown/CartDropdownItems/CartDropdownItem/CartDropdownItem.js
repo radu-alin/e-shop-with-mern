@@ -3,7 +3,7 @@ import './CartDropdownItem.scss';
 const CartDropdownItem = ({
   cartItemsDetail: { image, price, name, countReserved },
 }) => (
-  <>
+  <article id="Dropdown Item">
     <div className="cart-dropdown-item">
       <img src={image} alt={name} />
       <div className="cart-dropdown-item-details">
@@ -13,8 +13,7 @@ const CartDropdownItem = ({
         </span>
       </div>
     </div>
-    <hr></hr>
-  </>
+  </article>
 );
 
 export default CartDropdownItem;

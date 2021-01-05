@@ -51,7 +51,7 @@ const CartPage = ({
     />
   ) : null;
 
-  const renderCartItemsHandler = !!cartItemsId ? (
+  const renderCartItemsHandler = !!cartProductsTotalValue ? (
     <>{cartItemsView}</>
   ) : (
     <h1 className="py-1">Please Add Products to Cart</h1>
@@ -76,7 +76,9 @@ const CartPage = ({
                 <strong>TOTAL:</strong>
               </span>
               <span>
-                <strong>${cartProductsTotalValue.toFixed(2)}</strong>
+                <strong>
+                  ${cartProductsTotalValue ? cartProductsTotalValue.toFixed(2) : 0}
+                </strong>
               </span>
             </div>
             <hr></hr>
@@ -89,6 +91,7 @@ const CartPage = ({
             </Button>
           </div>
         </div>
+        <hr></hr>
       </div>
     </main>
   );

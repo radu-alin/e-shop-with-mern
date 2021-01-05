@@ -3,23 +3,53 @@ import { connect } from 'react-redux';
 import CheckoutMessage from '../CheckoutMessage/CheckoutMesage';
 import CheckoutSteps from '../CheckoutSteps/CheckoutSteps';
 
-const CheckoutHeader = ({ isError, isSuccess }) => {
-  if (!isError && !isSuccess) return <CheckoutSteps />;
-  if (isError || isSuccess)
+const CheckoutHeader = ({
+  paymentMethod,
+  isSuccessOrderCreate,
+  isErrorOrderCreate,
+  isSuccessOrderPay,
+  isErrorOrderPay,
+}) => {
+  if (
+    !isSuccessOrderCreate &&
+    !isErrorOrderCreate &&
+    !isSuccessOrderPay &&
+    !isErrorOrderPay
+  )
+    return <CheckoutSteps />;
+  if (isErrorOrderCreate || isErrorOrderPay)
     return (
       <CheckoutMessage
-        type={(isError && 'danger') || (isSuccess && 'success')}
+        type="danger"
+        message={isErrorOrderCreate || isErrorOrderPay}
+      />
+    );
+  if (isSuccessOrderPay)
+    return (
+      <CheckoutMessage
+        type="success"
+        message="Order placed. You can see delivery status on your profile/orders."
+      />
+    );
+  if (isSuccessOrderCreate)
+    return (
+      <CheckoutMessage
+        type="success"
         message={
-          isError ||
-          'Order placed. You can see order  shipping status in: My account/Profile/Orders.'
+          paymentMethod === 'CashOnDelivery'
+            ? 'Order placed. You can see delivery status on your profile/orders.'
+            : 'Order created. Please enter card details to finalize order.'
         }
       />
     );
 };
 
-const mapStateToProps = ({ orderCreate: { isError, isSuccess } }) => ({
-  isError,
-  isSuccess,
+const mapStateToProps = ({ orderCreate, orderPay }) => ({
+  paymentMethod: orderCreate.orderCreated && orderCreate.orderCreated.paymentMethod,
+  isSuccessOrderCreate: !!orderCreate.orderCreated,
+  isErrorOrderCreate: orderCreate.isError,
+  isSuccessOrderPay: orderPay.isSuccess,
+  isErrorOrderPay: orderPay.isError,
 });
 
 export default connect(mapStateToProps)(CheckoutHeader);

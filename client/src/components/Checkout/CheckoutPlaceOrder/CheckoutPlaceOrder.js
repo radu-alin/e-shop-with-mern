@@ -1,7 +1,15 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
 
-import { orderCreate, orderSuccessReset } from '../../../redux/actions/index';
+import {
+  orderCreate,
+  orderCreateReset,
+  orderPay,
+  orderPayReset,
+  cartReset,
+} from '../../../redux/actions/index';
 
 import {
   cartItemsDetailAndCartQuantitySelector,
@@ -11,7 +19,9 @@ import {
 } from '../../../redux/selectors/cartSelector';
 
 import CartDropdownItems from '../../CartDropdown/CartDropdownItems/CartDropdownItems';
-import Spinner from '../../UI/Spinner/Spinner';
+import OrderSection from '../../Section/OrderSection/OrderSection';
+import OrderSummary from '../../Summary/OrderSummary/OrderSummary';
+import Message from '../../UI/Message/Message';
 import Button from '../../UI/Button/Button';
 
 import './CheckoutPlaceOrder.scss';
@@ -24,13 +34,52 @@ const CheckoutPlaceOrder = ({
   cartCheckoutTotalValue,
   userToken,
   cartItems,
-  isLoading,
+  isLoadingOrderCreate,
+  orderCreated,
+  isLoadingOrderPay,
+  isSuccessOrderPay,
   onOrderCreate,
-  onOrderSuccessReset,
+  onOrderCreateReset,
+  onOrderPay,
+  onOrderPayReset,
+  onCartReset,
 }) => {
+  const [sdkReady, setSdkReady] = useState(false);
   useEffect(() => {
-    return () => onOrderSuccessReset();
-  }, [onOrderSuccessReset]);
+    const addPayPalScript = async () => {
+      const { data: clientId } = await axios.get('/api/config/paypal');
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
+    paymentMethod === 'PayPal' &&
+      orderCreated &&
+      !window.paypal &&
+      addPayPalScript();
+  }, [paymentMethod, orderCreated, sdkReady, onOrderCreateReset]);
+
+  useEffect(() => {
+    return () => {
+      window.paypal &&
+        Object.keys(window).forEach((key) => {
+          if (/paypal|zoid|post_robot/.test(key)) {
+            delete window[key];
+          }
+        });
+      onOrderPayReset();
+      onOrderCreateReset();
+      onCartReset();
+    };
+  }, [onOrderCreateReset, onOrderPayReset, onCartReset]);
+
+  const successPaymentHandler = (paymentResult) => {
+    onOrderPay(userToken, orderCreated._id, paymentResult);
+  };
 
   const placeOrderButtonClickHandler = () => {
     const orderData = {
@@ -41,77 +90,78 @@ const CheckoutPlaceOrder = ({
       shippingPrice: cartShippingCost,
       totalPrice: cartCheckoutTotalValue,
     };
-    if (paymentMethod === 'CashOnDelivery') {
-      return onOrderCreate(userToken, orderData);
-    } else {
-      console.log('credit card pay');
-    }
+    onOrderCreate(userToken, orderData);
   };
 
   const { address, city, postalCode, country } = shippingAddress;
+
+  const buttonOrderPayView = () => {
+    let buttonView = null;
+    if (isSuccessOrderPay) return null;
+    if (paymentMethod === 'CashOnDelivery')
+      buttonView = !orderCreated ? (
+        <Button
+          type="btn-gray-dark"
+          disabled={paymentMethod.length === 0 || !address}
+          onClickAction={placeOrderButtonClickHandler}
+        >
+          Place Order
+        </Button>
+      ) : null;
+    if (paymentMethod === 'PayPal') {
+      buttonView = !orderCreated ? (
+        <Button
+          type="btn-gray-dark"
+          disabled={paymentMethod.length === 0 || !address}
+          onClickAction={placeOrderButtonClickHandler}
+        >
+          Place Order
+        </Button>
+      ) : sdkReady ? (
+        <PayPalButton
+          amount={orderCreated.totalPrice}
+          onSuccess={successPaymentHandler}
+        />
+      ) : null;
+    }
+    return buttonView;
+  };
 
   return (
     <section id="CheckoutPlaceOrder">
       <div className="checkout-place-order ">
         <div className="checkout-place-order-content">
-          <div className="checkout-place-order-content-section">
-            <h1>Shipping</h1>
-            <p>
-              {address && city && postalCode && country
-                ? `Address: ${address}, City: ${city}, ZipCode: ${postalCode}, Country:
+          <OrderSection title="Shipping">
+            {address && city && postalCode && country ? (
+              `Address: ${address}, City: ${city}, ZipCode: ${postalCode}, Country:
             ${country}.`
-                : 'Please enter delivery details.'}
-            </p>
-            <hr></hr>
-          </div>
-          <div className="checkout-place-order-content-section">
-            <h1>Payment method</h1>
-            <p>
-              {paymentMethod.length === 0
-                ? 'Please choose a payment method.'
-                : `Method: ${paymentMethod}.`}
-            </p>
-            <hr></hr>
-          </div>
-          <div className="checkout-place-order-content-section">
-            <h1>Order items</h1>
+            ) : (
+              <Message type="danger" message="Please enter shipping details." />
+            )}
+          </OrderSection>
+          <OrderSection title="Payment Method">
+            {paymentMethod.length === 0 ? (
+              <Message type="danger" message="Please choose a payment method." />
+            ) : (
+              `Method: ${paymentMethod}.`
+            )}
+          </OrderSection>
+          <OrderSection title="Order Items">
             <CartDropdownItems />
-          </div>
+          </OrderSection>
         </div>
-        <div className="checkout-place-order-subtotal">
-          <h1>Summary</h1>
-          <p>
-            <span>Items:</span>
-            <span>
-              <strong> ${cartProductsTotalValue}</strong>
-            </span>
-          </p>
-          <hr></hr>
-          <p>
-            <span>Shipping:</span>
-            <span>
-              <strong> ${cartShippingCost}</strong>
-            </span>
-          </p>
-          <hr></hr>
-          <p>
-            <span>TOTAL:</span>
-            <span>
-              <strong> {cartCheckoutTotalValue}</strong>
-            </span>
-          </p>
-          <hr></hr>
-          <div className="checkout-place-order-subtotal-spinner">
-            {isLoading && <Spinner type="small" />}
-          </div>
-          <Button
-            type="btn-gray-dark"
-            disabled={paymentMethod.length === 0 || !address}
-            onClickAction={placeOrderButtonClickHandler}
-          >
-            Place Order
-          </Button>
-        </div>
+        <OrderSummary
+          cartProductsTotalValue={cartProductsTotalValue}
+          cartShippingCost={cartShippingCost}
+          cartCheckoutTotalValue={cartCheckoutTotalValue}
+          isLoading={
+            isLoadingOrderCreate ||
+            isLoadingOrderPay ||
+            (orderCreated && !window.paypal && paymentMethod === 'PayPal')
+          }
+        >
+          {buttonOrderPayView()}
+        </OrderSummary>
       </div>
     </section>
   );
@@ -125,13 +175,21 @@ const mapStateToProps = (state) => ({
   cartShippingCost: cartShippingCostSelector(state),
   cartCheckoutTotalValue: cartCheckoutTotalValueSelector(state),
   cartItems: cartItemsDetailAndCartQuantitySelector(state),
-  isLoading: state.orderCreate.isLoading,
+  isSuccessOrderCreate: !!state.orderCreate,
+  isLoadingOrderCreate: state.orderCreate.isLoading,
+  orderCreated: state.orderCreate.orderCreated,
+  isLoadingOrderPay: state.orderPay.isLoading,
+  isSuccessOrderPay: state.orderPay.isSuccess,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onOrderCreate: (userToken, orderData) =>
     dispatch(orderCreate(userToken, orderData)),
-  onOrderSuccessReset: () => dispatch(orderSuccessReset()),
+  onOrderCreateReset: () => dispatch(orderCreateReset()),
+  onOrderPay: (userToken, orderId, paymentResult) =>
+    dispatch(orderPay(userToken, orderId, paymentResult)),
+  onOrderPayReset: () => dispatch(orderPayReset()),
+  onCartReset: () => dispatch(cartReset()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPlaceOrder);
