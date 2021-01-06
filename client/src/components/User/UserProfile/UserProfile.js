@@ -79,7 +79,7 @@ const UserProfile = ({
     }, 700);
   };
 
-  const renderFormHandler = () =>
+  const formRender = () =>
     formRenderInputsUtil(
       Input,
       formData,
@@ -102,7 +102,7 @@ const UserProfile = ({
       ]}
       editIconClickAction={editTrueIconClickHandler}
     >
-      {renderFormHandler()}
+      {formRender()}
       <div className="user-profile-spinner">
         {isLoadingUpdate && <Spinner type="small" />}
       </div>

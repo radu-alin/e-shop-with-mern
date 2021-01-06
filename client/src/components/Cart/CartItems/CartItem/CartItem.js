@@ -32,22 +32,18 @@ const CartItem = ({
   const submitFormHandler = (e) =>
     onCartModifyQuantityForItem(cartItemDetails.productId, +e.target.value);
 
-  const renderFormHandler = () => (
+  const formView = countInStock ? (
     <>
-      {countInStock ? (
-        <>
-          <div className="cart-item-content-left-quantity-option">
-            <form onChange={(e) => submitFormHandler(e)}>
-              <label htmlFor="quantity">Quantity: </label>
-              <select id="quantity" defaultValue={countReserved}>
-                {renderInputSelectHandler()}
-              </select>
-            </form>
-          </div>
-        </>
-      ) : null}
+      <div className="cart-item-content-left-quantity-option">
+        <form onChange={(e) => submitFormHandler(e)}>
+          <label htmlFor="quantity">Quantity: </label>
+          <select id="quantity" defaultValue={countReserved}>
+            {renderInputSelectHandler()}
+          </select>
+        </form>
+      </div>
     </>
-  );
+  ) : null;
 
   return (
     <article id="CartItem">
@@ -64,9 +60,7 @@ const CartItem = ({
                 </strong>
               </span>
             </div>
-            <div className="cart-item-content-left-quantity">
-              {renderFormHandler()}
-            </div>
+            <div className="cart-item-content-left-quantity">{formView}</div>
           </div>
           <div className="cart-item-content-right">
             <div className="cart-item-content-right-price">

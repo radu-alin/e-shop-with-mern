@@ -6,6 +6,7 @@ const initialStateOrderCreate = {
   isError: false,
 };
 
+//orderCreate
 export const orderCreateReducer = (state = initialStateOrderCreate, action) => {
   switch (action.type) {
     case actionTypes.ORDER_CREATE_START:
@@ -31,6 +32,38 @@ export const orderCreateReducer = (state = initialStateOrderCreate, action) => {
         orderCreated: null,
         isLoading: false,
         isError: false,
+      };
+    default:
+      return state;
+  }
+};
+
+//orderListUserFetch
+const initialStateOrderListUser = {
+  orderListUser: null,
+  isLoading: false,
+  isError: false,
+};
+
+export const orderListUserReducer = (state = initialStateOrderListUser, action) => {
+  switch (action.type) {
+    case actionTypes.ORDER_LIST_USER_FETCH_START:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case actionTypes.ORDER_LIST_USER_FETCH_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.payload,
+      };
+    case actionTypes.ORDER_LIST_USER_FETCH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        orderDetails: action.payload,
       };
     default:
       return state;

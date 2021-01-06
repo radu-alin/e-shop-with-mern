@@ -1,7 +1,7 @@
 import './Message.scss';
 
 const Message = ({ type, message }) => (
-  //type: danger
+  //type: danger, success
   <div className="message">
     <div className={`message-${type}`}>
       <strong>

@@ -30,7 +30,6 @@ export const cartItemsDetailFetchSuccess = (itemsDetail) => ({
   type: actionTypes.CART_ITEMS_DETAIL_FETCH_SUCCESS,
   payload: itemsDetail,
 });
-
 export const cartItemsDetailFetch = (cartItemsId) => async (dispatch) => {
   dispatch(cartItemsDetailFetchStart());
 
@@ -43,7 +42,6 @@ export const cartItemsDetailFetch = (cartItemsId) => async (dispatch) => {
     const requests = ids.map((id) => fetchItem(id));
     return Promise.all(requests);
   };
-
   fetchAllItems(cartItemsId)
     .then((data) => dispatch(cartItemsDetailFetchSuccess(data)))
     .catch((err) => {

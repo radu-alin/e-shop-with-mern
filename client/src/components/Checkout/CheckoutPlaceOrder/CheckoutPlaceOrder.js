@@ -98,7 +98,7 @@ const CheckoutPlaceOrder = ({
   const buttonOrderPayView = () => {
     let buttonView = null;
     if (isSuccessOrderPay) return null;
-    if (paymentMethod === 'CashOnDelivery')
+    if (paymentMethod === 'CashOnDelivery') {
       buttonView = !orderCreated ? (
         <Button
           type="btn-gray-dark"
@@ -108,6 +108,7 @@ const CheckoutPlaceOrder = ({
           Place Order
         </Button>
       ) : null;
+    }
     if (paymentMethod === 'PayPal') {
       buttonView = !orderCreated ? (
         <Button

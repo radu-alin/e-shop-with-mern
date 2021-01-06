@@ -21,15 +21,15 @@ const ProductDetails = ({
 }) => {
   const productDetailsIsNew = productDetails
     ? productSelectedId !== productDetails._id
-      ? null
+      ? false
       : productDetails
-    : null;
+    : false;
 
   useEffect(() => {
     onProductSelectedFetch(productSelectedId);
   }, [onProductSelectedFetch, productSelectedId]);
 
-  const productDetailsView = () => (
+  const productView = () => (
     <section id="ProductDetails">
       <div className="product-details-content">
         <div className="product-details-content-image">
@@ -75,13 +75,15 @@ const ProductDetails = ({
     </section>
   );
 
-  const renderProductDetails = isError ? (
-    <Message type={isError && 'danger'} message={isError} />
-  ) : !productDetailsIsNew ? (
-    <Spinner />
-  ) : (
-    productDetailsView()
-  );
+  const productDetailsView = () => {
+    if (isError) {
+      return <Message type="danger" message={isError} />;
+    }
+    if (!productDetailsIsNew) {
+      return <Spinner />;
+    }
+    return productView();
+  };
 
   return (
     <section id="ProductDetails">
@@ -91,7 +93,7 @@ const ProductDetails = ({
             Go Back
           </Button>
         </div>
-        {renderProductDetails}
+        {productDetailsView()}
       </div>
     </section>
   );

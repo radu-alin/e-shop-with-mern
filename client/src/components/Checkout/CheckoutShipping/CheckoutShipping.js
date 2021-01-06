@@ -70,26 +70,34 @@ const CheckoutShipping = ({
     history.push('/checkout/payment-method');
   };
 
-  const shippingPageFooterView = !editShipping ? (
-    <p className="shipping-page-footer">
-      Modify shipping addrees:
-      <span onClick={editTrueIconClickHandler}>
-        &nbsp; edit &nbsp;
-        <i className="far fa-edit"></i>
-      </span>
-    </p>
-  ) : address ? (
-    <p className="user-auth-footer">
-      Back to previous address:
-      <span onClick={restorePreviousShippingAddress}>
-        &nbsp; undo <i className="fas fa-undo"></i>
-      </span>
-    </p>
-  ) : (
-    <p className="user-auth-footer">
-      <span>All fields are required</span>
-    </p>
-  );
+  const shippingPageFooterView = () => {
+    if (!editShipping) {
+      return (
+        <p className="shipping-page-footer">
+          Modify shipping addrees:
+          <span onClick={editTrueIconClickHandler}>
+            &nbsp; edit &nbsp;
+            <i className="far fa-edit"></i>
+          </span>
+        </p>
+      );
+    }
+    if (!address) {
+      return (
+        <p className="user-auth-footer">
+          <span>All fields are required</span>
+        </p>
+      );
+    }
+    return (
+      <p className="user-auth-footer">
+        Back to previous address:
+        <span onClick={restorePreviousShippingAddress}>
+          &nbsp; undo <i className="fas fa-undo"></i>
+        </span>
+      </p>
+    );
+  };
 
   return (
     <section id="ShippingPage">
@@ -105,7 +113,7 @@ const CheckoutShipping = ({
             {formData.isFormValid ? 'Next Step' : ' Enter shipping details.'}
           </Button>
           <hr></hr>
-          {shippingPageFooterView}
+          {shippingPageFooterView()}
         </FormContainer>
       </div>
     </section>

@@ -45,7 +45,7 @@ const AuthForm = ({ isAuth, isLoading, isError, onUserLogin, onUserResetError })
     setFormData({ ...defaultStateSignIn });
   };
 
-  const renderFormHandler = () =>
+  const formRender = () =>
     formRenderInputsUtil(
       Input,
       formData,
@@ -64,7 +64,7 @@ const AuthForm = ({ isAuth, isLoading, isError, onUserLogin, onUserResetError })
             !!isError ? isError : isAuth ? 'Operation success.' : null,
           ]}
         >
-          {renderFormHandler()}
+          {formRender()}
           <div className="user-auth-spinner">
             {isLoading && <Spinner type="small" />}
           </div>

@@ -8,7 +8,6 @@ import * as actionTypes from '../actions/actionTypes';
 export const orderCreateStart = () => ({
   type: actionTypes.ORDER_CREATE_START,
 });
-
 export const orderCreateFail = (error) => ({
   type: actionTypes.ORDER_CREATE_FAIL,
   payload: error,
@@ -40,10 +39,41 @@ export const orderCreate = (token, orderData) => async (dispatch) => {
     dispatch(orderCreateFail(isError));
   }
 };
-
 export const orderCreateReset = () => ({
   type: actionTypes.ORDER_CREATE_RESET,
 });
+
+//orderListUserFetch
+export const orderListUserFetchStart = () => ({
+  type: actionTypes.ORDER_LIST_USER_FETCH_START,
+});
+export const orderListUserFetchFail = (error) => ({
+  type: actionTypes.ORDER_LIST_USER_FETCH_FAIL,
+  payload: error,
+});
+export const orderListUserFetchSuccess = (orderDetails) => ({
+  type: actionTypes.ORDER_LIST_USER_FETCH_SUCCESS,
+  payload: orderDetails,
+});
+export const orderListUserFetch = (token) => async (dispatch) => {
+  dispatch(orderListUserFetchStart());
+  const url = `/api/orders/my-orders`;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const { data } = await axios.get(url, config);
+    dispatch(orderListUserFetchSuccess(data));
+  } catch (err) {
+    const isError =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    dispatch(orderListUserFetchFail(isError));
+  }
+};
 
 //orderDetailsFetch
 export const orderDetailsFetchStart = () => ({

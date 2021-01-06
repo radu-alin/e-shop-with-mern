@@ -39,23 +39,24 @@ const CartPage = ({
     onCartItemsDetailFetch,
   ]);
 
-  const cartItemsView = isError ? (
-    <Message type={isError && 'danger'} message={isError} />
-  ) : !cartItemsIdsNotChanged ? (
-    <Spinner />
-  ) : cartItemsId[0] ? (
-    <CartItems
-      cartItemsDetail={cartItemsDetailAndCartQuantity}
-      onCartClearItem={onCartClearItem}
-      onCartModifyQuantityForItem={onCartModifyQuantityForItem}
-    />
-  ) : null;
-
-  const renderCartItemsHandler = !!cartProductsTotalValue ? (
-    <>{cartItemsView}</>
-  ) : (
-    <h1 className="py-1">Please Add Products to Cart</h1>
-  );
+  const cartItemsView = () => {
+    if (isError) {
+      return <Message type={isError && 'danger'} message={isError} />;
+    }
+    if (cartItemsId.length === 0) {
+      return <h1 className="py-1">Please Add Products to Cart</h1>;
+    }
+    if (!cartItemsIdsNotChanged) {
+      return <Spinner />;
+    }
+    return (
+      <CartItems
+        cartItemsDetail={cartItemsDetailAndCartQuantity}
+        onCartClearItem={onCartClearItem}
+        onCartModifyQuantityForItem={onCartModifyQuantityForItem}
+      />
+    );
+  };
 
   const checkoutButtonClickHandler = () => {
     history.push('/checkout');
@@ -69,7 +70,7 @@ const CartPage = ({
           </h1>
         </div>
         <div className="cart-page-content">
-          <div className="cart-page-content-products">{renderCartItemsHandler}</div>
+          <div className="cart-page-content-products">{cartItemsView()}</div>
           <div className="cart-page-content-total">
             <div className="cart-page-content-total-sum">
               <span>

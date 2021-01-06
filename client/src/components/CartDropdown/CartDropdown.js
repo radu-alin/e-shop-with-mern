@@ -11,7 +11,7 @@ import './CartDropdown.scss';
 const CartDropdown = ({ onCartDropdownToggleHidden, history }) => (
   <section id="CartDropdown">
     <div className="cart-dropdown">
-      {<CartDropdownItems /> || <h1>Please add products to Cart.</h1>}
+      <CartDropdownItems />
       <Button
         type="btn-gray-dark"
         onClickAction={() => {

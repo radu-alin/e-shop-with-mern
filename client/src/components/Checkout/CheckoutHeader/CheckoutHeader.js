@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import CheckoutMessage from '../CheckoutMessage/CheckoutMesage';
+import Message from '../../UI/Message/Message';
 import CheckoutSteps from '../CheckoutSteps/CheckoutSteps';
 
 const CheckoutHeader = ({
@@ -18,22 +18,17 @@ const CheckoutHeader = ({
   )
     return <CheckoutSteps />;
   if (isErrorOrderCreate || isErrorOrderPay)
-    return (
-      <CheckoutMessage
-        type="danger"
-        message={isErrorOrderCreate || isErrorOrderPay}
-      />
-    );
+    return <Message type="danger" message={isErrorOrderCreate || isErrorOrderPay} />;
   if (isSuccessOrderPay)
     return (
-      <CheckoutMessage
+      <Message
         type="success"
         message="Order placed. You can see delivery status on your profile/orders."
       />
     );
   if (isSuccessOrderCreate)
     return (
-      <CheckoutMessage
+      <Message
         type="success"
         message={
           paymentMethod === 'CashOnDelivery'
@@ -45,8 +40,8 @@ const CheckoutHeader = ({
 };
 
 const mapStateToProps = ({ orderCreate, orderPay }) => ({
-  paymentMethod: orderCreate.orderCreated && orderCreate.orderCreated.paymentMethod,
   isSuccessOrderCreate: !!orderCreate.orderCreated,
+  paymentMethod: orderCreate.orderCreated?.paymentMethod,
   isErrorOrderCreate: orderCreate.isError,
   isSuccessOrderPay: orderPay.isSuccess,
   isErrorOrderPay: orderPay.isError,

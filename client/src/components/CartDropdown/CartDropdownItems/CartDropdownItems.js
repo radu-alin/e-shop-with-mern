@@ -28,7 +28,7 @@ const CartDropdownItems = ({
     onCartItemsDetailFetch,
   ]);
 
-  const renderCartItems = () =>
+  const cartItemsRender = () =>
     cartItemsDetail.map((cartItemDetail) => (
       <CartDropdownItem
         key={cartItemDetail.productId}
@@ -36,21 +36,20 @@ const CartDropdownItems = ({
       />
     ));
 
-  const cartDropdownItemsView = isError ? (
-    <Message type={isError && 'danger'} message={isError} />
-  ) : !cartItemsIdsNotChanged ? (
-    <Spinner />
-  ) : cartItemsId[0] ? (
-    <>{renderCartItems()}</>
-  ) : null;
+  const cartDropdownView = () => {
+    if (isError) {
+      return <Message type={isError && 'danger'} message={isError} />;
+    }
+    if (cartItemsId.length === 0) {
+      return <h1 className="py-1">Please Add Products to Cart</h1>;
+    }
+    if (!cartItemsIdsNotChanged) {
+      return <Spinner />;
+    }
+    return cartItemsRender();
+  };
 
-  const cartDropdownItemsHandler = !cartItemsId[0] ? (
-    <h1>Please add products to Cart</h1>
-  ) : (
-    cartDropdownItemsView
-  );
-
-  return <div className="cart-dropdown-items">{cartDropdownItemsHandler}</div>;
+  return <div className="cart-dropdown-items">{cartDropdownView()}</div>;
 };
 
 const mapStateToProps = (state) => ({

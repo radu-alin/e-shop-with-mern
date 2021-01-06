@@ -14,7 +14,6 @@ export const productListFetchFail = (error) => ({
   type: actionTypes.PRODUCT_LIST_FETCH_FAIL,
   payload: error,
 });
-
 export const productListFetch = () => async (dispatch) => {
   dispatch(productListFetchStart());
   try {

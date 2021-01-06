@@ -6,7 +6,7 @@ import NavDropdown from '../NavDropdown/NavDropdown.js';
 import './NavigationItems.scss';
 
 const NavigationItems = ({ isAuth }) => {
-  const renderSignInOrProfileHandler = isAuth ? (
+  const signInOrProfileView = isAuth ? (
     <li>
       <NavDropdown />
     </li>
@@ -23,7 +23,7 @@ const NavigationItems = ({ isAuth }) => {
         <NavigationItem link="/cart">
           <i className="fas fa-shopping-cart"></i>Cart
         </NavigationItem>
-        {renderSignInOrProfileHandler}
+        {signInOrProfileView}
       </ul>
     </nav>
   );

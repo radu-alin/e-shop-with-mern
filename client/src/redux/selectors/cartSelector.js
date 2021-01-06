@@ -23,7 +23,6 @@ export const cartItemsDetailAndCartQuantitySelector = createSelector(
       const findProduct = cartItemsDetail.find(
         (cartItemDetail) => cartItemDetail._id === cartItemQuantity.productId
       );
-
       const productDetails = {
         ...findProduct,
       };
@@ -68,10 +67,8 @@ export const cartItemsIdsNotChangedSelector = createSelector(
     const cartItemsDetailIds = cartItemsDetail.map(
       (cartItemDetail) => cartItemDetail._id
     );
-
     const cartDetailsIncludeIds = (array1, array2) =>
       array1.every((el) => array2.includes(el));
-
     const idsArrayNotChanged = (array1, array2) => {
       if (array1.length === 0) return true;
       if (array2.length === 0) return false;
