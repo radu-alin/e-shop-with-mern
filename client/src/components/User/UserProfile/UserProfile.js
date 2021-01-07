@@ -36,7 +36,7 @@ const UserProfile = ({
   onUserProfileUpdateClear,
 }) => {
   const [formData, setFormData] = useState({
-    ...defaultState(),
+    ...defaultState(name, email),
   });
   const [editProfile, setEditProfile] = useState(false);
   const firstInputRef = useRef(null);
@@ -46,11 +46,6 @@ const UserProfile = ({
   useEffect(() => {
     userToken && !name && onUserProfileFetch(userToken);
   }, [userToken, name, onUserProfileFetch]);
-
-  useEffect(() => name && setFormData({ ...defaultState(name, email) }), [
-    name,
-    email,
-  ]);
 
   const editTrueIconClickHandler = useCallback(() => {
     setEditProfile(true);

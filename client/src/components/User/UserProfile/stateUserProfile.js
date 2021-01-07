@@ -1,6 +1,4 @@
 export const defaultState = (name, email) => {
-  console.log('defaultState - executed');
-
   return {
     formInputsData: {
       name: {
