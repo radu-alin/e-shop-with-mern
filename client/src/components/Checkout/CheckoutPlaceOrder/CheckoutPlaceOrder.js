@@ -143,6 +143,7 @@ const CheckoutPlaceOrder = ({
               <Message type="danger" message="Please enter shipping details." />
             )}
           </OrderSection>
+          <hr></hr>
           <OrderSection title="Payment Method">
             {paymentMethod.length === 0 ? (
               <Message type="danger" message="Please choose a payment method." />
@@ -150,6 +151,7 @@ const CheckoutPlaceOrder = ({
               `Method: ${paymentMethod}.`
             )}
           </OrderSection>
+          <hr></hr>
           <OrderSection title="Order Items">
             <CartDropdownItems />
           </OrderSection>

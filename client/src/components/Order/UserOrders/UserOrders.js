@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { orderListUserFetch } from '../../../redux/actions/index';
 
@@ -8,16 +9,28 @@ import Message from '../../UI/Message/Message';
 
 import UserOrder from './UserOrder/UserOrder';
 
-const UserOrders = ({ userToken, userOrders, isError, onOrderListUserFetch }) => {
+const UserOrders = ({
+  userToken,
+  userOrders,
+  isError,
+  onOrderListUserFetch,
+  history,
+}) => {
   useEffect(() => userToken && !userOrders && onOrderListUserFetch(userToken), [
     userToken,
     onOrderListUserFetch,
     userOrders,
   ]);
 
+  const orderDetailsClickHandler = (id) => history.push(`/account/orders/${id}`);
+
   const userOrdersRender = () =>
     userOrders.map((userOrder) => (
-      <UserOrder key={userOrder._id} userOrder={userOrder} />
+      <UserOrder
+        key={userOrder._id}
+        userOrder={userOrder}
+        orderDetailsClickHandler={orderDetailsClickHandler}
+      />
     ));
 
   const userOrdersView = () => {
@@ -50,4 +63,4 @@ const mapDispatchToProps = (dispatch) => ({
   onOrderListUserFetch: (userToken) => dispatch(orderListUserFetch(userToken)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserOrders);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserOrders));
