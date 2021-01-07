@@ -1,10 +1,10 @@
-import Message from '../../../UI/Message/Message';
+import Message from '../../UI/Message/Message';
 
-import Button from '../../../UI/Button/Button';
+import Button from '../../UI/Button/Button';
 
-import './UserOrder.scss';
+import './OrderOverview.scss';
 
-const UserOrder = ({ userOrder, orderDetailsClickHandler }) => {
+const OrderOverview = ({ userOrder, orderDetailsClickHandler }) => {
   const {
     _id,
     createdAt,
@@ -14,8 +14,8 @@ const UserOrder = ({ userOrder, orderDetailsClickHandler }) => {
     paymentMethod,
   } = userOrder;
   const orderDate = new Date(createdAt);
-  const userRequireCardPayment = paymentMethod === 'PayPal' && isPaid === false && (
-    <div className="user-order-info-danger">
+  const requireUserCardPayment = paymentMethod === 'PayPal' && isPaid === false && (
+    <div className="order-overview-info-danger">
       <Message
         type="danger"
         message="In order to send your order, you must perform credit card payment. "
@@ -24,9 +24,9 @@ const UserOrder = ({ userOrder, orderDetailsClickHandler }) => {
   );
 
   return (
-    <article id="User Order">
-      <div className="user-order bg-gray-light my-1 p-1">
-        <div className="user-order-info">
+    <article id="OrderOverview">
+      <div className="order-overview bg-gray-light my-1 p-1">
+        <div className="order-overview-info">
           <div>
             <strong>Date </strong>
             {orderDate.toLocaleString()}
@@ -39,15 +39,17 @@ const UserOrder = ({ userOrder, orderDetailsClickHandler }) => {
             <strong>Value </strong>${totalPrice.toFixed(2)}
           </div>
         </div>
-        {userRequireCardPayment}
+        {requireUserCardPayment}
         <hr></hr>
-        <div className="user-order-status">
-          <div className={`user-order-status${isPaid ? '-success' : '-danger'}`}>
+        <div className="order-overview-status">
+          <div className={`order-overview-status${isPaid ? '-success' : '-danger'}`}>
             <strong>Paid status: </strong>
             {isPaid ? 'PAID' : 'NOT PAID'}
           </div>
           <div
-            className={`user-order-status${isDelivered ? '-success' : '-danger'}`}
+            className={`order-overview-status${
+              isDelivered ? '-success' : '-danger'
+            }`}
           >
             <strong>Delivery status: </strong>
             {isDelivered ? 'DELIVERED' : 'NOT DELIVERED'}
@@ -66,4 +68,4 @@ const UserOrder = ({ userOrder, orderDetailsClickHandler }) => {
   );
 };
 
-export default UserOrder;
+export default OrderOverview;

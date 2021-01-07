@@ -18,14 +18,11 @@ const OrderDetails = ({
   match,
 }) => {
   const orderSelectedId = match.params.id;
-  console.log('orderSelectedId - ', orderSelectedId);
-
   const orderDetailsIsNew = orderDetails
     ? orderSelectedId !== orderDetails._id
       ? false
       : orderDetails
     : false;
-  console.log('orderDetailsIsNew - ', orderDetailsIsNew);
 
   useEffect(
     () =>
@@ -45,19 +42,7 @@ const OrderDetails = ({
     return <OrdersdDetailsView orderDetails={orderDetails} />;
   };
 
-  return (
-    <section id="UserOrderDetails">
-      <div className="user-order-details">
-        <h1>
-          <strong>Order no </strong>
-          {orderSelectedId}
-        </h1>
-        <hr></hr>
-        {orderDetailsView()}
-        <hr></hr>
-      </div>
-    </section>
-  );
+  return <section id="UserOrderDetails">{orderDetailsView()}</section>;
 };
 
 const mapStateToProps = ({

@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import { orderListUserFetch } from '../../../redux/actions/index';
 
 import Spinner from '../../UI/Spinner/Spinner';
 import Message from '../../UI/Message/Message';
 
-import UserOrder from './UserOrder/UserOrder';
+import OrderOverview from '../OrderOverview/OrderOverview';
 
-const UserOrders = ({
+const OrdersList = ({
   userToken,
   userOrders,
   isError,
@@ -24,16 +23,16 @@ const UserOrders = ({
 
   const orderDetailsClickHandler = (id) => history.push(`/account/orders/${id}`);
 
-  const userOrdersRender = () =>
+  const ordersListRender = () =>
     userOrders.map((userOrder) => (
-      <UserOrder
+      <OrderOverview
         key={userOrder._id}
         userOrder={userOrder}
         orderDetailsClickHandler={orderDetailsClickHandler}
       />
     ));
 
-  const userOrdersView = () => {
+  const ordersListView = () => {
     if (isError) {
       return <Message type={isError && 'danger'} message={isError} />;
     }
@@ -47,10 +46,10 @@ const UserOrders = ({
     if (!userOrders) {
       return <Spinner />;
     }
-    return userOrdersRender();
+    return ordersListRender();
   };
 
-  return <div className="user-orders">{userOrdersView()}</div>;
+  return <div>{ordersListView()}</div>;
 };
 
 const mapStateToProps = (state) => ({
@@ -63,4 +62,4 @@ const mapDispatchToProps = (dispatch) => ({
   onOrderListUserFetch: (userToken) => dispatch(orderListUserFetch(userToken)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserOrders));
+export default connect(mapStateToProps, mapDispatchToProps)(OrdersList);
