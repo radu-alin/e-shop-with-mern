@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema(
       default: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true } //mongoDB will generate automatically createdAt and updatedAt
 );
 
 userSchema.methods.matchPassword = async function (enteredPassword) {

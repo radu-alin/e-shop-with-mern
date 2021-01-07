@@ -67,7 +67,7 @@ const productSchema = mongoose.Schema(
       default: 0,
     },
   },
-  { timestamps: true }
+  { timestamps: true } //mongoDB will generate automatically createdAt and updatedAt
 );
 
 const Product = mongoose.model('Product', productSchema);

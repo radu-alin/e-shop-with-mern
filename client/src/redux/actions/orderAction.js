@@ -74,6 +74,9 @@ export const orderListUserFetch = (token) => async (dispatch) => {
     dispatch(orderListUserFetchFail(isError));
   }
 };
+export const orderListUserFetchReset = () => ({
+  type: actionTypes.ORDER_LIST_USER_FETCH_RESET,
+});
 
 //orderDetailsFetch
 export const orderDetailsFetchStart = () => ({

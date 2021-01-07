@@ -8,6 +8,7 @@ import {
   orderCreateReset,
   orderPay,
   orderPayReset,
+  orderListUserFetchReset,
   cartReset,
 } from '../../../redux/actions/index';
 
@@ -43,6 +44,7 @@ const CheckoutPlaceOrder = ({
   onOrderPay,
   onOrderPayReset,
   onCartReset,
+  onOrderListUserFetchReset,
 }) => {
   const [sdkReady, setSdkReady] = useState(false);
   useEffect(() => {
@@ -71,11 +73,12 @@ const CheckoutPlaceOrder = ({
             delete window[key];
           }
         });
+      onOrderListUserFetchReset();
       onOrderPayReset();
       onOrderCreateReset();
       onCartReset();
     };
-  }, [onOrderCreateReset, onOrderPayReset, onCartReset]);
+  }, [onOrderCreateReset, onOrderPayReset, onCartReset, onOrderListUserFetchReset]);
 
   const successPaymentHandler = (paymentResult) => {
     onOrderPay(userToken, orderCreated._id, paymentResult);
@@ -191,6 +194,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(orderPay(userToken, orderId, paymentResult)),
   onOrderPayReset: () => dispatch(orderPayReset()),
   onCartReset: () => dispatch(cartReset()),
+  onOrderListUserFetchReset: () => dispatch(orderListUserFetchReset()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPlaceOrder);

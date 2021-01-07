@@ -30,29 +30,5 @@
         padding-right: 0;
       }
     }
-
-    &-total {
-      display: flex;
-      flex-direction: column;
-      padding: 1rem 0 1rem 1rem;
-
-      @media (max-width: 768px) {
-        padding: 1rem 0 1rem 0;
-      }
-
-      &-sum {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-      }
-
-      & button {
-        margin-top: 1rem;
-        padding: 10px;
-        font-size: 0.9rem;
-        width: 100%;
-      }
-    }
   }
 }

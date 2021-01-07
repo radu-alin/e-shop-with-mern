@@ -41,7 +41,11 @@ const CartDropdownItems = ({
       return <Message type={isError && 'danger'} message={isError} />;
     }
     if (cartItemsId.length === 0) {
-      return <h1 className="py-1">Please Add Products to Cart</h1>;
+      return (
+        <h2 className="py-1">
+          <strong>Please add products to cart.</strong>
+        </h2>
+      );
     }
     if (!cartItemsIdsNotChanged) {
       return <Spinner />;

@@ -75,7 +75,7 @@ const orderSchema = mongoose.Schema(
       type: Date,
     },
   },
-  { timestamps: true }
+  { timestamps: true } //mongoDB will generate automatically createdAt and updatedAt
 );
 
 const Order = mongoose.model('Order', orderSchema);

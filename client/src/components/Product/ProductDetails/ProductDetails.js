@@ -99,13 +99,6 @@ const ProductDetails = ({
   );
 };
 
-// const mapStateToProps = ({
-//   productSelected: { productSelectedDetails: productDetails, isError },
-// }) => ({
-//   productDetails,
-//   isError,
-// });
-
 const mapStateToProps = (state) => ({
   productDetails: productSelectedDetailsAndQuantityAvailableSelector(state),
   isError: state.productSelectedDetails,

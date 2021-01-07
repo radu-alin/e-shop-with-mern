@@ -1,0 +1,48 @@
+.user-order {
+  width: 100%;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: grab;
+
+  &-info {
+    padding-bottom: 1rem;
+  }
+
+  &-status {
+    width: 300px;
+    padding-top: 1rem;
+    @media (max-width: 576px) {
+      width: 100%;
+    }
+
+    &-success {
+      margin-bottom: 5px;
+      padding-left: 5px;
+      color: #155724;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+      border-radius: 5px;
+    }
+    &-danger {
+      margin-bottom: 5px;
+      padding-left: 5px;
+      color: #721c24;
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 5px;
+    }
+    & button {
+      width: 300px;
+      padding: 0;
+      padding-left: 5px;
+      font-size: 1rem;
+      border: 1px solid #a9a9a9;
+      border-radius: 5px;
+      text-align: left;
+      @media (max-width: 576px) {
+        width: 100%;
+      }
+    }
+  }
+}
