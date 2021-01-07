@@ -4,7 +4,6 @@ import './UserOrder.scss';
 
 const UserOrder = ({ userOrder }) => {
   const { _id, createdAt, isPaid, isDelivered, totalPrice } = userOrder;
-  console.log('isPaid - ', isPaid);
   const orderDate = new Date(createdAt);
   return (
     <article id="User Order">

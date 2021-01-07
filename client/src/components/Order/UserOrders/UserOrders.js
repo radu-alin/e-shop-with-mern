@@ -3,26 +3,17 @@ import { connect } from 'react-redux';
 
 import { orderListUserFetch } from '../../../redux/actions/index';
 
-import { ordersListNotFetchedSelector } from '../../../redux/selectors/orderSelector';
-
 import Spinner from '../../UI/Spinner/Spinner';
 import Message from '../../UI/Message/Message';
 
 import UserOrder from './UserOrder/UserOrder';
 
-const UserOrders = ({
-  userToken,
-  userOrders,
-  isError,
-  ordersListNotFetched,
-  onOrderListUserFetch,
-}) => {
-  console.log('ordersListNotFetched - ', ordersListNotFetched);
-  useEffect(
-    () => userToken && ordersListNotFetched && onOrderListUserFetch(userToken),
-    [userToken, onOrderListUserFetch, ordersListNotFetched]
-  );
-  console.log('userOrders - ', userOrders);
+const UserOrders = ({ userToken, userOrders, isError, onOrderListUserFetch }) => {
+  useEffect(() => userToken && !userOrders && onOrderListUserFetch(userToken), [
+    userToken,
+    onOrderListUserFetch,
+    userOrders,
+  ]);
 
   const userOrdersRender = () =>
     userOrders.map((userOrder) => (
@@ -51,9 +42,8 @@ const UserOrders = ({
 
 const mapStateToProps = (state) => ({
   userToken: state.user.userToken,
-  userOrders: state.orderListUser.userOrders,
+  userOrders: state.orderListUser?.userOrders,
   isError: state.orderListUser.isError,
-  ordersListNotFetched: ordersListNotFetchedSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

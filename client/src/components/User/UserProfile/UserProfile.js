@@ -44,20 +44,13 @@ const UserProfile = ({
   isUpdatedRef.current = isUpdated;
 
   useEffect(() => {
-    userToken && onUserProfileFetch(userToken);
-  }, [userToken, onUserProfileFetch]);
+    userToken && !name && onUserProfileFetch(userToken);
+  }, [userToken, name, onUserProfileFetch]);
 
   useEffect(() => name && setFormData({ ...defaultState(name, email) }), [
     name,
     email,
   ]);
-
-  useEffect(() => {
-    return () => {
-      onUserProfileFetchedClear();
-      onUserProfileUpdateClear();
-    };
-  }, [onUserProfileFetchedClear, onUserProfileUpdateClear]);
 
   const editTrueIconClickHandler = useCallback(() => {
     setEditProfile(true);
@@ -69,14 +62,22 @@ const UserProfile = ({
   ]);
 
   const onSubmitHandler = (event) => {
+    const updateUserState = () =>
+      setTimeout(() => {
+        if (isUpdatedRef.current) {
+          const clearUser = () =>
+            setTimeout(() => {
+              onUserProfileFetchedClear();
+            }, 1000);
+          setEditProfile(false);
+          onUserProfileUpdateClear();
+          clearUser();
+        }
+      }, 1000);
     event.preventDefault();
     const userData = formInputsDataUtil(formData.formInputsData);
     onUserProfileUpdate(userToken, userData);
-    setTimeout(() => {
-      if (isUpdatedRef.current) {
-        setEditProfile(false);
-      }
-    }, 700);
+    updateUserState();
   };
 
   const formRender = () =>
@@ -126,18 +127,20 @@ const UserProfile = ({
     </FormContainer>
   );
 
-  const renderFormContainerHandler = !!isErrorFetch ? (
-    <Message type="danger" message={isErrorFetch} />
-  ) : !name ? (
-    <Spinner />
-  ) : (
-    formContainerView
-  );
+  const userProfileView = () => {
+    if (isErrorFetch) {
+      return <Message type="danger" message={isErrorFetch} />;
+    }
+    if (!name) {
+      return <Spinner />;
+    }
+    return formContainerView;
+  };
 
   return (
     <section id="UserProfile">
       <div className={`user-profile${editProfile ? '-edit' : ''}`}>
-        {renderFormContainerHandler}
+        {userProfileView()}
       </div>
     </section>
   );
