@@ -8,8 +8,6 @@ import OrdersdDetailsView from './OrderDetailsView/OrderDetailsView';
 import Spinner from '../../UI/Spinner/Spinner';
 import Message from '../../UI/Message/Message';
 
-import './OrderDetails.scss';
-
 const OrderDetails = ({
   userToken,
   orderDetails,
@@ -18,25 +16,21 @@ const OrderDetails = ({
   match,
 }) => {
   const orderSelectedId = match.params.id;
-  const orderDetailsIsNew = orderDetails
-    ? orderSelectedId !== orderDetails._id
-      ? false
-      : orderDetails
-    : false;
+  const orderDetailsIsNew = orderSelectedId !== orderDetails?._id;
 
   useEffect(
     () =>
+      orderDetailsIsNew &&
       userToken &&
-      orderSelectedId !== orderDetails?._id &&
       onOrderDetailsFetch(userToken, orderSelectedId),
-    [userToken, orderSelectedId, orderDetails, onOrderDetailsFetch]
+    [userToken, orderDetailsIsNew, orderSelectedId, onOrderDetailsFetch]
   );
 
   const orderDetailsView = () => {
     if (isError) {
       return <Message type={isError && 'danger'} message={isError} />;
     }
-    if (!orderDetailsIsNew) {
+    if (orderDetailsIsNew) {
       return <Spinner />;
     }
     return <OrdersdDetailsView orderDetails={orderDetails} />;

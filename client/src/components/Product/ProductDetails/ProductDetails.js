@@ -5,11 +5,11 @@ import { cartAddItem, productSelectedFetch } from '../../../redux/actions';
 
 import { productSelectedDetailsAndQuantityAvailableSelector } from '../../../redux/selectors/cartSelector';
 
+import ProductDetailsView from './ProductDetailsView/ProductDetailsView';
+
 import Button from '../../UI/Button/Button';
-import Rating from '../../Rating/Rating';
 import Spinner from '../../UI/Spinner/Spinner';
 import Message from '../../UI/Message/Message';
-import './ProductDetails.scss';
 
 const ProductDetails = ({
   productSelectedId,
@@ -19,70 +19,25 @@ const ProductDetails = ({
   onCartAddItem,
   onProductSelectedFetch,
 }) => {
-  const productDetailsIsNew = productDetails
-    ? productSelectedId !== productDetails._id
-      ? false
-      : productDetails
-    : false;
+  const productDetailsIsNew = productSelectedId !== productDetails?._id;
 
   useEffect(() => {
-    onProductSelectedFetch(productSelectedId);
-  }, [onProductSelectedFetch, productSelectedId]);
-
-  const productView = () => (
-    <section id="ProductDetails">
-      <div className="product-details-content">
-        <div className="product-details-content-image">
-          <img src={productDetails.image} alt="product" />
-        </div>
-        <div className="product-details-content-text-left">
-          <h3>{productDetails.name}</h3>
-          <Rating
-            value={productDetails.rating}
-            numReviews={productDetails.numReviews}
-          />
-          <hr className="my-1"></hr>
-          <h3>${productDetails.price}</h3>
-          <hr></hr>
-          <p>{productDetails.description}</p>
-        </div>
-        <div className="product-details-content-text-right">
-          <div className="product-details-content-text-right-price">
-            <span>Price:</span>
-            <span>
-              <strong> ${productDetails.price}</strong>
-            </span>
-          </div>
-          <hr></hr>
-          <div className="product-details-content-text-right-stock">
-            <span>Status: </span>
-            <span>
-              <strong>
-                {productDetails.countInStock ? 'In Stock' : 'Out of Stock'}
-              </strong>
-            </span>
-          </div>
-          <hr></hr>
-          <Button
-            onClickAction={() => onCartAddItem(productDetails)}
-            type="btn-gray-dark "
-            disabled={productDetails.countInStock <= 0}
-          >
-            {productDetails.countInStock <= 0 ? 'OUT OF STOCK' : 'ADD TO CHART'}
-          </Button>
-        </div>
-      </div>
-    </section>
-  );
+    productDetailsIsNew && onProductSelectedFetch(productSelectedId);
+  }, [onProductSelectedFetch, productDetailsIsNew, productSelectedId]);
 
   const productDetailsView = () => {
     if (isError) {
       return <Message type="danger" message={isError} />;
     }
-    if (!productDetailsIsNew) {
+    if (productDetailsIsNew) {
       return <Spinner />;
     }
-    return productView();
+    return (
+      <ProductDetailsView
+        productDetails={productDetails}
+        onCartAddItem={onCartAddItem}
+      />
+    );
   };
 
   return (

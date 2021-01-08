@@ -27,8 +27,8 @@ export {
 export {
   orderCreate,
   orderCreateReset,
-  orderListUserFetch,
-  orderListUserFetchReset,
+  ordersListFetch,
+  ordersListFetchReset,
   orderDetailsFetch,
   orderPay,
   orderPayReset,

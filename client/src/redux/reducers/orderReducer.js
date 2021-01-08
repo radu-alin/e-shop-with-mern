@@ -13,6 +13,7 @@ export const orderCreateReducer = (state = initialStateOrderCreate, action) => {
       return {
         ...state,
         isLoading: true,
+        isError: false,
       };
     case actionTypes.ORDER_CREATE_FAIL:
       return {
@@ -38,34 +39,34 @@ export const orderCreateReducer = (state = initialStateOrderCreate, action) => {
   }
 };
 
-//orderListUserFetch
-const initialStateOrderListUser = {
-  userOrders: null,
+//ordersListFetch
+const initialStateOrdersList = {
+  orderList: null,
   isLoading: false,
   isError: false,
 };
 
-export const orderListUserReducer = (state = initialStateOrderListUser, action) => {
+export const ordersListReducer = (state = initialStateOrdersList, action) => {
   switch (action.type) {
-    case actionTypes.ORDER_LIST_USER_FETCH_START:
+    case actionTypes.ORDERS_LIST_FETCH_START:
       return {
         ...state,
         isLoading: true,
         isError: false,
       };
-    case actionTypes.ORDER_LIST_USER_FETCH_FAIL:
+    case actionTypes.ORDERS_LIST_FETCH_FAIL:
       return {
         ...state,
         isLoading: false,
         isError: action.payload,
       };
-    case actionTypes.ORDER_LIST_USER_FETCH_SUCCESS:
+    case actionTypes.ORDERS_LIST_FETCH_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        userOrders: action.payload,
+        ordersList: action.payload,
       };
-    case actionTypes.ORDER_LIST_USER_FETCH_RESET:
+    case actionTypes.ORDERS_LIST_FETCH_RESET:
       return {
         ...state,
         userOrders: null,
