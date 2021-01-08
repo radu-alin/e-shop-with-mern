@@ -42,11 +42,7 @@ const OrderDetailsView = ({ orderDetails }) => {
             <CartDropdownItems />
           </OrderSection>
         </div>
-        <OrderSummary
-          cartProductsTotalValue={(totalPrice - shippingPrice).toFixed(2)}
-          cartShippingCost={shippingPrice}
-          cartCheckoutTotalValue={totalPrice}
-        >
+        <OrderSummary shippingPrice={shippingPrice} totalPrice={totalPrice}>
           {null}
         </OrderSummary>
       </div>

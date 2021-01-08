@@ -4,6 +4,7 @@ import CheckoutHeader from '../../components/Checkout/CheckoutHeader/CheckoutHea
 import CheckoutShipping from '../../components/Checkout/CheckoutShipping/CheckoutShipping';
 import CheckoutPaymentMethod from '../../components/Checkout/CheckoutPaymentMethod/CheckoutPaymentMethod';
 import CheckoutPlaceOrder from '../../components/Checkout/CheckoutPlaceOrder/CheckoutPlaceOrder.js';
+import CheckoutPayOrder from '../../components/Checkout/CheckoutPayOrder/CheckoutPayOrder.js';
 
 import './CheckoutPage.scss';
 
@@ -25,6 +26,7 @@ const CheckoutPage = () => {
           <Route path="/checkout/" exact component={CheckoutShipping} />
           <Route path="/checkout/payment-method" component={CheckoutPaymentMethod} />
           <Route path="/checkout/place-order" component={CheckoutPlaceOrder} />
+          <Route path="/checkout/pay-order" component={CheckoutPayOrder} />
           <hr></hr>
         </div>
       </div>

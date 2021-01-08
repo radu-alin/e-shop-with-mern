@@ -14,31 +14,26 @@ import {
 
 import {
   cartItemsDetailAndCartQuantitySelector,
-  cartProductsTotalValueSelector,
   cartShippingCostSelector,
   cartCheckoutTotalValueSelector,
 } from '../../../redux/selectors/cartSelector';
 
-import CartDropdownItems from '../../CartDropdown/CartDropdownItems/CartDropdownItems';
-import OrderSection from '../../Section/OrderSection/OrderSection';
-import OrderSummary from '../../Summary/OrderSummary/OrderSummary';
-import Message from '../../UI/Message/Message';
+import CheckoutOrderView from '../CheckoutOrderView/CheckoutOrderView';
+
 import Button from '../../UI/Button/Button';
 
-import './CheckoutPlaceOrder.scss';
-
 const CheckoutPlaceOrder = ({
+  userToken,
   shippingAddress,
   paymentMethod,
-  cartProductsTotalValue,
-  cartShippingCost,
-  cartCheckoutTotalValue,
-  userToken,
+  shippingPrice,
+  totalPrice,
   cartItems,
   isLoadingOrderCreate,
   orderCreated,
   isLoadingOrderPay,
   isSuccessOrderPay,
+  history,
   onOrderCreate,
   onOrderCreateReset,
   onOrderPay,
@@ -65,6 +60,11 @@ const CheckoutPlaceOrder = ({
       addPayPalScript();
   }, [paymentMethod, orderCreated, sdkReady, onOrderCreateReset]);
 
+  useEffect(() => orderCreated && history.push('/checkout/pay-order'), [
+    orderCreated,
+    history,
+  ]);
+
   useEffect(() => {
     return () => {
       window.paypal &&
@@ -89,14 +89,11 @@ const CheckoutPlaceOrder = ({
       orderItems: cartItems,
       shippingAddress,
       paymentMethod,
-      itemsPrice: cartProductsTotalValue,
-      shippingPrice: cartShippingCost,
-      totalPrice: cartCheckoutTotalValue,
+      shippingPrice,
+      totalPrice,
     };
     onOrderCreate(userToken, orderData);
   };
-
-  const { address, city, postalCode, country } = shippingAddress;
 
   const buttonOrderPayView = () => {
     let buttonView = null;
@@ -105,7 +102,7 @@ const CheckoutPlaceOrder = ({
       buttonView = !orderCreated ? (
         <Button
           type="btn-gray-dark"
-          disabled={paymentMethod.length === 0 || !address}
+          disabled={paymentMethod.length === 0 || !shippingAddress.address}
           onClickAction={placeOrderButtonClickHandler}
         >
           Place Order
@@ -116,7 +113,7 @@ const CheckoutPlaceOrder = ({
       buttonView = !orderCreated ? (
         <Button
           type="btn-gray-dark"
-          disabled={paymentMethod.length === 0 || !address}
+          disabled={paymentMethod.length === 0 || !!shippingAddress.address}
           onClickAction={placeOrderButtonClickHandler}
         >
           Place Order
@@ -131,44 +128,18 @@ const CheckoutPlaceOrder = ({
     return buttonView;
   };
 
+  const isLoadingSummary =
+    isLoadingOrderCreate ||
+    isLoadingOrderPay ||
+    (orderCreated && !window.paypal && paymentMethod === 'PayPal');
+
+  const orderDetails = { shippingAddress, paymentMethod, totalPrice, shippingPrice };
+
   return (
     <section id="CheckoutPlaceOrder">
-      <div className="checkout-place-order ">
-        <div className="checkout-place-order-content">
-          <OrderSection title="Shipping">
-            {address && city && postalCode && country ? (
-              `Address: ${address}, City: ${city}, ZipCode: ${postalCode}, Country:
-            ${country}.`
-            ) : (
-              <Message type="danger" message="Please enter shipping details." />
-            )}
-          </OrderSection>
-          <hr></hr>
-          <OrderSection title="Payment Method">
-            {paymentMethod.length === 0 ? (
-              <Message type="danger" message="Please choose a payment method." />
-            ) : (
-              `Method: ${paymentMethod}.`
-            )}
-          </OrderSection>
-          <hr></hr>
-          <OrderSection title="Order Items">
-            <CartDropdownItems />
-          </OrderSection>
-        </div>
-        <OrderSummary
-          cartProductsTotalValue={cartProductsTotalValue}
-          cartShippingCost={cartShippingCost}
-          cartCheckoutTotalValue={cartCheckoutTotalValue}
-          isLoading={
-            isLoadingOrderCreate ||
-            isLoadingOrderPay ||
-            (orderCreated && !window.paypal && paymentMethod === 'PayPal')
-          }
-        >
-          {buttonOrderPayView()}
-        </OrderSummary>
-      </div>
+      <CheckoutOrderView orderDetails={orderDetails} isLoading={isLoadingSummary}>
+        {buttonOrderPayView()}
+      </CheckoutOrderView>
     </section>
   );
 };
@@ -177,9 +148,8 @@ const mapStateToProps = (state) => ({
   userToken: state.user.userToken,
   shippingAddress: state.cartCheckoutDetails.shippingAddress,
   paymentMethod: state.cartCheckoutDetails.paymentMethod,
-  cartProductsTotalValue: cartProductsTotalValueSelector(state),
-  cartShippingCost: cartShippingCostSelector(state),
-  cartCheckoutTotalValue: cartCheckoutTotalValueSelector(state),
+  shippingPrice: cartShippingCostSelector(state),
+  totalPrice: cartCheckoutTotalValueSelector(state),
   cartItems: cartItemsDetailAndCartQuantitySelector(state),
   isSuccessOrderCreate: !!state.orderCreate,
   isLoadingOrderCreate: state.orderCreate.isLoading,
