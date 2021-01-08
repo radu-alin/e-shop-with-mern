@@ -9,7 +9,6 @@ const OrderSummary = ({ children, shippingPrice, totalPrice, isLoading }) => {
   const spinner = (() => isLoading && <Spinner type="small" />)();
   return (
     <div className="order-summary">
-      {console.log('orderSummary - render()')}
       <h1>Summary</h1>
       <p>
         <span>Items:</span>

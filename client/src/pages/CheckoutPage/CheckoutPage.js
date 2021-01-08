@@ -26,7 +26,7 @@ const CheckoutPage = () => {
           <Route path="/checkout/" exact component={CheckoutShipping} />
           <Route path="/checkout/payment-method" component={CheckoutPaymentMethod} />
           <Route path="/checkout/place-order" component={CheckoutPlaceOrder} />
-          <Route path="/checkout/pay-order" component={CheckoutPayOrder} />
+          <Route path="/checkout/pay-order/:id" component={CheckoutPayOrder} />
           <hr></hr>
         </div>
       </div>
