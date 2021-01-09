@@ -15,6 +15,7 @@ const OrderDetails = ({
   onOrderDetailsFetch,
   match,
 }) => {
+  console.log('match - ', match);
   const orderSelectedId = match.params.id;
   const orderDetailsIsNew = orderSelectedId !== orderDetails?._id;
 
@@ -33,7 +34,12 @@ const OrderDetails = ({
     if (orderDetailsIsNew) {
       return <Spinner />;
     }
-    return <OrdersdDetailsView orderDetails={orderDetails} />;
+    return (
+      <OrdersdDetailsView
+        orderDetails={orderDetails}
+        orderItems={orderDetails.orderItems}
+      />
+    );
   };
 
   return <section id="UserOrderDetails">{orderDetailsView()}</section>;

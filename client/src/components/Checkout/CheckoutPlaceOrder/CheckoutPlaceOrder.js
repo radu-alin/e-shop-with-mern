@@ -9,7 +9,7 @@ import {
   cartCheckoutTotalValueSelector,
 } from '../../../redux/selectors/cartSelector';
 
-import CheckoutOrderView from '../CheckoutOrderView/CheckoutOrderView';
+import OrderDetailsView from '../../Order/OrderDetails/OrderDetailsView/OrderDetailsView';
 
 import Button from '../../UI/Button/Button';
 
@@ -56,9 +56,9 @@ const CheckoutPlaceOrder = ({
 
   return (
     <section id="CheckoutPlaceOrder">
-      <CheckoutOrderView orderDetails={orderDetails} isLoading={isLoadingSummary}>
+      <OrderDetailsView orderDetails={orderDetails} isLoading={isLoadingSummary}>
         {buttonPlaceOrderView}
-      </CheckoutOrderView>
+      </OrderDetailsView>
     </section>
   );
 };
@@ -71,6 +71,7 @@ const mapStateToProps = (state) => ({
   totalPrice: cartCheckoutTotalValueSelector(state),
   cartItems: cartItemsDetailAndCartQuantitySelector(state),
   orderCreated: state.orderCreate.orderCreated,
+  isLoadingOrderCreate: state.orderCreate.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

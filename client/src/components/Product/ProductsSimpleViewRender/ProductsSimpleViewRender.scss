@@ -1,0 +1,8 @@
+.products-simple-view-render {
+  & article {
+    border-bottom: 1px solid #a9a9a9;
+  }
+  & article:last-of-type {
+    border-bottom: 1px solid transparent;
+  }
+}

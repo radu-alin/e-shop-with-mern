@@ -11,7 +11,7 @@ import {
 
 import Spinner from '../../UI/Spinner/Spinner';
 import Message from '../../UI/Message/Message';
-import CartDropdownItem from './CartDropdownItem/CartDropdownItem';
+import ProductsSimpleViewRender from '../../Product/ProductsSimpleViewRender/ProductsSimpleViewRender';
 
 import './CartDropdownItems.scss';
 
@@ -28,14 +28,6 @@ const CartDropdownItems = ({
     onCartItemsDetailFetch,
   ]);
 
-  const cartItemsRender = () =>
-    cartItemsDetail.map((cartItemDetail) => (
-      <CartDropdownItem
-        key={cartItemDetail.productId}
-        cartItemsDetail={cartItemDetail}
-      />
-    ));
-
   const cartDropdownView = () => {
     if (isError) {
       return <Message type={isError && 'danger'} message={isError} />;
@@ -50,10 +42,14 @@ const CartDropdownItems = ({
     if (!cartItemsIdsNotChanged) {
       return <Spinner />;
     }
-    return cartItemsRender();
+    return <ProductsSimpleViewRender products={cartItemsDetail} />;
   };
 
-  return <div className="cart-dropdown-items">{cartDropdownView()}</div>;
+  return (
+    <section id="CartDropdownItems">
+      <div className="cart-dropdown-items">{cartDropdownView()}</div>
+    </section>
+  );
 };
 
 const mapStateToProps = (state) => ({

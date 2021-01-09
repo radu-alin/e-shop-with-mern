@@ -5,7 +5,9 @@ import Spinner from '../../UI/Spinner/Spinner';
 import './OrderSummary.scss';
 
 const OrderSummary = ({ children, shippingPrice, totalPrice, isLoading }) => {
-  const itemsPrice = (() => sumRoundValueUtil(totalPrice - shippingPrice, 2))();
+  const itemsPriceRounded = (() =>
+    sumRoundValueUtil(totalPrice - shippingPrice, 2))();
+  const totalPriceRounded = (() => sumRoundValueUtil(totalPrice, 2))();
   const spinner = (() => isLoading && <Spinner type="small" />)();
   return (
     <div className="order-summary">
@@ -13,7 +15,7 @@ const OrderSummary = ({ children, shippingPrice, totalPrice, isLoading }) => {
       <p>
         <span>Items:</span>
         <span>
-          <strong> ${itemsPrice}</strong>
+          <strong> ${itemsPriceRounded}</strong>
         </span>
       </p>
       <hr></hr>
@@ -27,7 +29,7 @@ const OrderSummary = ({ children, shippingPrice, totalPrice, isLoading }) => {
       <p>
         <span>TOTAL:</span>
         <span>
-          <strong> ${totalPrice}</strong>
+          <strong> ${totalPriceRounded}</strong>
         </span>
       </p>
       <hr></hr>
