@@ -22,13 +22,18 @@ const OrdersList = ({
   ]);
 
   const orderDetailsClickHandler = (id) => history.push(`/account/orders/${id}`);
+  const orderPayOrderHandler = (id) => history.push(`/checkout/pay-order/${id}`);
 
   const ordersListRender = () =>
     ordersList.map((userOrder) => (
       <OrderOverview
         key={userOrder._id}
         userOrder={userOrder}
-        orderDetailsClickHandler={orderDetailsClickHandler}
+        orderDetailsClickHandler={
+          userOrder.paymentMethod === 'PayPal' && !userOrder.isPaid
+            ? orderPayOrderHandler
+            : orderDetailsClickHandler
+        }
       />
     ));
 

@@ -105,6 +105,13 @@ export const orderDetailsReducer = (state = initialStateOrderDetails, action) =>
         isLoading: false,
         orderDetails: action.payload,
       };
+    case actionTypes.ORDER_DETAILS_FETCH_RESET:
+      return {
+        ...state,
+        orderDetails: null,
+        isLoading: false,
+        isError: false,
+      };
     default:
       return state;
   }
@@ -134,8 +141,8 @@ export const orderPayReducer = (state = initialStateOrderPay, action) => {
     case actionTypes.ORDER_PAY_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         isSuccess: true,
+        isLoading: false,
       };
     case actionTypes.ORDER_PAY_RESET:
       return {

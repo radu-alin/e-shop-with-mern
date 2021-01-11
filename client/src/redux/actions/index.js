@@ -30,6 +30,7 @@ export {
   ordersListFetch,
   ordersListFetchReset,
   orderDetailsFetch,
+  orderDetailsFetchReset,
   orderPay,
   orderPayReset,
 } from './orderAction.js';

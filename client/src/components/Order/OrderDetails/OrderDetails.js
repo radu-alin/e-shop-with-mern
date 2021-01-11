@@ -15,7 +15,6 @@ const OrderDetails = ({
   onOrderDetailsFetch,
   match,
 }) => {
-  console.log('match - ', match);
   const orderSelectedId = match.params.id;
   const orderDetailsIsNew = orderSelectedId !== orderDetails?._id;
 

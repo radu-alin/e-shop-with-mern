@@ -109,6 +109,9 @@ export const orderDetailsFetch = (token, orderId) => async (dispatch) => {
     dispatch(orderDetailsFetchFail(isError));
   }
 };
+export const orderDetailsFetchReset = () => ({
+  type: actionTypes.ORDER_DETAILS_FETCH_RESET,
+});
 
 //orderPay
 export const orderPayStart = () => ({

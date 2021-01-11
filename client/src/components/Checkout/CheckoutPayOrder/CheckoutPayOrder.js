@@ -7,14 +7,14 @@ import { sumRoundValueUtil } from '../../../utils/sumUtil';
 import {
   orderDetailsFetch,
   orderCreateReset,
-  orderPay,
   orderPayReset,
   ordersListFetchReset,
+  orderDetailsFetchReset,
   cartReset,
 } from '../../../redux/actions/index.js';
 
 import OrderDetailsView from '../../Order/OrderDetails/OrderDetailsView/OrderDetailsView';
-import { PayPalButton } from 'react-paypal-button-v2';
+import PayPalButton from '../../UI/PayPalButton/PayPalButton';
 import Message from '../../UI/Message/Message';
 import Spinner from '../../UI/Spinner/Spinner';
 
@@ -22,20 +22,25 @@ const CheckoutPayOrder = ({
   userToken,
   match,
   orderDetails,
+  orderId,
+  orderValue,
   paymentMethod,
-  totalPrice,
+  isPaid,
   isErrorOrderFetch,
   isLoadingOrderPay,
   isSuccessOrderPay,
   onOrderDetailsFetch,
   onOrderCreateReset,
-  onOrderPay,
+  onOrderDetailsFetchReset,
   onOrderPayReset,
-  onCartReset,
   onOrdersListFetchReset,
+  onCartReset,
 }) => {
+  const [sdkReady, setSdkReady] = useState(false);
+
   const orderSelectedId = match.params.id;
-  const totalPriceRounded = sumRoundValueUtil(totalPrice);
+  const totalPriceRounded = sumRoundValueUtil(orderValue);
+
   useEffect(
     () =>
       orderSelectedId &&
@@ -43,73 +48,68 @@ const CheckoutPayOrder = ({
       onOrderDetailsFetch(userToken, orderSelectedId),
     [userToken, orderSelectedId, onOrderDetailsFetch]
   );
-  const [sdkReady, setSdkReady] = useState(false);
-  console.log('totalPrice - ', totalPrice);
-  console.log('CheckoutPayOrder - render()');
-  console.log('isSuccessOrderPay - ', isSuccessOrderPay);
-  console.log('sdkReady - ', sdkReady);
-  console.log('orderDetails - ', orderDetails);
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get('/api/config/paypal');
+      const { data: CLIENT_ID } = await axios.get('/api/config/paypal');
+      const PAYPAL_SCRIPT = `https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}`;
       const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-      script.async = true;
+      script.setAttribute('type', 'text/javascript');
+      script.setAttribute('src', PAYPAL_SCRIPT);
+      script.setAttribute('async', 'async');
       script.onload = () => {
         setSdkReady(true);
       };
       document.body.appendChild(script);
     };
-    paymentMethod === 'PayPal' &&
-      orderDetails &&
-      !window.paypal &&
-      addPayPalScript();
-  }, [paymentMethod, orderDetails, sdkReady]);
+    if (paymentMethod === 'PayPal' && !isPaid && !window.paypal) {
+      return addPayPalScript();
+    }
+    if (window.paypal) {
+      setSdkReady(true);
+    }
+  }, [paymentMethod, isPaid, sdkReady]);
 
   useEffect(() => {
     return () => {
-      window.paypal &&
-        Object.keys(window).forEach((key) => {
-          if (/paypal|zoid|post_robot/.test(key)) {
-            delete window[key];
-          }
-        });
       onOrdersListFetchReset();
+      onOrderDetailsFetchReset();
       onOrderPayReset();
       onOrderCreateReset();
       onCartReset();
     };
-  }, [onOrderCreateReset, onOrderPayReset, onCartReset, onOrdersListFetchReset]);
-
-  const successPaymentHandler = (paymentResult) => {
-    onOrderPay(userToken, orderDetails._id, paymentResult);
-  };
+  }, [
+    onOrderCreateReset,
+    onOrderPayReset,
+    onCartReset,
+    onOrdersListFetchReset,
+    onOrderDetailsFetchReset,
+  ]);
 
   const isLoadingSummary =
     isLoadingOrderPay ||
-    (orderDetails && !window.paypal && paymentMethod === 'PayPal');
+    (orderDetails && !window.paypal && paymentMethod === 'PayPal' && !isPaid);
 
-  const buttonPayOrderView = (() => {
-    if (isSuccessOrderPay) {
-      return null;
-    }
+  const buttonPayOrderView = () => {
     if (paymentMethod === 'CashOnDelivery') {
       return null;
     }
+    if (isSuccessOrderPay) {
+      return null;
+    }
     if (paymentMethod === 'PayPal') {
-      if (!sdkReady) {
-        return null;
-      }
-      if (sdkReady && isLoadingOrderPay) {
+      if (!sdkReady || isLoadingOrderPay || isPaid) {
         return null;
       }
       return (
-        <PayPalButton amount={totalPriceRounded} onSuccess={successPaymentHandler} />
+        <PayPalButton
+          userToken={userToken}
+          totalPrice={totalPriceRounded}
+          orderId={orderId}
+        />
       );
     }
-  })();
+  };
 
   const orderItems = orderDetails?.orderItems;
 
@@ -123,11 +123,11 @@ const CheckoutPayOrder = ({
     return (
       <OrderDetailsView
         orderDetails={orderDetails}
-        isPaid={isSuccessOrderPay}
+        isPaid={isPaid || isSuccessOrderPay}
         orderItems={orderItems}
         isLoading={isLoadingSummary}
       >
-        {buttonPayOrderView}
+        {buttonPayOrderView()}
       </OrderDetailsView>
     );
   };
@@ -138,9 +138,11 @@ const CheckoutPayOrder = ({
 const mapStateToProps = ({ user: { userToken }, orderDetails, orderPay }) => ({
   userToken,
   orderDetails: orderDetails?.orderDetails,
+  orderId: orderDetails?.orderDetails?._id,
+  orderValue: orderDetails?.orderDetails?.totalPrice,
   paymentMethod: orderDetails?.orderDetails?.paymentMethod,
-  totalPrice: orderDetails?.orderDetails?.totalPrice,
-  isErrorOrderFetch: orderDetails?.isError,
+  isPaid: orderDetails?.orderDetails?.isPaid,
+  isErrorOrderFetch: orderDetails.isError,
   isLoadingOrderPay: orderPay.isLoading,
   isSuccessOrderPay: orderPay.isSuccess,
 });
@@ -148,44 +150,10 @@ const mapDispatchToProps = (dispatch) => ({
   onOrderDetailsFetch: (userToken, orderId) =>
     dispatch(orderDetailsFetch(userToken, orderId)),
   onOrderCreateReset: () => dispatch(orderCreateReset()),
-  onOrderPay: (userToken, orderId, paymentResult) =>
-    dispatch(orderPay(userToken, orderId, paymentResult)),
   onOrderPayReset: () => dispatch(orderPayReset()),
   onCartReset: () => dispatch(cartReset()),
   onOrdersListFetchReset: () => dispatch(ordersListFetchReset()),
+  onOrderDetailsFetchReset: () => dispatch(orderDetailsFetchReset()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPayOrder);
-
-// const buttonPayOrderView = () => {
-//   let buttonView = null;
-//   if (isSuccessOrderPay) return null;
-//   if (paymentMethod === 'CashOnDelivery') {
-//     buttonView = !orderCreated ? (
-//       <Button
-//         type="btn-gray-dark"
-//         disabled={paymentMethod.length === 0 || !shippingAddress.address}
-//         onClickAction={placeOrderButtonClickHandler}
-//       >
-//         Place Order
-//       </Button>
-//     ) : null;
-//   }
-//   if (paymentMethod === 'PayPal') {
-//     buttonView = !orderCreated ? (
-//       <Button
-//         type="btn-gray-dark"
-//         disabled={paymentMethod.length === 0 || !!shippingAddress.address}
-//         onClickAction={placeOrderButtonClickHandler}
-//       >
-//         Place Order
-//       </Button>
-//     ) : sdkReady ? (
-//       <PayPalButton
-//         amount={orderCreated.totalPrice}
-//         onSuccess={successPaymentHandler}
-//       />
-//     ) : null;
-//   }
-//   return buttonView;
-// };
