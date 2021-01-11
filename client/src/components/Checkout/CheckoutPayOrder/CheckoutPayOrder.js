@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import { sumRoundValueUtil } from '../../../utils/sumUtil';
+
 import {
   orderDetailsFetch,
   orderCreateReset,
@@ -33,6 +35,7 @@ const CheckoutPayOrder = ({
   onOrdersListFetchReset,
 }) => {
   const orderSelectedId = match.params.id;
+  const totalPriceRounded = sumRoundValueUtil(totalPrice);
   useEffect(
     () =>
       orderSelectedId &&
@@ -41,6 +44,7 @@ const CheckoutPayOrder = ({
     [userToken, orderSelectedId, onOrderDetailsFetch]
   );
   const [sdkReady, setSdkReady] = useState(false);
+  console.log('totalPrice - ', totalPrice);
   console.log('CheckoutPayOrder - render()');
   console.log('isSuccessOrderPay - ', isSuccessOrderPay);
   console.log('sdkReady - ', sdkReady);
@@ -101,7 +105,9 @@ const CheckoutPayOrder = ({
       if (sdkReady && isLoadingOrderPay) {
         return null;
       }
-      return <PayPalButton amount={totalPrice} onSuccess={successPaymentHandler} />;
+      return (
+        <PayPalButton amount={totalPriceRounded} onSuccess={successPaymentHandler} />
+      );
     }
   })();
 
