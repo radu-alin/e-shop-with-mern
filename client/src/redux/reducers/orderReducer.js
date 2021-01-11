@@ -41,7 +41,7 @@ export const orderCreateReducer = (state = initialStateOrderCreate, action) => {
 
 //ordersListFetch
 const initialStateOrdersList = {
-  orderList: null,
+  ordersList: null,
   isLoading: false,
   isError: false,
 };
@@ -69,7 +69,7 @@ export const ordersListReducer = (state = initialStateOrdersList, action) => {
     case actionTypes.ORDERS_LIST_FETCH_RESET:
       return {
         ...state,
-        userOrders: null,
+        ordersList: null,
         isLoading: false,
         isError: false,
       };

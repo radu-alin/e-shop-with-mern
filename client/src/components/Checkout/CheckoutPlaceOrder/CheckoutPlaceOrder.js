@@ -56,7 +56,12 @@ const CheckoutPlaceOrder = ({
 
   return (
     <section id="CheckoutPlaceOrder">
-      <OrderDetailsView orderDetails={orderDetails} isLoading={isLoadingSummary}>
+      <OrderDetailsView
+        orderDetails={orderDetails}
+        orderItems={false}
+        isPaid={false}
+        isLoading={isLoadingSummary}
+      >
         {buttonPlaceOrderView}
       </OrderDetailsView>
     </section>

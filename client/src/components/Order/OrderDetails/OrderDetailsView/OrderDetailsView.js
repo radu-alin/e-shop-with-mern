@@ -6,15 +6,15 @@ import Message from '../../../UI/Message/Message';
 
 import './OrderDetailsView.scss';
 
-const OrderDetailsView = ({ orderDetails, orderItems, isLoading, children }) => {
+const OrderDetailsView = ({
+  orderDetails,
+  orderItems,
+  isPaid,
+  isLoading,
+  children,
+}) => {
   const { address, city, postalCode, country } = orderDetails.shippingAddress;
-  const {
-    paymentMethod,
-    totalPrice,
-    shippingPrice,
-    isDelivered,
-    isPaid,
-  } = orderDetails;
+  const { paymentMethod, totalPrice, shippingPrice, isDelivered } = orderDetails;
 
   const orderItemsView = orderItems ? (
     <ProductsSimpleViewRender products={orderItems} />

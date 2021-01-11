@@ -33,7 +33,6 @@ const CheckoutPayOrder = ({
   onOrdersListFetchReset,
 }) => {
   const orderSelectedId = match.params.id;
-
   useEffect(
     () =>
       orderSelectedId &&
@@ -42,6 +41,8 @@ const CheckoutPayOrder = ({
     [userToken, orderSelectedId, onOrderDetailsFetch]
   );
   const [sdkReady, setSdkReady] = useState(false);
+  console.log('CheckoutPayOrder - render()');
+  console.log('isSuccessOrderPay - ', isSuccessOrderPay);
   console.log('sdkReady - ', sdkReady);
   console.log('orderDetails - ', orderDetails);
 
@@ -97,6 +98,9 @@ const CheckoutPayOrder = ({
       if (!sdkReady) {
         return null;
       }
+      if (sdkReady && isLoadingOrderPay) {
+        return null;
+      }
       return <PayPalButton amount={totalPrice} onSuccess={successPaymentHandler} />;
     }
   })();
@@ -113,6 +117,7 @@ const CheckoutPayOrder = ({
     return (
       <OrderDetailsView
         orderDetails={orderDetails}
+        isPaid={isSuccessOrderPay}
         orderItems={orderItems}
         isLoading={isLoadingSummary}
       >

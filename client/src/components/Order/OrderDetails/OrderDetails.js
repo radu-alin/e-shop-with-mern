@@ -38,6 +38,7 @@ const OrderDetails = ({
       <OrdersdDetailsView
         orderDetails={orderDetails}
         orderItems={orderDetails.orderItems}
+        isPaid={orderDetails.isPaid}
       />
     );
   };
