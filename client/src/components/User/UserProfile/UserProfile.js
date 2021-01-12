@@ -35,17 +35,30 @@ const UserProfile = ({
   onUserProfileUpdate,
   onUserProfileUpdateClear,
 }) => {
-  const [formData, setFormData] = useState({
-    ...defaultState(name, email),
-  });
-  const [editProfile, setEditProfile] = useState(false);
-  const firstInputRef = useRef(null);
-  const isUpdatedRef = useRef(isUpdated);
-  isUpdatedRef.current = isUpdated;
+  console.log('name - ', name);
+
+  const [formData, setFormData] = useState(
+    !name ? { ...defaultState() } : { ...defaultState(name, email) }
+  );
 
   useEffect(() => {
     userToken && !name && onUserProfileFetch(userToken);
   }, [userToken, name, onUserProfileFetch]);
+
+  useEffect(
+    () =>
+      formData.formInputsData.name.elementConfig.placeholder === 'Your Name' &&
+      name &&
+      setFormData({
+        ...defaultState(name, email),
+      }),
+    [name, email, formData.formInputsData.name.elementConfig.placeholder]
+  );
+
+  const [editProfile, setEditProfile] = useState(false);
+  const firstInputRef = useRef(null);
+  const isUpdatedRef = useRef(isUpdated);
+  isUpdatedRef.current = isUpdated;
 
   const editTrueIconClickHandler = useCallback(() => {
     setEditProfile(true);
@@ -127,6 +140,7 @@ const UserProfile = ({
       return <Message type="danger" message={isErrorFetch} />;
     }
     if (!name) {
+      console.log('spinner');
       return <Spinner />;
     }
     return formContainerView;
