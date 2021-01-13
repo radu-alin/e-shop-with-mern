@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { orderDetailsFetch } from '../../../redux/actions/index';
 
@@ -8,14 +9,9 @@ import OrdersdDetailsView from './OrderDetailsView/OrderDetailsView';
 import Spinner from '../../UI/Spinner/Spinner';
 import Message from '../../UI/Message/Message';
 
-const OrderDetails = ({
-  userToken,
-  orderDetails,
-  isError,
-  onOrderDetailsFetch,
-  match,
-}) => {
-  const orderSelectedId = match.params.id;
+const OrderDetails = ({ userToken, orderDetails, isError, onOrderDetailsFetch }) => {
+  let { id: orderSelectedId } = useParams();
+
   const orderDetailsIsNew = orderSelectedId !== orderDetails?._id;
 
   useEffect(

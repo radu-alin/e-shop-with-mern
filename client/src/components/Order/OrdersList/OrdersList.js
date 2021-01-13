@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { ordersListFetch } from '../../../redux/actions/index';
 
@@ -8,13 +9,9 @@ import Message from '../../UI/Message/Message';
 
 import OrderOverview from '../OrderOverview/OrderOverview';
 
-const OrdersList = ({
-  userToken,
-  ordersList,
-  isError,
-  onOrdersListFetch,
-  history,
-}) => {
+const OrdersList = ({ userToken, ordersList, isError, onOrdersListFetch }) => {
+  let history = useHistory();
+
   useEffect(() => userToken && !ordersList && onOrdersListFetch(userToken), [
     userToken,
     onOrdersListFetch,

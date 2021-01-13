@@ -1,13 +1,16 @@
 import * as actionTypes from '../actions/actionTypes';
 
-const initialState = {
+const initialStateproductSelectedFetch = {
   productSelectedDetails: null,
   productReviews: [],
   isLoading: true,
   isError: null,
 };
 
-export const productSelectedReducer = (state = initialState, action) => {
+export const productSelectedFetchReducer = (
+  state = initialStateproductSelectedFetch,
+  action
+) => {
   switch (action.type) {
     case actionTypes.PRODUCT_SELECTED_FETCH_START:
       return {

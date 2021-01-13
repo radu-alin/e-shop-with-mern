@@ -35,8 +35,6 @@ const UserProfile = ({
   onUserProfileUpdate,
   onUserProfileUpdateClear,
 }) => {
-  console.log('name - ', name);
-
   const [formData, setFormData] = useState(
     !name ? { ...defaultState() } : { ...defaultState(name, email) }
   );

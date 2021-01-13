@@ -52,13 +52,13 @@ export const cartItemsIdAndQuantityReducer = (
 };
 
 //cartItemsDetailFetch
-const initialStateCartItemsDetail = {
+const initialStateCartItemsDetailFetch = {
   cartItemsDetail: [],
   isLoading: false,
   isError: false,
 };
-export const cartItemsDetailReducer = (
-  state = initialStateCartItemsDetail,
+export const cartItemsDetailFetchReducer = (
+  state = initialStateCartItemsDetailFetch,
   action
 ) => {
   switch (action.type) {

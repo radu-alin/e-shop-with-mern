@@ -40,13 +40,16 @@ export const orderCreateReducer = (state = initialStateOrderCreate, action) => {
 };
 
 //ordersListFetch
-const initialStateOrdersList = {
+const initialStateOrdersListFetch = {
   ordersList: null,
   isLoading: false,
   isError: false,
 };
 
-export const ordersListReducer = (state = initialStateOrdersList, action) => {
+export const ordersListFetchReducer = (
+  state = initialStateOrdersListFetch,
+  action
+) => {
   switch (action.type) {
     case actionTypes.ORDERS_LIST_FETCH_START:
       return {
@@ -66,7 +69,7 @@ export const ordersListReducer = (state = initialStateOrdersList, action) => {
         isLoading: false,
         ordersList: action.payload,
       };
-    case actionTypes.ORDERS_LIST_FETCH_RESET:
+    case actionTypes.ORDERS_LIST_CLEAR:
       return {
         ...state,
         ordersList: null,
@@ -79,13 +82,16 @@ export const ordersListReducer = (state = initialStateOrdersList, action) => {
 };
 
 //orderDetailsFetch
-const initialStateOrderDetails = {
+const initialStateOrderDetailsFetch = {
   orderDetails: null,
   isLoading: false,
   isError: false,
 };
 
-export const orderDetailsReducer = (state = initialStateOrderDetails, action) => {
+export const orderDetailsFetchReducer = (
+  state = initialStateOrderDetailsFetch,
+  action
+) => {
   switch (action.type) {
     case actionTypes.ORDER_DETAILS_FETCH_START:
       return {
@@ -105,7 +111,7 @@ export const orderDetailsReducer = (state = initialStateOrderDetails, action) =>
         isLoading: false,
         orderDetails: action.payload,
       };
-    case actionTypes.ORDER_DETAILS_FETCH_RESET:
+    case actionTypes.ORDER_DETAILS_CLEAR:
       return {
         ...state,
         orderDetails: null,

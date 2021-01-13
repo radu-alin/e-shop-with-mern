@@ -1,12 +1,17 @@
+import { useHistory } from 'react-router-dom';
+
 import CartItems from '../../components/Cart/CartItems/CartItems';
 import CartSummary from '../../components/Cart/CartSummary/CartSummary';
 
 import './CartPage.scss';
 
-const CartPage = ({ history }) => {
+const CartPage = () => {
+  let history = useHistory();
+
   const checkoutButtonClickHandler = () => {
     history.push('/checkout');
   };
+
   return (
     <main id="CartPage">
       <div className="cart-page">

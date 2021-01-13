@@ -4,6 +4,7 @@ import axios from 'axios';
 export const userLogout = () => {
   localStorage.removeItem('userId');
   localStorage.removeItem('userToken');
+  localStorage.removeItem('userIsAdmin');
   return {
     type: actionTypes.USER_LOGOUT,
   };
@@ -21,6 +22,10 @@ export const userAuthSuccess = (_id, token) => ({
   type: actionTypes.USER_AUTH_SUCCESS,
   payload: { _id, token },
 });
+export const userIsAdminAuthSuccess = (_id, token, isAdmin) => ({
+  type: actionTypes.USER_IS_ADMIN_AUTH_SUCCESS,
+  payload: { _id, token, isAdmin },
+});
 export const userAuthFail = (error) => ({
   type: actionTypes.USER_AUTH_FAIL,
   payload: error,
@@ -36,9 +41,13 @@ export const userAuth = (userData, isNewAccount) => async (dispatch) => {
   };
   try {
     const { data } = await axios.post(url, body, config);
-    dispatch(userAuthSuccess(data._id, data.token));
+    data.isAdmin
+      ? dispatch(userIsAdminAuthSuccess(data._id, data.token, data.isAdmin))
+      : dispatch(userAuthSuccess(data._id, data.token));
     localStorage.setItem('userId', JSON.stringify(data._id));
     localStorage.setItem('userToken', JSON.stringify(data.token));
+    data.isAdmin &&
+      localStorage.setItem('userIsAdmin', JSON.stringify(data.isAdmin));
   } catch (err) {
     const isError =
       err.response && err.response.data.message
@@ -117,7 +126,41 @@ export const userProfileUpdate = (token, userData) => async (dispatch) => {
     dispatch(userProfileUpdateFail(isError));
   }
 };
-export const userProfileUpdateClear = (error) => ({
+export const userProfileUpdateClear = () => ({
   type: actionTypes.USER_PROFILE_UPDATE_CLEAR,
+});
+
+// usersListFetch
+export const usersListFetchStart = () => ({
+  type: actionTypes.USERS_LIST_FETCH_START,
+});
+export const usersListFetchFail = (error) => ({
+  type: actionTypes.USERS_LIST_FETCH_FAIL,
   payload: error,
+});
+export const usersListFetchSuccess = (user) => ({
+  type: actionTypes.USERS_LIST_FETCH_SUCCESS,
+  payload: user,
+});
+export const usersListFetch = (token) => async (dispatch) => {
+  dispatch(usersListFetchStart());
+  const url = '/api/users';
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const { data } = await axios.get(url, config);
+    dispatch(usersListFetchSuccess(data));
+  } catch (err) {
+    const isError =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    dispatch(usersListFetchFail(isError));
+  }
+};
+export const usersListClear = () => ({
+  type: actionTypes.USERS_LIST_CLEAR,
 });

@@ -8,8 +8,8 @@ import {
   orderDetailsFetch,
   orderCreateReset,
   orderPayReset,
-  ordersListFetchReset,
-  orderDetailsFetchReset,
+  ordersListClear,
+  orderDetailsClear,
   cartReset,
 } from '../../../redux/actions/index.js';
 
@@ -31,9 +31,9 @@ const CheckoutPayOrder = ({
   isSuccessOrderPay,
   onOrderDetailsFetch,
   onOrderCreateReset,
-  onOrderDetailsFetchReset,
+  onOrderDetailsClear,
   onOrderPayReset,
-  onOrdersListFetchReset,
+  onOrdersListClear,
   onCartReset,
 }) => {
   const [sdkReady, setSdkReady] = useState(false);
@@ -72,8 +72,8 @@ const CheckoutPayOrder = ({
 
   useEffect(() => {
     return () => {
-      onOrdersListFetchReset();
-      onOrderDetailsFetchReset();
+      onOrdersListClear();
+      onOrderDetailsClear();
       onOrderPayReset();
       onOrderCreateReset();
       onCartReset();
@@ -82,8 +82,8 @@ const CheckoutPayOrder = ({
     onOrderCreateReset,
     onOrderPayReset,
     onCartReset,
-    onOrdersListFetchReset,
-    onOrderDetailsFetchReset,
+    onOrdersListClear,
+    onOrderDetailsClear,
   ]);
 
   const isLoadingSummary =
@@ -152,8 +152,8 @@ const mapDispatchToProps = (dispatch) => ({
   onOrderCreateReset: () => dispatch(orderCreateReset()),
   onOrderPayReset: () => dispatch(orderPayReset()),
   onCartReset: () => dispatch(cartReset()),
-  onOrdersListFetchReset: () => dispatch(ordersListFetchReset()),
-  onOrderDetailsFetchReset: () => dispatch(orderDetailsFetchReset()),
+  onOrdersListClear: () => dispatch(ordersListClear()),
+  onOrderDetailsClear: () => dispatch(orderDetailsClear()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPayOrder);

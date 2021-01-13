@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { productListReducer } from './productListReducer';
-import { productSelectedReducer } from './productSelectedReducer';
+import { productListFetchReducer } from './productListReducer';
+import { productSelectedFetchReducer } from './productSelectedReducer';
 import {
   cartItemsIdAndQuantityReducer,
-  cartItemsDetailReducer,
+  cartItemsDetailFetchReducer,
   cartCheckoutDetailsReducer,
   cartDropdownReducer,
 } from './cartReducer';
@@ -12,27 +12,29 @@ import {
   userAuthReducer,
   userProfileFetchReducer,
   userProfileUpdateReducer,
+  userListFetchReducer,
 } from './userReducer';
 
 import {
   orderCreateReducer,
-  orderDetailsReducer,
-  ordersListReducer,
+  orderDetailsFetchReducer,
+  ordersListFetchReducer,
   orderPayReducer,
 } from './orderReducer';
 
 export const rootReducer = combineReducers({
   user: userAuthReducer,
-  userProfileUpdate: userProfileUpdateReducer,
   userProfile: userProfileFetchReducer,
-  productList: productListReducer,
-  productSelected: productSelectedReducer,
+  userProfileUpdate: userProfileUpdateReducer,
+  usersList: userListFetchReducer,
+  productList: productListFetchReducer,
+  productSelected: productSelectedFetchReducer,
   cartItemsIdAndQuantity: cartItemsIdAndQuantityReducer,
-  cartItemsDetail: cartItemsDetailReducer,
+  cartItemsDetail: cartItemsDetailFetchReducer,
   cartCheckoutDetails: cartCheckoutDetailsReducer,
   cartDropdown: cartDropdownReducer,
   orderCreate: orderCreateReducer,
-  ordersList: ordersListReducer,
-  orderDetails: orderDetailsReducer,
+  ordersList: ordersListFetchReducer,
+  orderDetails: orderDetailsFetchReducer,
   orderPay: orderPayReducer,
 });

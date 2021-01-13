@@ -74,8 +74,8 @@ export const ordersListFetch = (token) => async (dispatch) => {
     dispatch(ordersListFetchFail(isError));
   }
 };
-export const ordersListFetchReset = () => ({
-  type: actionTypes.ORDERS_LIST_FETCH_RESET,
+export const ordersListClear = () => ({
+  type: actionTypes.ORDERS_LIST_CLEAR,
 });
 
 //orderDetailsFetch
@@ -109,8 +109,8 @@ export const orderDetailsFetch = (token, orderId) => async (dispatch) => {
     dispatch(orderDetailsFetchFail(isError));
   }
 };
-export const orderDetailsFetchReset = () => ({
-  type: actionTypes.ORDER_DETAILS_FETCH_RESET,
+export const orderDetailsClear = () => ({
+  type: actionTypes.ORDER_DETAILS_CLEAR,
 });
 
 //orderPay

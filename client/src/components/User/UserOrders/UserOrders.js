@@ -1,23 +1,30 @@
-import { Route } from 'react-router-dom';
+import { Route, useLocation, useRouteMatch } from 'react-router-dom';
 
 import OrdersList from '../../Order/OrdersList/OrdersList';
 import OrderDetails from '../../Order/OrderDetails/OrderDetails';
 
 import './UserOrders.scss';
 
-const UserOrders = ({ location, match }) => {
+const UserOrders = () => {
+  let location = useLocation();
+  let { path, isExact } = useRouteMatch();
+
   const orderId = location.pathname.split('/')[3];
   return (
     <section id="UserOrders">
       <div className="user-orders">
         <h1>
-          <strong>{match.isExact ? 'Orders' : `Order no. ${orderId}`}</strong>
+          <strong>{isExact ? 'Orders' : `Order no. ${orderId}`}</strong>
         </h1>
         <hr></hr>
-        {match.isExact ? (
-          <Route path="/account/orders/" component={OrdersList} />
+        {isExact ? (
+          <Route path={`${path}`}>
+            <OrdersList />
+          </Route>
         ) : (
-          <Route path="/account/orders/:id" component={OrderDetails} />
+          <Route path={`${path}/:id`}>
+            <OrderDetails />
+          </Route>
         )}
 
         <hr></hr>

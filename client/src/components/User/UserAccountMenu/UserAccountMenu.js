@@ -1,12 +1,18 @@
 import AccountMenu from '../../Account/AccountMenu/AccountMenu';
 import AccountMenuItem from '../../Account/AccountMenu/AccountMenuItem/AccountMenuItem';
+import { useRouteMatch } from 'react-router-dom';
 
-const UserAccountMenu = () => (
-  <AccountMenu title="My account">
-    <AccountMenuItem link="/account">My profile</AccountMenuItem>
-    <AccountMenuItem link="/account/orders">My orders</AccountMenuItem>
-    <AccountMenuItem link="/account/addresses">My addresses</AccountMenuItem>
-  </AccountMenu>
-);
+const UserAccountMenu = () => {
+  let { url } = useRouteMatch();
+  return (
+    <section id="UserAccountMenu">
+      <AccountMenu title="My account">
+        <AccountMenuItem link={`${url}`}>My profile</AccountMenuItem>
+        <AccountMenuItem link={`${url}/orders`}>My orders</AccountMenuItem>
+        <AccountMenuItem link={`${url}/addresses`}>My addresses</AccountMenuItem>
+      </AccountMenu>
+    </section>
+  );
+};
 
 export default UserAccountMenu;

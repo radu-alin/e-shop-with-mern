@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react';
+import { connect } from 'react-redux';
 
 import NavDropdownHeader from './NavDropdownHeader/NavDropdownHeader.js';
 import NavigationItem from '../NavigationItems/NavigationItem/Navigationitem';
 
 import './NavDropdown.scss';
 
-const NavDropdown = () => {
+const NavDropdown = ({ userIsAdmin }) => {
   const [isShowDropdown, setIsShowDropdown] = useState(false);
 
   const dropdownIsShowHandler = useCallback(() => {
@@ -16,9 +17,25 @@ const NavDropdown = () => {
     setIsShowDropdown(false);
   }, [setIsShowDropdown]);
 
-  const dropdownItems = isShowDropdown && (
+  const userAuthMenu = (
     <>
       <NavigationItem link="/account">Profile</NavigationItem>
+      <NavigationItem link="/account/orders">Orders</NavigationItem>
+      <NavigationItem link="/account/addresses">Addresses</NavigationItem>
+    </>
+  );
+
+  const userIsAdminAuthMenu = (
+    <>
+      <NavigationItem link="/dashboard/">Profile</NavigationItem>
+      <NavigationItem link="/dashboard/users-list">UsersList</NavigationItem>
+      <NavigationItem link="/dashboard/orders-list">UsersList</NavigationItem>
+    </>
+  );
+
+  const dropdownItems = isShowDropdown && (
+    <>
+      {userIsAdmin ? userIsAdminAuthMenu : userAuthMenu}
       <NavigationItem link="/logout">Logout</NavigationItem>
     </>
   );
@@ -31,10 +48,17 @@ const NavDropdown = () => {
         onMouseEnter={dropdownIsShowHandler}
         onMouseLeave={dropdownIsHideHandler}
       >
-        <NavDropdownHeader isActive={isShowDropdown}>My account</NavDropdownHeader>
+        <NavDropdownHeader isActive={isShowDropdown}>
+          {userIsAdmin ? 'AdminAccount' : 'My account'}
+        </NavDropdownHeader>
         {dropdownItems}
       </ul>
     </nav>
   );
 };
-export default NavDropdown;
+
+const mapStateToProps = ({ user }) => ({
+  userIsAdmin: user?.userIsAdmin,
+});
+
+export default connect(mapStateToProps)(NavDropdown);

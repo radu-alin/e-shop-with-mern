@@ -7,10 +7,17 @@ import {
   postUserLogin,
   getUserProfile,
   putUserProfile,
+  getUsers,
 } from '../controllers/userController.js';
-import { authProtectMiddleware } from '../middleware/authMiddleware.js';
+import {
+  authProtectMiddleware,
+  authAdminProtectMiddleware,
+} from '../middleware/authMiddleware.js';
 
-router.route('/').post(postUserRegister);
+router
+  .route('/')
+  .get(authProtectMiddleware, authAdminProtectMiddleware, getUsers)
+  .post(postUserRegister);
 router.route('/login').post(postUserLogin);
 router
   .route('/profile')

@@ -3,22 +3,24 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   userProfileFetchedClear,
-  orderDetailsFetchReset,
-  ordersListFetchReset,
+  orderDetailsClear,
+  ordersListClear,
   userLogout,
 } from '../../redux/actions/index';
 
 const LogoutPage = ({
   onUserProfileFetchedClear,
-  onOrderDetailsFetchReset,
-  onOrdersListFetchReset,
+  onOrderDetailsClear,
+  onOrdersListClear,
   onUserLogout,
 }) => {
   useEffect(() => {
-    onUserProfileFetchedClear();
-    onOrderDetailsFetchReset();
-    onOrdersListFetchReset();
-    onUserLogout();
+    return () => {
+      onUserLogout();
+      onUserProfileFetchedClear();
+      onOrderDetailsClear();
+      onOrdersListClear();
+    };
   });
   return <Redirect to="/" />;
 };
@@ -26,7 +28,7 @@ const LogoutPage = ({
 const mapDispatchToProps = (dispatch) => ({
   onUserLogout: () => dispatch(userLogout()),
   onUserProfileFetchedClear: () => dispatch(userProfileFetchedClear()),
-  onOrdersListFetchReset: () => dispatch(ordersListFetchReset()),
-  onOrderDetailsFetchReset: () => dispatch(orderDetailsFetchReset()),
+  onOrdersListClear: () => dispatch(ordersListClear()),
+  onOrderDetailsClear: () => dispatch(orderDetailsClear()),
 });
 export default connect(null, mapDispatchToProps)(LogoutPage);

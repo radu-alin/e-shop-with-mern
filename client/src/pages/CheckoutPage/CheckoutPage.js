@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
 import CheckoutHeader from '../../components/Checkout/CheckoutHeader/CheckoutHeader';
 import CheckoutShipping from '../../components/Checkout/CheckoutShipping/CheckoutShipping';
@@ -9,6 +9,8 @@ import CheckoutPayOrder from '../../components/Checkout/CheckoutPayOrder/Checkou
 import './CheckoutPage.scss';
 
 const CheckoutPage = () => {
+  let { path } = useRouteMatch();
+
   return (
     <main id="CheckoutPage">
       <div className="checkout-page">
@@ -23,10 +25,20 @@ const CheckoutPage = () => {
           </div>
         </div>
         <div className="checkout-page-content">
-          <Route path="/checkout/" exact component={CheckoutShipping} />
-          <Route path="/checkout/payment-method" component={CheckoutPaymentMethod} />
-          <Route path="/checkout/place-order" component={CheckoutPlaceOrder} />
-          <Route path="/checkout/pay-order/:id" component={CheckoutPayOrder} />
+          <Switch>
+            <Route exact path={`${path}`}>
+              <CheckoutShipping />
+            </Route>
+            <Route path={`${path}/payment-method`}>
+              <CheckoutPaymentMethod />
+            </Route>
+            <Route path={`${path}/place-order`}>
+              <CheckoutPlaceOrder />
+            </Route>
+            <Route path={`${path}/pay-order/:id`}>
+              <CheckoutPayOrder />
+            </Route>
+          </Switch>
           <hr></hr>
         </div>
       </div>

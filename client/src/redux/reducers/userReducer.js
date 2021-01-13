@@ -1,14 +1,14 @@
 import * as actionTypes from '../actions/actionTypes';
 
 // userAuth
-const initialAuthState = {
+const initialStateUserAuth = {
   userId: null,
   userToken: null,
   isLoading: false,
   isError: false,
 };
 
-export const userAuthReducer = (state = initialAuthState, action) => {
+export const userAuthReducer = (state = initialStateUserAuth, action) => {
   switch (action.type) {
     case actionTypes.USER_AUTH_START:
       return {
@@ -28,11 +28,20 @@ export const userAuthReducer = (state = initialAuthState, action) => {
         userId: action.payload._id,
         userToken: action.payload.token,
       };
+    case actionTypes.USER_IS_ADMIN_AUTH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        userId: action.payload._id,
+        userToken: action.payload.token,
+        userIsAdmin: action.payload.isAdmin,
+      };
     case actionTypes.USER_LOGOUT:
       return {
         ...state,
         userId: null,
         userToken: null,
+        userIsAdmin: null,
       };
     case actionTypes.USER_RESET_ERROR:
       return {
@@ -45,14 +54,14 @@ export const userAuthReducer = (state = initialAuthState, action) => {
 };
 
 // userProfileFetch
-const initialProfileFetchState = {
+const initialStateProfileFetch = {
   name: null,
   email: null,
   isLoading: false,
   isError: false,
 };
 export const userProfileFetchReducer = (
-  state = initialProfileFetchState,
+  state = initialStateProfileFetch,
   action
 ) => {
   switch (action.type) {
@@ -88,14 +97,14 @@ export const userProfileFetchReducer = (
 };
 
 // userProfileUpdate
-const initialProfileUpdateState = {
+const initialStateProfileUpdate = {
   isUpdated: false,
   isLoading: false,
   isError: false,
 };
 
 export const userProfileUpdateReducer = (
-  state = initialProfileUpdateState,
+  state = initialStateProfileUpdate,
   action
 ) => {
   switch (action.type) {
@@ -121,6 +130,45 @@ export const userProfileUpdateReducer = (
       return {
         ...state,
         isUpdated: false,
+        isLoading: false,
+        isError: false,
+      };
+    default:
+      return state;
+  }
+};
+
+//usersListFetch
+const initialStateUsersListFetch = {
+  usersList: null,
+  isLoading: false,
+  isError: false,
+};
+
+export const userListFetchReducer = (state = initialStateUsersListFetch, action) => {
+  switch (action.type) {
+    case actionTypes.USERS_LIST_FETCH_START:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case actionTypes.USERS_LIST_FETCH_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.payload,
+      };
+    case actionTypes.USERS_LIST_FETCH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        usersList: action.payload,
+      };
+    case actionTypes.USERS_LIST_CLEAR:
+      return {
+        ...state,
+        usersList: null,
         isLoading: false,
         isError: false,
       };
