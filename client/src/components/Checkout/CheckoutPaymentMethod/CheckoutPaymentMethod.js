@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { localStorageSetItemUtil } from '../../../utils/localStorageUtil';
 import { cartSavePaymentMethod } from '../../../redux/actions/index';
@@ -10,11 +11,9 @@ import FormContainer from '../../FormContainer/FormContainer';
 
 import './CheckoutPaymentMethod.scss';
 
-const CheckoutPaymentMethod = ({
-  paymentMethod,
-  onCartSavePaymentMethod,
-  history,
-}) => {
+const CheckoutPaymentMethod = ({ paymentMethod, onCartSavePaymentMethod }) => {
+  let history = useHistory();
+
   const inputSelectChangeHandler = (event) => {
     let methodChoosed = event.target.value;
     onCartSavePaymentMethod(methodChoosed);

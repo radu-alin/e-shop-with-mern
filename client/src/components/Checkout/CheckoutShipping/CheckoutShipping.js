@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { defaultState } from './stateCheckoutShipping';
 
@@ -25,10 +26,10 @@ const CheckoutShipping = ({
   postalCode,
   country,
   onCartSaveShippingAddress,
-  history,
 }) => {
   const [formData, setFormData] = useState({ ...defaultState() });
   const [editShipping, setEditShipping] = useState(false);
+  let history = useHistory();
   const firstInputRef = useRef(null);
 
   const editTrueIconClickHandler = useCallback(() => {
@@ -74,7 +75,7 @@ const CheckoutShipping = ({
     if (!editShipping) {
       return (
         <p className="shipping-page-footer">
-          Modify shipping addrees:
+          Modify shipping address:
           <span onClick={editTrueIconClickHandler}>
             &nbsp; edit &nbsp;
             <i className="far fa-edit"></i>

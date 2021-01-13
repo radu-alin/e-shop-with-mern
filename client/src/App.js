@@ -16,7 +16,6 @@ import LogoutPage from './pages/LogoutPage/LogoutPage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 const App = ({ userAuthIsAdmin, onUserAuthSuccess, onUserIsAdminAuthSuccess }) => {
-  console.log('userAuthIsAdmin - ', userAuthIsAdmin);
   useEffect(() => {
     const userIdFromLocalStorage =
       localStorage.getItem('userId') && JSON.parse(localStorage.getItem('userId'));

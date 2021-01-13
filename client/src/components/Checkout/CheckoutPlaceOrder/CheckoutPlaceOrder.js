@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { orderCreate } from '../../../redux/actions/index';
 
@@ -22,9 +23,10 @@ const CheckoutPlaceOrder = ({
   cartItems,
   isLoadingOrderCreate,
   orderCreated,
-  history,
   onOrderCreate,
 }) => {
+  let history = useHistory();
+
   useEffect(
     () => orderCreated && history.push(`/checkout/pay-order/${orderCreated?._id}`),
     [orderCreated, history]

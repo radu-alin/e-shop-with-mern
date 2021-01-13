@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Message from '../../UI/Message/Message';
 import CheckoutSteps from '../CheckoutSteps/CheckoutSteps';
@@ -11,8 +11,8 @@ const CheckoutHeader = ({
   paymentMethod,
   isErrorOrderCreate,
   isErrorOrderPay,
-  history,
 }) => {
+  let history = useHistory();
   const isPayOrderPage = history.location.pathname.split('/')[2] === 'pay-order';
 
   if (isErrorOrderCreate || isErrorOrderPay) {
@@ -55,4 +55,4 @@ const mapStateToProps = ({ orderCreate, orderPay, orderDetails }) => ({
   isErrorOrderPay: orderPay.isError,
 });
 
-export default connect(mapStateToProps)(withRouter(CheckoutHeader));
+export default connect(mapStateToProps)(CheckoutHeader);

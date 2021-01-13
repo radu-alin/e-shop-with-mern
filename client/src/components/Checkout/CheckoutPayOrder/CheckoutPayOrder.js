@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import { sumRoundValueUtil } from '../../../utils/sumUtil';
@@ -20,7 +21,6 @@ import Spinner from '../../UI/Spinner/Spinner';
 
 const CheckoutPayOrder = ({
   userToken,
-  match,
   orderDetails,
   orderId,
   orderValue,
@@ -38,7 +38,7 @@ const CheckoutPayOrder = ({
 }) => {
   const [sdkReady, setSdkReady] = useState(false);
 
-  const orderSelectedId = match.params.id;
+  let { id: orderSelectedId } = useParams();
   const totalPriceRounded = sumRoundValueUtil(orderValue);
 
   useEffect(
