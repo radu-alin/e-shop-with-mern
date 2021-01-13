@@ -138,7 +138,6 @@ const UserProfile = ({
       return <Message type="danger" message={isErrorFetch} />;
     }
     if (!name) {
-      console.log('spinner');
       return <Spinner />;
     }
     return formContainerView;

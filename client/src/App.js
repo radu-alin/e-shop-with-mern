@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import {
-  userAuthSuccess as onUserAuthSuccess,
-  userIsAdminAuthSuccess as onUserIsAdminAuthSuccess,
-} from './redux/actions/index';
+import { userAuthSuccess, userIsAdminAuthSuccess } from './redux/actions/index';
 
 import Layout from './components/Layout/Layout';
 import HomePage from './pages/HomePage/HomePage';
@@ -16,8 +13,10 @@ import CartPage from './pages/CartPage/CartPage';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import AdminDashboardPage from './pages/AdminDashboardPage/AdminDashboardPage';
 import LogoutPage from './pages/LogoutPage/LogoutPage';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
-const App = ({ userAuthIsClient, userAuthIsAdmin, dispatch }) => {
+const App = ({ userAuthIsAdmin, onUserAuthSuccess, onUserIsAdminAuthSuccess }) => {
+  console.log('userAuthIsAdmin - ', userAuthIsAdmin);
   useEffect(() => {
     const userIdFromLocalStorage =
       localStorage.getItem('userId') && JSON.parse(localStorage.getItem('userId'));
@@ -28,78 +27,64 @@ const App = ({ userAuthIsClient, userAuthIsAdmin, dispatch }) => {
       localStorage.getItem('userIsAdmin') &&
       JSON.parse(localStorage.getItem('userIsAdmin'));
     if (userIdFromLocalStorage && userIsAdminFromLocalStorage) {
-      return dispatch(
-        onUserIsAdminAuthSuccess(
-          userIdFromLocalStorage,
-          userTokenFromLocalStorage,
-          userIsAdminFromLocalStorage
-        )
+      return onUserIsAdminAuthSuccess(
+        userIdFromLocalStorage,
+        userTokenFromLocalStorage,
+        userIsAdminFromLocalStorage
       );
     }
     if (userIdFromLocalStorage) {
-      return dispatch(
-        onUserAuthSuccess(userIdFromLocalStorage, userTokenFromLocalStorage)
-      );
+      return onUserAuthSuccess(userIdFromLocalStorage, userTokenFromLocalStorage);
     }
     return;
-  }, [dispatch]);
-
-  const publicRoutes = (() => (
-    <>
-      <Route path="/products/:id">
-        <ProductDetailsPage />
-      </Route>
-      <Route path="/logout">
-        <LogoutPage />
-      </Route>
-      <Route path="/auth">
-        <AuthPage />
-      </Route>
-      <Route path="/cart">
-        <CartPage />
-      </Route>
-      <Route exact path="/">
-        <HomePage />
-      </Route>
-    </>
-  ))();
-
-  const userAuthIsClientRoutes = (() =>
-    userAuthIsClient && (
-      <>
-        <Route path="/checkout">
-          <CheckoutPage />
-        </Route>
-        <Route path="/account">
-          <UserAccountPage />
-        </Route>
-      </>
-    ))();
-
-  const userAuthIsAdminRoutes = (() =>
-    userAuthIsAdmin && (
-      <Route path="/dashboard">
-        <AdminDashboardPage />
-      </Route>
-    ))();
+  }, [onUserAuthSuccess, onUserIsAdminAuthSuccess]);
 
   return (
     <Layout>
       <Switch>
-        {publicRoutes}
-        {userAuthIsClientRoutes}
-        {userAuthIsAdminRoutes}
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route path="/products/:id">
+          <ProductDetailsPage />
+        </Route>
+        <Route path="/logout">
+          <LogoutPage />
+        </Route>
+        <Route path="/auth">
+          <AuthPage />
+        </Route>
+        <Route path="/cart">
+          <CartPage />
+        </Route>
+        <PrivateRoute path="/checkout">
+          <CheckoutPage />
+        </PrivateRoute>
+        <PrivateRoute path="/account">
+          <UserAccountPage />
+        </PrivateRoute>
+        <PrivateRoute path="/dashboard">
+          {userAuthIsAdmin ? <AdminDashboardPage /> : <Redirect to="/" />}
+        </PrivateRoute>
+        <Route path="*">
+          <Redirect to="/" />
+        </Route>
       </Switch>
     </Layout>
   );
 };
 
 const mapStateToProps = ({ user }) => ({
-  userAuthIsClient: !!user?.userToken,
-  userAuthIsAdmin: user?.userIsAdmin,
+  userAuthIsAdmin: !!user?.userIsAdmin,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToPros = (dispatch) => ({
+  onUserAuthSuccess: (id, token) => dispatch(userAuthSuccess(id, token)),
+  onUserIsAdminAuthSuccess: (id, token, isAdmin) =>
+    dispatch(userIsAdminAuthSuccess(id, token, isAdmin)),
+});
+
+export default connect(mapStateToProps, mapDispatchToPros)(App);
 
 /* <Profiler
             id="ProductDetailsPage"

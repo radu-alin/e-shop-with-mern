@@ -1,13 +1,15 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, useLocation } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-const RedirectToAuth = ({ children, isUserAuth, ...otherProps }) => {
+const PrivateRoute = ({ children, isAuth, ...otherProps }) => {
+  let location = useLocation();
+
   return (
     <Route
       {...otherProps}
-      render={({ location }) => {
-        return isUserAuth ? (
+      render={() => {
+        return isAuth ? (
           children
         ) : (
           <Redirect to={{ pathname: '/auth', state: { from: location } }} />
@@ -18,7 +20,7 @@ const RedirectToAuth = ({ children, isUserAuth, ...otherProps }) => {
 };
 
 const mapStateToProps = ({ user }) => ({
-  isUserAuth: !!user?.userToken,
+  isAuth: !!user?.userToken,
 });
 
-export default connect(mapStateToProps)(RedirectToAuth);
+export default connect(mapStateToProps)(PrivateRoute);

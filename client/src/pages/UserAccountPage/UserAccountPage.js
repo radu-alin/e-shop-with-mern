@@ -11,7 +11,7 @@ export const UserAccountPage = () => {
     <main id="UserAccountPage">
       <UserAccountLayout>
         <Switch>
-          <Route exact path={`${path}`}>
+          <Route exact path={`${path}/profile`}>
             <UserProfile />
           </Route>
           <Route path={`${path}/orders`}>

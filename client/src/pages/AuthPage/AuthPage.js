@@ -12,8 +12,8 @@ const AuthPage = ({ isAuth }) => {
   );
 };
 
-const mapStateToProps = ({ user: { userId } }) => ({
-  isAuth: !!userId,
+const mapStateToProps = ({ user }) => ({
+  isAuth: !!user.userToken,
 });
 
 export default connect(mapStateToProps)(AuthPage);

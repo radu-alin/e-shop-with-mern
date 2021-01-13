@@ -6,15 +6,14 @@ import UsersList from '../../components/AdminDasboard/UsersList/UsersList';
 
 const AdminDashboardPage = () => {
   let { path } = useRouteMatch();
-  console.log('path - ', path);
   return (
     <main id="AdminDashboardPage">
       <AdminDashboardLayout>
         <Switch>
-          <Route exact path={`${path}account`}>
+          <Route path={`${path}/profile`}>
             <UserProfile />
           </Route>
-          <Route path={`${path}users-list`}>
+          <Route path={`${path}/users-list`}>
             <UsersList />
           </Route>
         </Switch>
