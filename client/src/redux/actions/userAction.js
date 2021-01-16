@@ -161,6 +161,88 @@ export const usersListFetch = (token) => async (dispatch) => {
     dispatch(usersListFetchFail(isError));
   }
 };
+export const usersListDeletePosition = (userId) => ({
+  type: actionTypes.USERS_LIST_DELETE_POSITION,
+  payload: userId,
+});
+export const usersListUpdatePosition = (userId) => ({
+  type: actionTypes.USERS_LIST_UPDATE_POSITION,
+  payload: userId,
+});
 export const usersListClear = () => ({
   type: actionTypes.USERS_LIST_CLEAR,
+});
+
+//userDelete
+export const userDeleteStart = (userId) => ({
+  type: actionTypes.USER_DELETE_START,
+  payload: userId,
+});
+export const userDeleteFail = (error) => ({
+  type: actionTypes.USER_DELETE_FAIL,
+  payload: error,
+});
+export const userDeleteSuccess = (data) => ({
+  type: actionTypes.USER_DELETE_SUCCESS,
+  payload: data,
+});
+export const userDelete = (userId, token) => async (dispatch) => {
+  dispatch(userDeleteStart(userId));
+  const url = `/api/users/${userId}`;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const { data } = await axios.delete(url, config);
+    dispatch(userDeleteSuccess(data));
+  } catch (err) {
+    const isError =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    dispatch(userDeleteFail(isError));
+  }
+};
+export const userDeleteReset = () => ({
+  type: actionTypes.USER_DELETE_RESET,
+});
+
+//userUpdateToAdmin
+export const userUpdateToAdminStart = (userId) => ({
+  type: actionTypes.USER_UPDATE_TO_ADMIN_START,
+  payload: userId,
+});
+export const userUpdateToAdminFail = (error) => ({
+  type: actionTypes.USER_UPDATE_TO_ADMIN_FAIL,
+  payload: error,
+});
+export const userUpdateToAdminSuccess = (data) => ({
+  type: actionTypes.USER_UPDATE_TO_ADMIN_SUCCESS,
+  payload: data,
+});
+export const userUpdateToAdmin = (userId, token) => async (dispatch) => {
+  console.log('userUpdateToAdmin - execute()');
+  dispatch(userUpdateToAdminStart(userId));
+  const url = `/api/users/${userId}`;
+  const body = {};
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const { data } = await axios.put(url, body, config);
+    dispatch(userUpdateToAdminSuccess(data));
+  } catch (err) {
+    const isError =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    dispatch(userUpdateToAdminFail(isError));
+  }
+};
+export const userUpdateToAdminReset = () => ({
+  type: actionTypes.USER_UPDATE_TO_ADMIN_RESET,
 });

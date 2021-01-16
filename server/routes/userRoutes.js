@@ -8,6 +8,8 @@ import {
   getUserProfile,
   putUserProfile,
   getUsers,
+  deleteUser,
+  putUserAsAdmin,
 } from '../controllers/userController.js';
 import {
   authProtectMiddleware,
@@ -18,7 +20,14 @@ router
   .route('/')
   .get(authProtectMiddleware, authAdminProtectMiddleware, getUsers)
   .post(postUserRegister);
+
+router
+  .route('/:id')
+  .delete(authProtectMiddleware, authAdminProtectMiddleware, deleteUser)
+  .put(authProtectMiddleware, authAdminProtectMiddleware, putUserAsAdmin);
+
 router.route('/login').post(postUserLogin);
+
 router
   .route('/profile')
   .get(authProtectMiddleware, getUserProfile)

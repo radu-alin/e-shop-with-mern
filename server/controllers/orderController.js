@@ -6,7 +6,6 @@ import Order from '../models/orderModel.js';
 //@route POST /api/orders
 //@access Private
 export const postOrderItems = asyncHandler(async (req, res) => {
-  console.log('controllers-postOrderItems - ');
   const {
     orderItems,
     shippingAddress,
@@ -55,8 +54,6 @@ export const getOrderById = asyncHandler(async (req, res) => {
 //@route GET /api/orders/:id/pay
 //@access Private
 export const putOrderToPaid = asyncHandler(async (req, res) => {
-  console.log('controllers-putOrderToPay - ');
-
   const order = await Order.findById(req.params.id);
 
   if (order) {
@@ -81,8 +78,6 @@ export const putOrderToPaid = asyncHandler(async (req, res) => {
 //@route GET /api/orders/my-orders
 //@access Private
 export const getOrdersUserLoggedIn = asyncHandler(async (req, res) => {
-  console.log('controllers-getOrdersUserLoggedIn - ');
-  console.log('req.user._id', req.user._id);
   const orders = await Order.find({ user: req.user._id });
 
   res.json(orders);

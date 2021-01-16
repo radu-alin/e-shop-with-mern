@@ -33,24 +33,19 @@ export const cartItemsDetailFetchSuccess = (itemsDetail) => ({
 export const cartItemsDetailFetch = (cartItemsId) => async (dispatch) => {
   dispatch(cartItemsDetailFetchStart());
 
-  const fetchItem = async (id) => {
-    const { data } = await axios.get(`/api/products/${id}`);
-    return { ...data };
-  };
-
-  const fetchAllItems = async (ids) => {
-    const requests = ids.map((id) => fetchItem(id));
-    return Promise.all(requests);
-  };
-  fetchAllItems(cartItemsId)
-    .then((data) => dispatch(cartItemsDetailFetchSuccess(data)))
-    .catch((err) => {
-      const isError =
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message;
-      dispatch(cartItemsDetailFetchFail(isError));
-    });
+  const fetchItem = (id) => axios.get(`/api/products/${id}`);
+  const requests = cartItemsId.map((id) => fetchItem(id));
+  try {
+    const results = await Promise.all(requests);
+    const arrayData = results.map((result) => ({ ...result.data }));
+    dispatch(cartItemsDetailFetchSuccess(arrayData));
+  } catch (err) {
+    const isError =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    dispatch(cartItemsDetailFetchFail(isError));
+  }
 };
 
 //cartCheckout

@@ -56,7 +56,7 @@ const OrderOverview = ({ userOrder, orderDetailsClickHandler }) => {
           </div>
           <div>
             <Button
-              type="btn-gray-light"
+              type="btn btn-gray-light"
               onClickAction={() => orderDetailsClickHandler(_id)}
             >
               Order details

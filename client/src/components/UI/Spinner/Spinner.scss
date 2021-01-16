@@ -23,6 +23,11 @@
     width: 3em;
     height: 3em;
   }
+  &.tinny {
+    margin: 0px auto 0 auto;
+    width: 1.5em;
+    height: 1.5em;
+  }
 }
 .loader:before {
   width: 50%;

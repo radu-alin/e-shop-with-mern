@@ -145,7 +145,10 @@ const initialStateUsersListFetch = {
   isError: false,
 };
 
-export const userListFetchReducer = (state = initialStateUsersListFetch, action) => {
+export const usersListFetchReducer = (
+  state = initialStateUsersListFetch,
+  action
+) => {
   switch (action.type) {
     case actionTypes.USERS_LIST_FETCH_START:
       return {
@@ -165,11 +168,114 @@ export const userListFetchReducer = (state = initialStateUsersListFetch, action)
         isLoading: false,
         usersList: action.payload,
       };
+    case actionTypes.USERS_LIST_DELETE_POSITION:
+      return {
+        ...state,
+        usersList: state.usersList.filter((user) => user._id !== action.payload),
+      };
+    case actionTypes.USERS_LIST_UPDATE_POSITION:
+      return {
+        ...state,
+        usersList: state.usersList.map((user) =>
+          user._id === action.payload ? { ...user, isAdmin: true } : { ...user }
+        ),
+      };
     case actionTypes.USERS_LIST_CLEAR:
       return {
         ...state,
         usersList: null,
         isLoading: false,
+        isError: false,
+      };
+    default:
+      return state;
+  }
+};
+
+//userDelete
+const initialStateDeleteUser = {
+  userId: null,
+  isLoading: false,
+  isError: false,
+  isSuccess: null,
+};
+
+export const userDeleteReducer = (state = initialStateDeleteUser, action) => {
+  switch (action.type) {
+    case actionTypes.USER_DELETE_START:
+      return {
+        ...state,
+        isLoading: true,
+        userId: action.payload,
+        isError: false,
+      };
+    case actionTypes.USER_DELETE_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.payload.message,
+        userId: action.payload.userId,
+      };
+    case actionTypes.USER_DELETE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: action.payload.message,
+        userId: action.payload.userId,
+      };
+    case actionTypes.USER_DELETE_RESET:
+      return {
+        ...state,
+        isLoading: false,
+        userId: null,
+        isSuccess: null,
+        isError: false,
+      };
+    default:
+      return state;
+  }
+};
+
+//userUpdateToAdmin
+const initialStateUserUpdateToAdmin = {
+  userId: null,
+  isLoading: false,
+  isError: false,
+  isSuccess: null,
+};
+
+export const userUpdateToAdminReducer = (
+  state = initialStateUserUpdateToAdmin,
+  action
+) => {
+  switch (action.type) {
+    case actionTypes.USER_UPDATE_TO_ADMIN_START:
+      return {
+        ...state,
+        isLoading: true,
+        userId: action.payload,
+        isError: false,
+      };
+    case actionTypes.USER_UPDATE_TO_ADMIN_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.payload.message,
+        userId: action.payload.userId,
+      };
+    case actionTypes.USER_UPDATE_TO_ADMIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: action.payload.message,
+        userId: action.payload.userId,
+      };
+    case actionTypes.USER_UPDATE_TO_ADMIN_RESET:
+      return {
+        ...state,
+        isLoading: false,
+        userId: null,
+        isSuccess: null,
         isError: false,
       };
     default:

@@ -12,7 +12,9 @@ import {
   userAuthReducer,
   userProfileFetchReducer,
   userProfileUpdateReducer,
-  userListFetchReducer,
+  usersListFetchReducer,
+  userDeleteReducer,
+  userUpdateToAdminReducer,
 } from './userReducer';
 
 import {
@@ -26,7 +28,9 @@ export const rootReducer = combineReducers({
   user: userAuthReducer,
   userProfile: userProfileFetchReducer,
   userProfileUpdate: userProfileUpdateReducer,
-  usersList: userListFetchReducer,
+  usersList: usersListFetchReducer,
+  userDelete: userDeleteReducer,
+  userUpdateToAdmin: userUpdateToAdminReducer,
   productList: productListFetchReducer,
   productSelected: productSelectedFetchReducer,
   cartItemsIdAndQuantity: cartItemsIdAndQuantityReducer,

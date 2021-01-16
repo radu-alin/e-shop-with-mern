@@ -44,6 +44,7 @@
       }
     }
   }
+
   &.btn-gray-light {
     background-color: #adb5bd; //gray-500
     color: #343a40; //gray-800
@@ -53,6 +54,42 @@
     &:active {
       background-color: #343a40; //gray-800
       color: #f7f7f9; //gray-200
+    }
+  }
+
+  &.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+
+    &:hover,
+    &:active {
+      background-color: #1e7e34;
+      border-color: #1c7430;
+    }
+  }
+
+  &.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+
+    &:hover,
+    &:active {
+      background-color: #bd2130;
+      border-color: #b21f2d;
+    }
+  }
+
+  &.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+
+    &:hover,
+    &:active {
+      background-color: #0062cc;
+      border-color: #005cbf;
     }
   }
 }

@@ -40,7 +40,6 @@ export const postUserRegister = asyncHandler(async (req, res) => {
 //@route POST /api/users/login
 //@access Public
 export const postUserLogin = asyncHandler(async (req, res) => {
-  console.log('controllers-postUserLogin - ');
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   const passwordConfirm = user && (await user.matchPassword(password));
@@ -63,7 +62,6 @@ export const postUserLogin = asyncHandler(async (req, res) => {
 //@route GET /api/users/profile
 //@access Private
 export const getUserProfile = asyncHandler(async (req, res) => {
-  console.log('controllers-getUserProfile - ');
   const user = await User.findById(req.user._id);
   if (user) {
     res.json({
@@ -109,7 +107,42 @@ export const putUserProfile = asyncHandler(async (req, res) => {
 //@route GET /api/users
 //@access Private/Admin
 export const getUsers = asyncHandler(async (req, res) => {
-  console.log('controllers-getUsers - ');
   const users = await User.find({});
   res.json(users);
+});
+
+//@desc Delete user
+//@route DELETE /api/users/:id
+//@access Private/Admin
+export const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    await user.remove();
+    res.json({ message: 'User removed.', userId: req.params.id });
+  } else {
+    res.status(404);
+    res.json({ message: 'Something went wrong', userId: req.params.id });
+  }
+});
+
+//@desc Update User as Admin
+//@route PUT /api/users/:id
+//@access Private/Admin
+export const putUserAsAdmin = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.isAdmin = true;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      message: 'User updated as Admin.',
+      userId: updatedUser._id,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found.');
+  }
 });

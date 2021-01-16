@@ -28,8 +28,8 @@ const NavDropdown = ({ userIsAdmin }) => {
   const userIsAdminAuthMenu = (
     <>
       <NavigationItem link="/dashboard/profile">Profile</NavigationItem>
-      <NavigationItem link="/dashboard/users-list">UsersList</NavigationItem>
-      <NavigationItem link="/dashboard/orders-list">UsersList</NavigationItem>
+      <NavigationItem link="/dashboard/users-list">Users List</NavigationItem>
+      <NavigationItem link="/dashboard/orders-list">Orders List</NavigationItem>
     </>
   );
 
