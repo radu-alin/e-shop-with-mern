@@ -39,8 +39,8 @@ const UserOverview = ({
     if (userDeleteId === _id || userUpdatedId === _id) {
       if (!!isLoadingDelete) {
         return (
-          <div className="user-overview-status-message-spinner">
-            <Spinner type="small" />
+          <div className='user-overview-status-message-spinner'>
+            <Spinner type='small' />
           </div>
         );
       }
@@ -57,8 +57,7 @@ const UserOverview = ({
               (isSuccessUpdate && '-success') ||
               isErrorDelete ||
               (isErrorUpdate && '-danger')
-            }`}
-          >
+            }`}>
             <strong>
               {(isSuccessDelete && `${isSuccessDelete}`) ||
                 (isErrorDelete && `${isErrorDelete}`) ||
@@ -98,34 +97,33 @@ const UserOverview = ({
   );
 
   return (
-    <article id="User Overview">
-      <div className="user-overview bg-gray-light my-1 p-1">
-        <div className="user-overview-info">
+    <article id='User Overview'>
+      <div className='user-overview bg-gray-light my-1 p-1'>
+        <div className='user-overview-info'>
           {isLoadingUpdate && userUpdatedId === _id ? (
-            <div className="user-overview-info-spinner">
-              <Spinner type="small" />
+            <div className='user-overview-info-spinner'>
+              <Spinner type='small' />
             </div>
           ) : (
             userOverviewInfoView
           )}
         </div>
         <hr></hr>
-        <div className="user-overview-status">
-          <div className="user-overview-status-message">{message()}</div>
-          <div className="user-overview-status-button">
-            <div className="user-overview-status-button-admin">
+        <div className='user-overview-status'>
+          <div className='user-overview-status-message'>{message()}</div>
+          <div className='user-overview-status-button'>
+            <div className='user-overview-status-button-admin'>
               <Button
-                type="btn btn-success"
+                type='btn btn-success'
                 onClickAction={() => onUserUpdateToAdminHandler(_id)}
-              >
+                disabled={isAdmin}>
                 Make user Admin
               </Button>
             </div>
-            <div className="user-overview-status-button-delete">
+            <div className='user-overview-status-button-delete'>
               <Button
-                type="btn btn-danger"
-                onClickAction={() => onUserDeleteHandler(_id)}
-              >
+                type='btn btn-danger'
+                onClickAction={() => onUserDeleteHandler(_id)}>
                 Delete user
               </Button>
             </div>

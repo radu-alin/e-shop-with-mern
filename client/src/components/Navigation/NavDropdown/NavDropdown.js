@@ -19,35 +19,35 @@ const NavDropdown = ({ userIsAdmin }) => {
 
   const userAuthMenu = (
     <>
-      <NavigationItem link="/account/profile">Profile</NavigationItem>
-      <NavigationItem link="/account/orders">Orders</NavigationItem>
-      <NavigationItem link="/account/addresses">Addresses</NavigationItem>
+      <NavigationItem link='/account/profile'>Profile</NavigationItem>
+      <NavigationItem link='/account/orders'>Orders</NavigationItem>
+      <NavigationItem link='/account/addresses'>Addresses</NavigationItem>
     </>
   );
 
   const userIsAdminAuthMenu = (
     <>
-      <NavigationItem link="/dashboard/profile">Profile</NavigationItem>
-      <NavigationItem link="/dashboard/users-list">Users List</NavigationItem>
-      <NavigationItem link="/dashboard/orders-list">Orders List</NavigationItem>
+      <NavigationItem link='/dashboard/profile'>Profile</NavigationItem>
+      <NavigationItem link='/dashboard/users-list'>Users List</NavigationItem>
+      <NavigationItem link='/dashboard/orders-list'>Orders List</NavigationItem>
+      <NavigationItem link='/dashboard/products-list'>Products List</NavigationItem>
     </>
   );
 
   const dropdownItems = isShowDropdown && (
     <>
       {userIsAdmin ? userIsAdminAuthMenu : userAuthMenu}
-      <NavigationItem link="/logout">Logout</NavigationItem>
+      <NavigationItem link='/logout'>Logout</NavigationItem>
     </>
   );
 
   return (
     <nav>
       <ul
-        id="NavDropdown"
-        className="nav-dropdown show-effect"
+        id='NavDropdown'
+        className='nav-dropdown show-effect'
         onMouseEnter={dropdownIsShowHandler}
-        onMouseLeave={dropdownIsHideHandler}
-      >
+        onMouseLeave={dropdownIsHideHandler}>
         <NavDropdownHeader isActive={isShowDropdown}>
           {userIsAdmin ? 'AdminAccount' : 'My account'}
         </NavDropdownHeader>
