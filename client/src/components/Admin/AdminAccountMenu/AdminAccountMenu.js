@@ -2,14 +2,13 @@ import AccountMenu from '../../Account/AccountMenu/AccountMenu';
 import AccountMenuItem from '../../Account/AccountMenu/AccountMenuItem/AccountMenuItem';
 import { useRouteMatch } from 'react-router-dom';
 
-const AdminDashboardMenu = () => {
+const AdminAccountMenu = () => {
   let { url } = useRouteMatch();
   return (
-    <section id='AdminDashboardMenu'>
-      <AccountMenu title='AdminDashboard'>
+    <section id='AdminAccountMenu'>
+      <AccountMenu title='Admin Account'>
         <AccountMenuItem link={`${url}/profile`}>My profile</AccountMenuItem>
         <AccountMenuItem link={`${url}/users-list`}>Users list</AccountMenuItem>
-        <AccountMenuItem link={`${url}/orders-list`}>Orders list</AccountMenuItem>
         <AccountMenuItem link={`${url}/products-list`}>
           Products list
         </AccountMenuItem>
@@ -17,4 +16,4 @@ const AdminDashboardMenu = () => {
     </section>
   );
 };
-export default AdminDashboardMenu;
+export default AdminAccountMenu;

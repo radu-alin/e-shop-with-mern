@@ -11,7 +11,7 @@ import AuthPage from './pages/AuthPage/AuthPage';
 import UserAccountPage from './pages/UserAccountPage/UserAccountPage';
 import CartPage from './pages/CartPage/CartPage';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
-import AdminDashboardPage from './pages/AdminDashboardPage/AdminDashboardPage';
+import AdminAccountPage from './pages/AdminAccountPage/AdminAccountPage';
 import LogoutPage from './pages/LogoutPage/LogoutPage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
@@ -41,32 +41,32 @@ const App = ({ userAuthIsAdmin, onUserAuthSuccess, onUserIsAdminAuthSuccess }) =
   return (
     <Layout>
       <Switch>
-        <Route exact path="/">
+        <Route exact path='/'>
           <HomePage />
         </Route>
-        <Route path="/products/:id">
+        <Route path='/products/:id'>
           <ProductDetailsPage />
         </Route>
-        <Route path="/logout">
+        <Route path='/logout'>
           <LogoutPage />
         </Route>
-        <Route path="/auth">
+        <Route path='/auth'>
           <AuthPage />
         </Route>
-        <Route path="/cart">
+        <Route path='/cart'>
           <CartPage />
         </Route>
-        <PrivateRoute path="/checkout">
+        <PrivateRoute path='/checkout'>
           <CheckoutPage />
         </PrivateRoute>
-        <PrivateRoute path="/account">
+        <PrivateRoute path='/account'>
           <UserAccountPage />
         </PrivateRoute>
-        <PrivateRoute path="/dashboard">
-          {userAuthIsAdmin ? <AdminDashboardPage /> : <Redirect to="/" />}
+        <PrivateRoute path='/dashboard'>
+          {userAuthIsAdmin ? <AdminAccountPage /> : <Redirect to='/' />}
         </PrivateRoute>
-        <Route path="*">
-          <Redirect to="/" />
+        <Route path='*'>
+          <Redirect to='/' />
         </Route>
       </Switch>
     </Layout>

@@ -15,7 +15,7 @@ const LatestProducts = ({ productsAll, isError, onProductListFetch }) => {
     onProductListFetch();
   }, [onProductListFetch]);
 
-  const productsAllRender = () =>
+  const latestProductsRender = () =>
     productsAll.map((product) => (
       <Link key={product._id} to={'/products/' + product._id}>
         <ProductOverview product={product} />
@@ -24,19 +24,19 @@ const LatestProducts = ({ productsAll, isError, onProductListFetch }) => {
 
   const latestProductsView = () => {
     if (isError) {
-      return <Message type="danger" message={isError} />;
+      return <Message type='danger' message={isError} />;
     }
     if (productsAll.length === 0) {
       return <Spinner />;
     }
 
-    return <div className="latest-products-product">{productsAllRender()}</div>;
+    return <div className='latest-products-product'>{latestProductsRender()}</div>;
   };
 
   return (
-    <section id="LatestProducts">
-      <div className="latest-products py-1">
-        <h3 className="bg-gray-medium">Latest Products</h3>
+    <section id='LatestProducts'>
+      <div className='latest-products py-1'>
+        <h3 className='bg-gray-medium'>Latest Products</h3>
         {latestProductsView()}
       </div>
     </section>

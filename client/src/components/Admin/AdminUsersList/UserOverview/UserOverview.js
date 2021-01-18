@@ -53,9 +53,9 @@ const UserOverview = ({
         return (
           <div
             className={`user-overview-status-message${
-              isSuccessDelete ||
+              (isSuccessDelete && '-success') ||
               (isSuccessUpdate && '-success') ||
-              isErrorDelete ||
+              (isErrorDelete && '-danger') ||
               (isErrorUpdate && '-danger')
             }`}>
             <strong>

@@ -51,7 +51,7 @@ const CartItems = ({
     }
     if (cartItemsId.length === 0) {
       return (
-        <h2 className="py-1">
+        <h2 className='py-1'>
           <strong>Please add products to cart.</strong>
         </h2>
       );
@@ -62,7 +62,7 @@ const CartItems = ({
     return cartItemsRender();
   };
 
-  return <div className="cart-items">{cartItemsView()}</div>;
+  return <div className='cart-items'>{cartItemsView()}</div>;
 };
 
 const mapStateToProps = (state) => ({

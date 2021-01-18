@@ -1,14 +1,14 @@
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-import AdminDashboardLayout from '../../components/Admin/AdminDashboardLayout/AdminDashboardLayout';
+import AdminAccountLayout from '../../components/Admin/AdminAccountLayout/AdminAccountLayout';
 import UserProfile from '../../components/User/UserProfile/UserProfile.js';
 import AdminUsersList from '../../components/Admin/AdminUsersList/AdminUsersList';
 
-const AdminDashboardPage = () => {
+const AdminAccountPage = () => {
   let { path } = useRouteMatch();
   return (
-    <main id="AdminDashboardPage">
-      <AdminDashboardLayout>
+    <main id='AdminAccountPage'>
+      <AdminAccountLayout>
         <Switch>
           <Route path={`${path}/profile`}>
             <UserProfile />
@@ -17,9 +17,9 @@ const AdminDashboardPage = () => {
             <AdminUsersList />
           </Route>
         </Switch>
-      </AdminDashboardLayout>
+      </AdminAccountLayout>
     </main>
   );
 };
 
-export default AdminDashboardPage;
+export default AdminAccountPage;

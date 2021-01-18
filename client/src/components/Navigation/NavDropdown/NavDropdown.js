@@ -29,7 +29,6 @@ const NavDropdown = ({ userIsAdmin }) => {
     <>
       <NavigationItem link='/dashboard/profile'>Profile</NavigationItem>
       <NavigationItem link='/dashboard/users-list'>Users List</NavigationItem>
-      <NavigationItem link='/dashboard/orders-list'>Orders List</NavigationItem>
       <NavigationItem link='/dashboard/products-list'>Products List</NavigationItem>
     </>
   );

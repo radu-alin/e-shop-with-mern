@@ -4,9 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { ordersListFetch } from '../../../redux/actions/index';
 
-import Spinner from '../../UI/Spinner/Spinner';
-import Message from '../../UI/Message/Message';
-
+import ListView from '../../UI/ListView/ListView';
 import OrderOverview from '../OrderOverview/OrderOverview';
 
 const OrdersList = ({ userToken, ordersList, isError, onOrdersListFetch }) => {
@@ -34,24 +32,20 @@ const OrdersList = ({ userToken, ordersList, isError, onOrdersListFetch }) => {
       />
     ));
 
-  const ordersListView = () => {
-    if (isError) {
-      return <Message type={isError && 'danger'} message={isError} />;
-    }
-    if (ordersList?.length === 0) {
-      return (
-        <h2 className="py-1">
-          <strong>You don't have any orders.</strong>
-        </h2>
-      );
-    }
-    if (!ordersList) {
-      return <Spinner />;
-    }
-    return ordersListRender();
+  const listViewData = {
+    isError: isError,
+    listEmptyCondition: ordersList?.length === 0,
+    spinnerCondition: !ordersList,
   };
 
-  return <div>{ordersListView()}</div>;
+  return (
+    <section id='OrdersList'>
+      <div>
+        <ListView listViewData={listViewData} />
+        {ordersList && ordersListRender()}
+      </div>
+    </section>
+  );
 };
 
 const mapStateToProps = ({

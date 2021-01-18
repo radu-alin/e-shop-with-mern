@@ -10,9 +10,8 @@ import {
   userUpdateToAdminReset,
 } from '../../../redux/actions/index';
 
+import ListView from '../../UI/ListView/ListView';
 import UserOverview from './UserOverview/UserOverview';
-import Message from '../../UI/Message/Message';
-import Spinner from '../../UI/Spinner/Spinner';
 
 import './AdminUsersList.scss';
 
@@ -29,7 +28,6 @@ const UsersList = ({
   onUsersListUpdatePosition,
   onUserUpdateToAdminReset,
 }) => {
-  console.log('userUpdateToAdmin - ', userUpdateToAdmin);
   useEffect(() => userToken && !usersList && onUserListFetch(userToken), [
     userToken,
     usersList,
@@ -64,31 +62,19 @@ const UsersList = ({
       <UserOverview key={user._id} userDetails={user} adminToken={userToken} />
     ));
 
-  const usersListView = (() => {
-    if (isErrorUsersList) {
-      return (
-        <Message type={isErrorUsersList && 'danger'} message={isErrorUsersList} />
-      );
-    }
-    if (usersList?.length === 0) {
-      return (
-        <h2 className="py-1">
-          <strong>You don't have any users.</strong>
-        </h2>
-      );
-    }
-    if (!usersList) {
-      return <Spinner />;
-    }
-    return usersListRender();
-  })();
+  const listViewData = {
+    isError: isErrorUsersList,
+    listEmptyCondition: usersList?.length === 0,
+    spinnerCondition: !usersList,
+  };
 
   return (
-    <section id="AdminUsersList">
-      <div className="admin-users-list">
+    <section id='AdminUsersList'>
+      <div className='admin-users-list'>
         <h1>Users List, {usersList?.length} users.</h1>
         <hr></hr>
-        {usersListView}
+        <ListView listViewData={listViewData} />
+        {usersList && usersListRender()}
         <hr></hr>
       </div>
     </section>
@@ -118,3 +104,21 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersList);
+// const usersListView = (() => {
+//   if (isErrorUsersList) {
+//     return (
+//       <Message type={isErrorUsersList && 'danger'} message={isErrorUsersList} />
+//     );
+//   }
+//   if (usersList?.length === 0) {
+//     return (
+//       <h2 className='py-1'>
+//         <strong>User lis is </strong>
+//       </h2>
+//     );
+//   }
+//   if (!usersList) {
+//     return <Spinner />;
+//   }
+//   return usersListRender();
+// })();
