@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialStateProductListFetch = {
-  productsAll: [],
+  productList: null,
   isLoading: true,
   isError: null,
 };
@@ -25,8 +25,15 @@ export const productListFetchReducer = (
     case actionTypes.PRODUCT_LIST_FETCH_SUCCESS:
       return {
         ...state,
-        productsAll: action.payload,
+        productList: action.payload,
         isLoading: false,
+      };
+    case actionTypes.PRODUCT_LIST_CLEAR:
+      return {
+        ...state,
+        productList: null,
+        isLoading: true,
+        isError: null,
       };
 
     default:

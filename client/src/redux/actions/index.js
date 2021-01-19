@@ -1,4 +1,4 @@
-export { productListFetch } from './productListAction';
+export { productListFetch, productListClear } from './productListAction';
 
 export { productSelectedFetch } from './productSelectedAction';
 

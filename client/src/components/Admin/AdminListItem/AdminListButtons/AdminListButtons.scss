@@ -1,0 +1,35 @@
+.admin-list-buttons {
+  display: flex;
+
+  @media (max-width: 650px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &-second {
+    margin-left: 1rem;
+    @media (max-width: 650px) {
+      margin-top: 1rem;
+      margin-left: 0;
+    }
+  }
+
+  &-first,
+  &-second {
+    & button {
+      width: 162px;
+      padding: 5px;
+      font-size: 1rem;
+      border: 1px solid #a9a9a9;
+      border-radius: 5px;
+
+      @media (max-width: 650px) {
+        width: 100%;
+      }
+    }
+    @media (max-width: 650px) {
+      width: 100%;
+    }
+  }
+}

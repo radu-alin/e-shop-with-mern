@@ -10,10 +10,9 @@ import {
   userUpdateToAdminReset,
 } from '../../../redux/actions/index';
 
+import AdminListWrapper from '../AdminListWrapper/AdminListWrapper';
 import ListView from '../../UI/ListView/ListView';
 import UserOverview from './UserOverview/UserOverview';
-
-import './AdminUserList.scss';
 
 const AdminUserList = ({
   userLoggedDetails,
@@ -52,7 +51,6 @@ const AdminUserList = ({
   useEffect(() => {
     const updateUserList = () =>
       setTimeout(() => {
-        console.log('userUpdateToAdmin - dispatch -', userUpdateToAdmin.userId);
         onUserListUpdatePosition(userUpdateToAdmin.userId);
         onUserUpdateToAdminReset();
       }, 1000);
@@ -76,13 +74,10 @@ const AdminUserList = ({
 
   return (
     <section id='AdminUserList'>
-      <div className='admin-user-list'>
-        <h1>User List, {userList?.length} users.</h1>
-        <hr></hr>
+      <AdminListWrapper title={`User List, ${userList?.length} users.`}>
         <ListView listViewData={listViewData} />
         {userList && userListRender()}
-        <hr></hr>
-      </div>
+      </AdminListWrapper>
     </section>
   );
 };

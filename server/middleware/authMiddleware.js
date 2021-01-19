@@ -6,7 +6,7 @@ export const authProtectMiddleware = asyncHandler(async (req, res, next) => {
   let tokenWithBearer = req.headers.authorization;
   if (!tokenWithBearer) {
     res.status(401);
-    throw new Error('Not authorized, token verification failed.');
+    throw new Error('Not authorized.');
   }
   let token = tokenWithBearer.split(' ')[1];
 
@@ -18,7 +18,7 @@ export const authProtectMiddleware = asyncHandler(async (req, res, next) => {
     } catch (err) {
       console.error(err);
       res.status(401);
-      throw new Error('Not authorized, token verification failed.');
+      throw new Error('Not authorized.');
     }
   } else {
     res.status(401);
@@ -31,6 +31,6 @@ export const authAdminProtectMiddleware = (req, res, next) => {
     next();
   } else {
     res.status(401);
-    throw new Error('Not authorized as an admin');
+    throw new Error('Not authorized.');
   }
 };

@@ -10,13 +10,13 @@ import ProductOverview from '../ProductOverview/ProductOverview';
 
 import './LatestProducts.scss';
 
-const LatestProducts = ({ productsAll, isError, onProductListFetch }) => {
+const LatestProducts = ({ productList, isError, onProductListFetch }) => {
   useEffect(() => {
     onProductListFetch();
   }, [onProductListFetch]);
 
   const latestProductsRender = () =>
-    productsAll.map((product) => (
+    productList.map((product) => (
       <Link key={product._id} to={'/products/' + product._id}>
         <ProductOverview product={product} />
       </Link>
@@ -26,7 +26,7 @@ const LatestProducts = ({ productsAll, isError, onProductListFetch }) => {
     if (isError) {
       return <Message type='danger' message={isError} />;
     }
-    if (productsAll.length === 0) {
+    if (!productList) {
       return <Spinner />;
     }
 
@@ -43,9 +43,9 @@ const LatestProducts = ({ productsAll, isError, onProductListFetch }) => {
   );
 };
 
-const mapStateToProps = ({ productList: { productsAll, isError } }) => ({
-  productsAll,
-  isError,
+const mapStateToProps = ({ productList }) => ({
+  productList: productList?.productList,
+  isError: productList.isError,
 });
 
 const mapDispatchToProps = (dispatch) => ({

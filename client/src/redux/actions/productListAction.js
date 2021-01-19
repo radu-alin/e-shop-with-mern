@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+//productListFetch
 export const productListFetchStart = () => ({
   type: actionTypes.PRODUCT_LIST_FETCH_START,
 });
@@ -27,3 +28,6 @@ export const productListFetch = () => async (dispatch) => {
     dispatch(productListFetchFail(isError));
   }
 };
+export const productListClear = () => ({
+  type: actionTypes.PRODUCT_LIST_CLEAR,
+});

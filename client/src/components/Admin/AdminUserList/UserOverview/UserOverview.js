@@ -2,10 +2,13 @@ import { connect } from 'react-redux';
 
 import { userDelete, userUpdateToAdmin } from '../../../../redux/actions/index';
 
-import './UserOverview.scss';
+import AdminListItemMessage from '../../AdminListItem/AdminListItemMessage/AdminListItemMessage';
+import AdminListItemInfo from '../../AdminListItem/AdminListInfo/AdminListInfo';
+import AdminListSpinner from '../../AdminListItem/AdminListSpinner/AdminListSpinner';
+import AdminListButtons from '../../AdminListItem/AdminListButtons/AdminListButtons';
+import AdminListItemWrapper from '../../AdminListItem/AdminListItemWrapper/AdminListItemWrapper';
 
 import Button from '../../../UI/Button/Button';
-import Spinner from '../../../UI/Spinner/Spinner';
 
 const UserOverview = ({
   userLoggedDetails,
@@ -23,8 +26,6 @@ const UserOverview = ({
     isSuccess: isSuccessDelete,
     isError: isErrorDelete,
   } = userDelete;
-  console.log('isErrorDelete - ', isErrorDelete);
-
   const {
     userId: userUpdatedId,
     isLoading: isLoadingUpdate,
@@ -37,57 +38,30 @@ const UserOverview = ({
   const onUserUpdateToAdminHandler = () => onUserUpdateToAdmin(_id, userLoggedToken);
   const userLoggedIsTrue = userLoggedId === _id;
 
-  const message = () => {
-    if (userDeleteId === _id || userUpdatedId === _id) {
-      if (
-        (!!userDeleteId && !!isSuccessDelete) ||
-        !!isErrorDelete ||
-        (!!userUpdatedId && !!isSuccessUpdate) ||
-        !!isErrorUpdate
-      ) {
-        return (
-          <div
-            className={`user-overview-status-message${
-              (isSuccessDelete && '-success') ||
-              (isSuccessUpdate && '-success') ||
-              (isErrorDelete && '-danger') ||
-              (isErrorUpdate && '-danger')
-            }`}>
-            <strong>
-              {(isSuccessDelete && `${isSuccessDelete}`) ||
-                (isErrorDelete && `${isErrorDelete}`) ||
-                (isSuccessUpdate && `${isSuccessUpdate}`) ||
-                (isErrorUpdate && `${isErrorUpdate}`)}
-            </strong>
-          </div>
-        );
-      }
+  const userOverviewMessageView = (() => {
+    if (userDeleteId === _id) {
+      return (
+        <AdminListItemMessage isSuccess={isSuccessDelete} isError={isErrorDelete} />
+      );
     }
-    return null;
-  };
+    if (userUpdatedId === _id) {
+      return (
+        <AdminListItemMessage isSuccess={isSuccessUpdate} isError={isErrorUpdate} />
+      );
+    }
+    return <AdminListItemMessage />;
+  })();
 
   const userOverviewInfoView = (
     <>
-      <div>
-        <strong>User ID: </strong>
-        {_id}
-      </div>
-      <div>
-        <strong>Name: </strong>
-        {name}
-      </div>
-      <div>
-        <strong>Email: </strong>
-        {email}
-      </div>
-      <div>
-        <strong>Created at: </strong>
-        {userCreatedAt.toLocaleString()}
-      </div>
-      <div>
-        <strong>User is Admin: </strong>
-        {isAdmin ? 'Yes' : 'No'}
-      </div>
+      <AdminListItemInfo title='User ID: ' content={_id} />
+      <AdminListItemInfo title='Name: ' content={name} />
+      <AdminListItemInfo title='Email: ' content={email} />
+      <AdminListItemInfo
+        title='Created at: '
+        content={userCreatedAt.toLocaleString()}
+      />
+      <AdminListItemInfo title='User is Admin: ' content={isAdmin ? 'Yes' : 'No'} />
     </>
   );
 
@@ -96,42 +70,35 @@ const UserOverview = ({
       (isLoadingDelete || isSuccessDelete || isLoadingUpdate) &&
       (userUpdatedId || userDeleteId) === _id
     ) {
-      return (
-        <div className='user-overview-info-spinner'>
-          <Spinner type='small' />
-        </div>
-      );
+      return <AdminListSpinner />;
     }
     return userOverviewInfoView;
   })();
 
+  const userOverviewButtonsView = (
+    <AdminListButtons>
+      <Button
+        type='btn btn-success'
+        onClickAction={onUserUpdateToAdminHandler}
+        disabled={isAdmin}>
+        Make user Admin
+      </Button>
+      <Button
+        type='btn btn-danger'
+        onClickAction={onUserDeleteHandler}
+        disabled={userLoggedIsTrue}>
+        Delete user
+      </Button>
+    </AdminListButtons>
+  );
+
   return (
     <article id='UserOverview'>
-      <div className='user-overview bg-gray-light my-1 p-1'>
-        <div className='user-overview-info'>{userOverviewInfoViewHandler}</div>
-        <hr></hr>
-        <div className='user-overview-status'>
-          <div className='user-overview-status-message'>{message()}</div>
-          <div className='user-overview-status-button'>
-            <div className='user-overview-status-button-admin'>
-              <Button
-                type='btn btn-success'
-                onClickAction={onUserUpdateToAdminHandler}
-                disabled={isAdmin}>
-                Make user Admin
-              </Button>
-            </div>
-            <div className='user-overview-status-button-delete'>
-              <Button
-                type='btn btn-danger'
-                onClickAction={onUserDeleteHandler}
-                disabled={userLoggedIsTrue}>
-                Delete user
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AdminListItemWrapper>
+        {userOverviewInfoViewHandler}
+        {userOverviewMessageView}
+        {userOverviewButtonsView}
+      </AdminListItemWrapper>
     </article>
   );
 };
