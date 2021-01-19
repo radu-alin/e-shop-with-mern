@@ -16,7 +16,7 @@ import UserOverview from './UserOverview/UserOverview';
 import './AdminUsersList.scss';
 
 const UsersList = ({
-  userToken,
+  userLoggedDetails,
   usersList,
   isErrorUsersList,
   userDelete,
@@ -28,6 +28,8 @@ const UsersList = ({
   onUsersListUpdatePosition,
   onUserUpdateToAdminReset,
 }) => {
+  const { userToken } = userLoggedDetails;
+
   useEffect(() => userToken && !usersList && onUserListFetch(userToken), [
     userToken,
     usersList,
@@ -59,7 +61,11 @@ const UsersList = ({
 
   const usersListRender = () =>
     usersList.map((user) => (
-      <UserOverview key={user._id} userDetails={user} adminToken={userToken} />
+      <UserOverview
+        key={user._id}
+        userDetails={user}
+        userLoggedDetails={userLoggedDetails}
+      />
     ));
 
   const listViewData = {
@@ -81,13 +87,8 @@ const UsersList = ({
   );
 };
 
-const mapStateToProps = ({
-  user: { userToken },
-  usersList,
-  userDelete,
-  userUpdateToAdmin,
-}) => ({
-  userToken,
+const mapStateToProps = ({ user, usersList, userDelete, userUpdateToAdmin }) => ({
+  userLoggedDetails: user,
   usersList: usersList?.usersList,
   isErrorUsersList: usersList.isError,
   userDelete,

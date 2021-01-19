@@ -86,6 +86,13 @@
       background-color: #bd2130;
       border-color: #b21f2d;
     }
+    &:disabled,
+    &:disabled:hover {
+      border-color: #919aa1;
+      background-color: #919aa1; //gray-600
+      color: #f8f9fa; //gray-100
+      cursor: not-allowed;
+    }
   }
 
   &.btn-primary {

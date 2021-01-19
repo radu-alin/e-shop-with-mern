@@ -8,13 +8,14 @@ import Button from '../../../UI/Button/Button';
 import Spinner from '../../../UI/Spinner/Spinner';
 
 const UserOverview = ({
-  adminToken,
+  userLoggedDetails,
   userDetails,
   userDelete,
   onUserDelete,
   userUpdateToAdmin,
   onUserUpdateToAdmin,
 }) => {
+  const { userToken: userLoggedToken, userId: userLoggedId } = userLoggedDetails;
   const { name, email, _id, createdAt, isAdmin } = userDetails;
   const {
     userId: userDeleteId,
@@ -31,19 +32,12 @@ const UserOverview = ({
   } = userUpdateToAdmin;
   const userCreatedAt = new Date(createdAt);
 
-  const onUserDeleteHandler = (id, token = adminToken) => onUserDelete(id, token);
-  const onUserUpdateToAdminHandler = (id, token = adminToken) =>
-    onUserUpdateToAdmin(id, token);
+  const onUserDeleteHandler = () => onUserDelete(_id, userLoggedToken);
+  const onUserUpdateToAdminHandler = () => onUserUpdateToAdmin(_id, userLoggedToken);
+  const userLoggedIsTrue = userLoggedId === _id;
 
   const message = () => {
     if (userDeleteId === _id || userUpdatedId === _id) {
-      if (!!isLoadingDelete) {
-        return (
-          <div className='user-overview-status-message-spinner'>
-            <Spinner type='small' />
-          </div>
-        );
-      }
       if (
         (!!userDeleteId && !!isSuccessDelete) ||
         !!isErrorDelete ||
@@ -96,18 +90,24 @@ const UserOverview = ({
     </>
   );
 
+  const userOverviewInfoViewHandler = (() => {
+    if (
+      (isLoadingDelete || isSuccessDelete || isLoadingUpdate) &&
+      (userUpdatedId || userDeleteId) === _id
+    ) {
+      return (
+        <div className='user-overview-info-spinner'>
+          <Spinner type='small' />
+        </div>
+      );
+    }
+    return userOverviewInfoView;
+  })();
+
   return (
     <article id='User Overview'>
       <div className='user-overview bg-gray-light my-1 p-1'>
-        <div className='user-overview-info'>
-          {isLoadingUpdate && userUpdatedId === _id ? (
-            <div className='user-overview-info-spinner'>
-              <Spinner type='small' />
-            </div>
-          ) : (
-            userOverviewInfoView
-          )}
-        </div>
+        <div className='user-overview-info'>{userOverviewInfoViewHandler}</div>
         <hr></hr>
         <div className='user-overview-status'>
           <div className='user-overview-status-message'>{message()}</div>
@@ -115,7 +115,7 @@ const UserOverview = ({
             <div className='user-overview-status-button-admin'>
               <Button
                 type='btn btn-success'
-                onClickAction={() => onUserUpdateToAdminHandler(_id)}
+                onClickAction={onUserUpdateToAdminHandler}
                 disabled={isAdmin}>
                 Make user Admin
               </Button>
@@ -123,7 +123,8 @@ const UserOverview = ({
             <div className='user-overview-status-button-delete'>
               <Button
                 type='btn btn-danger'
-                onClickAction={() => onUserDeleteHandler(_id)}>
+                onClickAction={onUserDeleteHandler}
+                disabled={userLoggedIsTrue}>
                 Delete user
               </Button>
             </div>
@@ -135,6 +136,7 @@ const UserOverview = ({
 };
 
 const mapStateToProps = (state) => ({
+  userLoggedId: state?.user?.userId,
   userDelete: state.userDelete,
   userUpdateToAdmin: state.userUpdateToAdmin,
 });
