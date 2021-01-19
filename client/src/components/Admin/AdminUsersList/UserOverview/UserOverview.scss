@@ -6,8 +6,8 @@
   cursor: grab;
 
   &-info {
-    height: 121.25px;
-    padding-bottom: 1rem;
+    height: 105.25px;
+    margin-bottom: 1rem;
 
     &-spinner {
       height: 100%;
@@ -36,6 +36,7 @@
       margin-bottom: 0.5rem;
 
       @media (max-width: 576px) {
+        height: 1.5rem;
         width: 100%;
       }
 
@@ -49,11 +50,6 @@
         @media (max-width: 650px) {
           width: 100%;
         }
-      }
-
-      &-spinner {
-        display: flex;
-        align-items: center;
       }
 
       &-success {

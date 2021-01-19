@@ -213,8 +213,7 @@ export const userDeleteReducer = (state = initialStateDeleteUser, action) => {
       return {
         ...state,
         isLoading: false,
-        isError: action.payload.message,
-        userId: action.payload.userId,
+        isError: action.payload,
       };
     case actionTypes.USER_DELETE_SUCCESS:
       return {
@@ -260,8 +259,7 @@ export const userUpdateToAdminReducer = (
       return {
         ...state,
         isLoading: false,
-        isError: action.payload.message,
-        userId: action.payload.userId,
+        isError: action.payload,
       };
     case actionTypes.USER_UPDATE_TO_ADMIN_SUCCESS:
       return {

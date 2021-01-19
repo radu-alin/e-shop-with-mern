@@ -23,6 +23,7 @@ const UserOverview = ({
     isSuccess: isSuccessDelete,
     isError: isErrorDelete,
   } = userDelete;
+  console.log('isErrorDelete - ', isErrorDelete);
 
   const {
     userId: userUpdatedId,
@@ -80,7 +81,7 @@ const UserOverview = ({
         {email}
       </div>
       <div>
-        <strong>Date created: </strong>
+        <strong>Created at: </strong>
         {userCreatedAt.toLocaleString()}
       </div>
       <div>
@@ -105,7 +106,7 @@ const UserOverview = ({
   })();
 
   return (
-    <article id='User Overview'>
+    <article id='UserOverview'>
       <div className='user-overview bg-gray-light my-1 p-1'>
         <div className='user-overview-info'>{userOverviewInfoViewHandler}</div>
         <hr></hr>
