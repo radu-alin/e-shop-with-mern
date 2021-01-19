@@ -138,52 +138,49 @@ export const userProfileUpdateReducer = (
   }
 };
 
-//usersListFetch
-const initialStateUsersListFetch = {
-  usersList: null,
+//userListFetch
+const initialStateUserListFetch = {
+  userList: null,
   isLoading: false,
   isError: false,
 };
 
-export const usersListFetchReducer = (
-  state = initialStateUsersListFetch,
-  action
-) => {
+export const userListFetchReducer = (state = initialStateUserListFetch, action) => {
   switch (action.type) {
-    case actionTypes.USERS_LIST_FETCH_START:
+    case actionTypes.USER_LIST_FETCH_START:
       return {
         ...state,
         isLoading: true,
         isError: false,
       };
-    case actionTypes.USERS_LIST_FETCH_FAIL:
+    case actionTypes.USER_LIST_FETCH_FAIL:
       return {
         ...state,
         isLoading: false,
         isError: action.payload,
       };
-    case actionTypes.USERS_LIST_FETCH_SUCCESS:
+    case actionTypes.USER_LIST_FETCH_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        usersList: action.payload,
+        userList: action.payload,
       };
-    case actionTypes.USERS_LIST_DELETE_POSITION:
+    case actionTypes.USER_LIST_DELETE_POSITION:
       return {
         ...state,
-        usersList: state.usersList.filter((user) => user._id !== action.payload),
+        userList: state.userList.filter((user) => user._id !== action.payload),
       };
-    case actionTypes.USERS_LIST_UPDATE_POSITION:
+    case actionTypes.USER_LIST_UPDATE_POSITION:
       return {
         ...state,
-        usersList: state.usersList.map((user) =>
+        userList: state.userList.map((user) =>
           user._id === action.payload ? { ...user, isAdmin: true } : { ...user }
         ),
       };
-    case actionTypes.USERS_LIST_CLEAR:
+    case actionTypes.USER_LIST_CLEAR:
       return {
         ...state,
-        usersList: null,
+        userList: null,
         isLoading: false,
         isError: false,
       };

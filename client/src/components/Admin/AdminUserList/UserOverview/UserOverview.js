@@ -137,7 +137,6 @@ const UserOverview = ({
 };
 
 const mapStateToProps = (state) => ({
-  userLoggedId: state?.user?.userId,
   userDelete: state.userDelete,
   userUpdateToAdmin: state.userUpdateToAdmin,
 });

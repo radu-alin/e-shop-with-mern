@@ -8,10 +8,8 @@ const AdminAccountMenu = () => {
     <section id='AdminAccountMenu'>
       <AccountMenu title='Admin Account'>
         <AccountMenuItem link={`${url}/profile`}>My profile</AccountMenuItem>
-        <AccountMenuItem link={`${url}/users-list`}>Users list</AccountMenuItem>
-        <AccountMenuItem link={`${url}/products-list`}>
-          Products list
-        </AccountMenuItem>
+        <AccountMenuItem link={`${url}/user-list`}>User list</AccountMenuItem>
+        <AccountMenuItem link={`${url}/product-list`}>Product list</AccountMenuItem>
       </AccountMenu>
     </section>
   );

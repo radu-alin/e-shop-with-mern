@@ -5,7 +5,7 @@ import {
   userProfileFetchedClear,
   orderDetailsClear,
   ordersListClear,
-  usersListClear,
+  userListClear,
   userLogout,
 } from '../../redux/actions/index';
 
@@ -13,7 +13,7 @@ const LogoutPage = ({
   onUserProfileFetchedClear,
   onOrderDetailsClear,
   onOrdersListClear,
-  onUsersListClear,
+  onUserListClear,
   onUserLogout,
 }) => {
   useEffect(() => {
@@ -22,10 +22,10 @@ const LogoutPage = ({
       onUserProfileFetchedClear();
       onOrderDetailsClear();
       onOrdersListClear();
-      onUsersListClear();
+      onUserListClear();
     };
   });
-  return <Redirect to="/" />;
+  return <Redirect to='/' />;
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -33,6 +33,6 @@ const mapDispatchToProps = (dispatch) => ({
   onUserProfileFetchedClear: () => dispatch(userProfileFetchedClear()),
   onOrdersListClear: () => dispatch(ordersListClear()),
   onOrderDetailsClear: () => dispatch(orderDetailsClear()),
-  onUsersListClear: () => dispatch(usersListClear()),
+  onUserListClear: () => dispatch(userListClear()),
 });
 export default connect(null, mapDispatchToProps)(LogoutPage);

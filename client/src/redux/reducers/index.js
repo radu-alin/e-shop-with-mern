@@ -12,7 +12,7 @@ import {
   userAuthReducer,
   userProfileFetchReducer,
   userProfileUpdateReducer,
-  usersListFetchReducer,
+  userListFetchReducer,
   userDeleteReducer,
   userUpdateToAdminReducer,
 } from './userReducer';
@@ -28,7 +28,7 @@ export const rootReducer = combineReducers({
   user: userAuthReducer,
   userProfile: userProfileFetchReducer,
   userProfileUpdate: userProfileUpdateReducer,
-  usersList: usersListFetchReducer,
+  userList: userListFetchReducer,
   userDelete: userDeleteReducer,
   userUpdateToAdmin: userUpdateToAdminReducer,
   productList: productListFetchReducer,

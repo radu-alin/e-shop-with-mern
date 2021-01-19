@@ -23,14 +23,14 @@ export {
   userProfileUpdate,
   userProfileUpdateClear,
   userResetError,
-  usersListFetch,
-  usersListClear,
+  userListFetch,
+  userListClear,
   userDelete,
   userDeleteReset,
-  usersListDeletePosition,
+  userListDeletePosition,
   userUpdateToAdmin,
   userUpdateToAdminReset,
-  usersListUpdatePosition,
+  userListUpdatePosition,
 } from './userAction';
 
 export {

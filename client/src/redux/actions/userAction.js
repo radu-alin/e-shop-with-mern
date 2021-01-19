@@ -130,20 +130,20 @@ export const userProfileUpdateClear = () => ({
   type: actionTypes.USER_PROFILE_UPDATE_CLEAR,
 });
 
-// usersListFetch
-export const usersListFetchStart = () => ({
-  type: actionTypes.USERS_LIST_FETCH_START,
+// userListFetch
+export const userListFetchStart = () => ({
+  type: actionTypes.USER_LIST_FETCH_START,
 });
-export const usersListFetchFail = (error) => ({
-  type: actionTypes.USERS_LIST_FETCH_FAIL,
+export const userListFetchFail = (error) => ({
+  type: actionTypes.USER_LIST_FETCH_FAIL,
   payload: error,
 });
-export const usersListFetchSuccess = (user) => ({
-  type: actionTypes.USERS_LIST_FETCH_SUCCESS,
+export const userListFetchSuccess = (user) => ({
+  type: actionTypes.USER_LIST_FETCH_SUCCESS,
   payload: user,
 });
-export const usersListFetch = (token) => async (dispatch) => {
-  dispatch(usersListFetchStart());
+export const userListFetch = (token) => async (dispatch) => {
+  dispatch(userListFetchStart());
   const url = '/api/users';
   const config = {
     headers: {
@@ -152,25 +152,25 @@ export const usersListFetch = (token) => async (dispatch) => {
   };
   try {
     const { data } = await axios.get(url, config);
-    dispatch(usersListFetchSuccess(data));
+    dispatch(userListFetchSuccess(data));
   } catch (err) {
     const isError =
       err.response && err.response.data.message
         ? err.response.data.message
         : err.message;
-    dispatch(usersListFetchFail(isError));
+    dispatch(userListFetchFail(isError));
   }
 };
-export const usersListDeletePosition = (userId) => ({
-  type: actionTypes.USERS_LIST_DELETE_POSITION,
+export const userListDeletePosition = (userId) => ({
+  type: actionTypes.USER_LIST_DELETE_POSITION,
   payload: userId,
 });
-export const usersListUpdatePosition = (userId) => ({
-  type: actionTypes.USERS_LIST_UPDATE_POSITION,
+export const userListUpdatePosition = (userId) => ({
+  type: actionTypes.USER_LIST_UPDATE_POSITION,
   payload: userId,
 });
-export const usersListClear = () => ({
-  type: actionTypes.USERS_LIST_CLEAR,
+export const userListClear = () => ({
+  type: actionTypes.USER_LIST_CLEAR,
 });
 
 //userDelete

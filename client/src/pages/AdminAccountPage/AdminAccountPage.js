@@ -2,7 +2,7 @@ import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
 import AdminAccountLayout from '../../components/Admin/AdminAccountLayout/AdminAccountLayout';
 import UserProfile from '../../components/User/UserProfile/UserProfile.js';
-import AdminUsersList from '../../components/Admin/AdminUsersList/AdminUsersList';
+import AdminUserList from '../../components/Admin/AdminUserList/AdminUserList';
 
 const AdminAccountPage = () => {
   let { path } = useRouteMatch();
@@ -13,8 +13,8 @@ const AdminAccountPage = () => {
           <Route path={`${path}/profile`}>
             <UserProfile />
           </Route>
-          <Route path={`${path}/users-list`}>
-            <AdminUsersList />
+          <Route path={`${path}/user-list`}>
+            <AdminUserList />
           </Route>
         </Switch>
       </AdminAccountLayout>
