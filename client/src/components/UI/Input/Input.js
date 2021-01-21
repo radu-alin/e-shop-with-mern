@@ -70,8 +70,8 @@ const Input = (
   }
 
   return (
-    <div className="input">
-      <label className="input-label" htmlFor={elementConfig.id}>
+    <div className='input'>
+      <label className='input-label' htmlFor={elementConfig.id}>
         {label}
       </label>
       {inputElement}

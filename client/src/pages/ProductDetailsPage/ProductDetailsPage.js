@@ -11,9 +11,9 @@ const ProductDetailsPage = () => {
   const buttonGoBackClickHandler = useCallback(() => history.goBack(), [history]);
 
   return (
-    <main id="ProductPage">
+    <main id='ProductPage'>
       <ProductDetails
-        productSelectedId={id}
+        productId={id}
         buttonGoBackClickHandler={buttonGoBackClickHandler}
       />
       <LatestProducts />

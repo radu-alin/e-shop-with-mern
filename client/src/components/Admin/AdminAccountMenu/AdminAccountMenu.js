@@ -10,6 +10,9 @@ const AdminAccountMenu = () => {
         <AccountMenuItem link={`${url}/profile`}>My profile</AccountMenuItem>
         <AccountMenuItem link={`${url}/user-list`}>User list</AccountMenuItem>
         <AccountMenuItem link={`${url}/product-list`}>Product list</AccountMenuItem>
+        <AccountMenuItem link={`${url}/product-create`}>
+          Product create
+        </AccountMenuItem>
       </AccountMenu>
     </section>
   );

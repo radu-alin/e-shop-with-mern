@@ -28,6 +28,14 @@ export const productListFetchReducer = (
         productList: action.payload,
         isLoading: false,
       };
+
+    case actionTypes.PRODUCT_LIST_DELETE_POSITION:
+      return {
+        ...state,
+        productList: state.productList.filter(
+          (product) => product._id !== action.payload
+        ),
+      };
     case actionTypes.PRODUCT_LIST_CLEAR:
       return {
         ...state,

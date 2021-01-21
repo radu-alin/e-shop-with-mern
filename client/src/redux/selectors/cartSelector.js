@@ -40,9 +40,9 @@ export const cartItemsDetailAndCartQuantitySelector = createSelector(
   }
 );
 
-const selectedItemDetails = (state) => state.productSelected.productSelectedDetails;
+const selectedItemDetails = (state) => state.product.productDetails;
 
-export const productSelectedDetailsAndQuantityAvailableSelector = createSelector(
+export const productDetailsAndQuantityAvailableSelector = createSelector(
   [cartItemsIdAndQuantity, selectedItemDetails],
   (cartItems, selectedItem) => {
     if (selectedItem) {

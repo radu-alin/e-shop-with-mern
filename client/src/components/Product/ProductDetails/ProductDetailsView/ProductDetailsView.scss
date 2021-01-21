@@ -18,6 +18,7 @@
   }
   &-content {
     width: 100%;
+    min-height: 300px;
     height: 100%;
     display: grid;
     grid-template-columns: 2fr 2fr 1fr;

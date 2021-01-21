@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux';
 
 import { productListFetchReducer } from './productListReducer';
-import { productSelectedFetchReducer } from './productSelectedReducer';
+import {
+  productCreateReducer,
+  productFetchReducer,
+  productDeleteReducer,
+} from './productReducer';
 import {
   cartItemsIdAndQuantityReducer,
   cartItemsDetailFetchReducer,
@@ -31,14 +35,16 @@ export const rootReducer = combineReducers({
   userList: userListFetchReducer,
   userDelete: userDeleteReducer,
   userUpdateToAdmin: userUpdateToAdminReducer,
+  product: productFetchReducer,
+  productCreate: productCreateReducer,
+  productDelete: productDeleteReducer,
   productList: productListFetchReducer,
-  productSelected: productSelectedFetchReducer,
-  cartItemsIdAndQuantity: cartItemsIdAndQuantityReducer,
   cartItemsDetail: cartItemsDetailFetchReducer,
+  cartItemsIdAndQuantity: cartItemsIdAndQuantityReducer,
   cartCheckoutDetails: cartCheckoutDetailsReducer,
   cartDropdown: cartDropdownReducer,
   orderCreate: orderCreateReducer,
-  ordersList: ordersListFetchReducer,
   orderDetails: orderDetailsFetchReducer,
+  ordersList: ordersListFetchReducer,
   orderPay: orderPayReducer,
 });

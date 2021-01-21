@@ -1,6 +1,16 @@
-export { productListFetch, productListClear } from './productListAction';
+export {
+  productListFetch,
+  productListDeletePosition,
+  productListClear,
+} from './productListAction';
 
-export { productSelectedFetch } from './productSelectedAction';
+export {
+  productCreate,
+  productCreateReset,
+  productFetch,
+  productDelete,
+  productDeleteReset,
+} from './productAction';
 
 export {
   cartAddItem,

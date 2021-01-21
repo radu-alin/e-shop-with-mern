@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { cartAddItem, productSelectedFetch } from '../../../redux/actions';
+import { cartAddItem, productFetch } from '../../../redux/actions';
 
-import { productSelectedDetailsAndQuantityAvailableSelector } from '../../../redux/selectors/cartSelector';
+import { productDetailsAndQuantityAvailableSelector } from '../../../redux/selectors/cartSelector';
 
 import ProductDetailsView from './ProductDetailsView/ProductDetailsView';
 
@@ -12,22 +12,22 @@ import Spinner from '../../UI/Spinner/Spinner';
 import Message from '../../UI/Message/Message';
 
 const ProductDetails = ({
-  productSelectedId,
+  productId,
   productDetails,
   isError,
   buttonGoBackClickHandler,
   onCartAddItem,
-  onProductSelectedFetch,
+  onProductFetch,
 }) => {
-  const productDetailsIsNew = productSelectedId !== productDetails?._id;
+  const productDetailsIsNew = productId !== productDetails?._id;
 
   useEffect(() => {
-    productDetailsIsNew && onProductSelectedFetch(productSelectedId);
-  }, [onProductSelectedFetch, productDetailsIsNew, productSelectedId]);
+    productDetailsIsNew && onProductFetch(productId);
+  }, [onProductFetch, productDetailsIsNew, productId]);
 
   const productDetailsView = () => {
     if (isError) {
-      return <Message type="danger" message={isError} />;
+      return <Message type='danger' message={isError} />;
     }
     if (productDetailsIsNew) {
       return <Spinner />;
@@ -41,10 +41,10 @@ const ProductDetails = ({
   };
 
   return (
-    <section id="ProductDetails">
-      <div className="product-details my-1">
-        <div className="product-details-header">
-          <Button type="btn-gray-light" onClickAction={buttonGoBackClickHandler}>
+    <section id='ProductDetails'>
+      <div className='product-details my-1'>
+        <div className='product-details-header'>
+          <Button type='btn-gray-light' onClickAction={buttonGoBackClickHandler}>
             Go Back
           </Button>
         </div>
@@ -55,12 +55,12 @@ const ProductDetails = ({
 };
 
 const mapStateToProps = (state) => ({
-  productDetails: productSelectedDetailsAndQuantityAvailableSelector(state),
-  isError: state.productSelectedDetails,
+  productDetails: productDetailsAndQuantityAvailableSelector(state),
+  isError: state.productDetails,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onProductSelectedFetch: (id) => dispatch(productSelectedFetch(id)),
+  onProductFetch: (id) => dispatch(productFetch(id)),
   onCartAddItem: (itemToAdd) => dispatch(cartAddItem(itemToAdd)),
 });
 

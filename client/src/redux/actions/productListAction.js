@@ -28,6 +28,10 @@ export const productListFetch = () => async (dispatch) => {
     dispatch(productListFetchFail(isError));
   }
 };
+export const productListDeletePosition = (productId) => ({
+  type: actionTypes.PRODUCT_LIST_DELETE_POSITION,
+  payload: productId,
+});
 export const productListClear = () => ({
   type: actionTypes.PRODUCT_LIST_CLEAR,
 });

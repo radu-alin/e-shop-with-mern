@@ -5,7 +5,11 @@
   cursor: grab;
 
   &-info {
+    height: 105px;
     margin-bottom: 1rem;
+    @media (max-width: 576px) {
+      height: 126px;
+    }
 
     &-status {
       width: 340px;
