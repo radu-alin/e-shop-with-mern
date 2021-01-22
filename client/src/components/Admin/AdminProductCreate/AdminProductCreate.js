@@ -56,15 +56,23 @@ const AdminProductCreate = ({
       formAllInputsValidForValidFormUtil
     );
 
+  console.log('image', formData.formInputsData.image.value);
+
   const formContainerView = (
     <FormContainer
       title='Product create'
       message={[!!isSuccess, !!isError, isSuccess || isError]}>
       {formRender()}
-      <div className='user-profile-spinner'>
+      <div className='admin-product-create-spinner'>
         {isLoading || (isSuccess && <Spinner type='small' />)}
       </div>
-      <div className='user-profile-button btn-red btn-apply'>
+      <div className='admin-product-create-image'>
+        <img
+          src={`${formData.formInputsData.image.value}`}
+          alt={`${formData.formInputsData.name.value}`}
+        />
+      </div>
+      <div className='admin-product-create-button '>
         <Button
           type='btn-gray-dark animation'
           onClickAction={onSubmitHandler}
@@ -73,7 +81,7 @@ const AdminProductCreate = ({
         </Button>
       </div>
       <hr></hr>
-      <p className='user-profile-footer'>All fields are required.</p>
+      <p className='admin-product-create-footer'>All fields are required.</p>
     </FormContainer>
   );
 
