@@ -7,7 +7,10 @@ export {
 export {
   productCreate,
   productCreateReset,
+  productEdit,
+  productEditReset,
   productFetch,
+  productFetchClear,
   productDelete,
   productDeleteReset,
 } from './productAction';

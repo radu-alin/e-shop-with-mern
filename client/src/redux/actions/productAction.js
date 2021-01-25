@@ -25,7 +25,6 @@ export const productCreate = (token, productData) => async (dispatch) => {
   };
   try {
     const { data } = await axios.post(url, body, config);
-    console.log('data - ', data);
     dispatch(productCreateSuccess(data));
   } catch (err) {
     const isError =
@@ -37,6 +36,43 @@ export const productCreate = (token, productData) => async (dispatch) => {
 };
 export const productCreateReset = () => ({
   type: actionTypes.PRODUCT_CREATE_RESET,
+});
+
+//productEdit
+export const productEditStart = () => ({
+  type: actionTypes.PRODUCT_EDIT_START,
+});
+export const productEditFail = (error) => ({
+  type: actionTypes.PRODUCT_EDIT_FAIL,
+  payload: error,
+});
+export const productEditSuccess = (data) => ({
+  type: actionTypes.PRODUCT_EDIT_SUCCESS,
+  payload: data,
+});
+export const productEdit = (token, productId, productData) => async (dispatch) => {
+  dispatch(productEditStart());
+  const url = `/api/products/${productId}`;
+  const body = { ...productData };
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const { data } = await axios.put(url, body, config);
+    dispatch(productEditSuccess(data));
+  } catch (err) {
+    const isError =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    dispatch(productEditFail(isError));
+  }
+};
+export const productEditReset = () => ({
+  type: actionTypes.PRODUCT_EDIT_RESET,
 });
 
 //productFetch
@@ -64,7 +100,9 @@ export const productFetch = (id) => async (dispatch) => {
     dispatch(productFetchFail(isError));
   }
 };
-
+export const productFetchClear = () => ({
+  type: actionTypes.PRODUCT_FETCH_CLEAR,
+});
 // productDelete
 export const productDeleteStart = (productId) => ({
   type: actionTypes.PRODUCT_DELETE_START,

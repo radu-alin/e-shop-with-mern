@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { productDelete } from '../../../../redux/actions/index';
 
@@ -19,10 +20,13 @@ const ProductSummary = ({
   isSuccess,
   onProductDelete,
 }) => {
+  let history = useHistory();
   const { _id, name, createdAt, price, countInStock } = productDetails;
   const productCreatedAt = new Date(createdAt);
 
   const onProductDeleteHandler = () => onProductDelete(userToken, _id);
+  const productEditClickHandler = (id) =>
+    history.push(`/dashboard/product-list/${_id}`);
 
   const productSummaryInfoView = (
     <>
@@ -53,7 +57,9 @@ const ProductSummary = ({
 
   const productSummaryButtonsView = (
     <AdminListButtons>
-      <Button type='btn btn-success'>Edit product details</Button>
+      <Button type='btn btn-success' onClickAction={productEditClickHandler}>
+        Edit product details
+      </Button>
       <Button type='btn btn-danger' onClickAction={onProductDeleteHandler}>
         Delete product
       </Button>

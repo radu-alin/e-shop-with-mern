@@ -1,38 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
 
-// productSeletctedFetch
-const initialStateProductFetch = {
-  productDetails: null,
-  productReviews: [],
-  isLoading: true,
-  isError: null,
-};
-
-export const productFetchReducer = (state = initialStateProductFetch, action) => {
-  switch (action.type) {
-    case actionTypes.PRODUCT_FETCH_START:
-      return {
-        ...state,
-        isError: null,
-      };
-    case actionTypes.PRODUCT_FETCH_FAIL:
-      return {
-        ...state,
-        isLoading: false,
-        isError: action.payload,
-      };
-    case actionTypes.PRODUCT_FETCH_SUCCESS:
-      return {
-        ...state,
-        productDetails: { ...action.payload },
-        isLoading: false,
-      };
-
-    default:
-      return state;
-  }
-};
-
 // productCreate
 const initialStateProductCreate = {
   isLoading: false,
@@ -66,6 +33,87 @@ export const productCreateReducer = (state = initialStateProductCreate, action) 
         isLoading: false,
         isError: false,
         isSuccess: false,
+      };
+
+    default:
+      return state;
+  }
+};
+
+// productEdit
+const initialStateProductEdit = {
+  isLoading: false,
+  isError: false,
+  isSuccess: false,
+};
+
+export const productEditReducer = (state = initialStateProductEdit, action) => {
+  switch (action.type) {
+    case actionTypes.PRODUCT_EDIT_START:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case actionTypes.PRODUCT_EDIT_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.payload,
+      };
+    case actionTypes.PRODUCT_EDIT_SUCCESS:
+      return {
+        ...state,
+        isSuccess: action.payload,
+        isLoading: false,
+      };
+    case actionTypes.PRODUCT_EDIT_RESET:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        isSuccess: false,
+      };
+
+    default:
+      return state;
+  }
+};
+
+// productFetch
+const initialStateProductFetch = {
+  productDetails: null,
+  productReviews: [],
+  isLoading: true,
+  isError: null,
+};
+
+export const productFetchReducer = (state = initialStateProductFetch, action) => {
+  switch (action.type) {
+    case actionTypes.PRODUCT_FETCH_START:
+      return {
+        ...state,
+        isError: null,
+      };
+    case actionTypes.PRODUCT_FETCH_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.payload,
+      };
+    case actionTypes.PRODUCT_FETCH_SUCCESS:
+      return {
+        ...state,
+        productDetails: { ...action.payload },
+        isLoading: false,
+      };
+    case actionTypes.PRODUCT_FETCH_CLEAR:
+      return {
+        ...state,
+        productDetails: null,
+        productReviews: [],
+        isLoading: true,
+        isError: null,
       };
 
     default:

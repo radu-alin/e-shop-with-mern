@@ -26,7 +26,6 @@ const AdminProductCreate = ({
   onProductCreate,
   onProductCreateReset,
 }) => {
-  console.log('isLoading - ', isLoading);
   const [formData, setFormData] = useState({ ...defaultState });
 
   useEffect(() => {
@@ -55,8 +54,6 @@ const AdminProductCreate = ({
       setFormData,
       formAllInputsValidForValidFormUtil
     );
-
-  console.log('image', formData.formInputsData.image.value);
 
   const formContainerView = (
     <FormContainer

@@ -8,9 +8,10 @@ import {
   productListClear,
 } from '../../../redux/actions/index';
 
-import AdminListWrapper from '../AdminListWrapper/AdminListWrapper';
 import ListView from '../../UI/ListView/ListView';
 import ProductSummary from '../AdminProductList/ProductSummary/ProductSummary';
+
+import './AdminProductList.scss';
 
 const AdminProductList = ({
   productList,
@@ -26,7 +27,6 @@ const AdminProductList = ({
     onProductListFetch();
     return () => {
       onProductListClear();
-      onProductDeleteReset();
     };
   }, [onProductListFetch, onProductListClear, onProductDeleteReset]);
 
@@ -56,10 +56,15 @@ const AdminProductList = ({
   };
 
   return (
-    <AdminListWrapper title='Product List '>
-      <ListView listViewData={listViewData} />
-      {productList && productListRender()}
-    </AdminListWrapper>
+    <section id='AdminProductsList'>
+      <div className='admin-product-list'>
+        <h1>Product List</h1>
+        <hr></hr>
+        <ListView listViewData={listViewData} />
+        {productList && productListRender()}
+        <hr></hr>
+      </div>
+    </section>
   );
 };
 

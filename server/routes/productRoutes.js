@@ -5,6 +5,7 @@ import {
   getProductList,
   getProductById,
   postProduct,
+  putProductById,
   deleteProductById,
 } from '../controllers/productController.js';
 
@@ -20,6 +21,7 @@ router
 router
   .route('/:id')
   .get(getProductById)
+  .put(authProtectMiddleware, authAdminProtectMiddleware, putProductById)
   .delete(authProtectMiddleware, authAdminProtectMiddleware, deleteProductById);
 
 export default router;

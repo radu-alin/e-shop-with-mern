@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { productListFetchReducer } from './productListReducer';
 import {
   productCreateReducer,
+  productEditReducer,
   productFetchReducer,
   productDeleteReducer,
 } from './productReducer';
@@ -37,6 +38,7 @@ export const rootReducer = combineReducers({
   userUpdateToAdmin: userUpdateToAdminReducer,
   product: productFetchReducer,
   productCreate: productCreateReducer,
+  productEdit: productEditReducer,
   productDelete: productDeleteReducer,
   productList: productListFetchReducer,
   cartItemsDetail: cartItemsDetailFetchReducer,

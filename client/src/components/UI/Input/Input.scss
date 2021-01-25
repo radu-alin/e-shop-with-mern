@@ -8,6 +8,12 @@
     margin: 0.5rem auto 0.5rem auto;
   }
 
+  textarea {
+    padding: 0.5rem;
+    height: 4rem;
+    text-align: justify;
+  }
+
   &-element {
     width: 100%;
     min-height: 2rem;

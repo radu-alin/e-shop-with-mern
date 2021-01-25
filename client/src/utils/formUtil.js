@@ -27,7 +27,6 @@ export const formRenderInputsUtil = (
   data,
   setData,
   formValidator,
-
   ref = null
 ) => {
   const checkValidity = (value, rules) => {
