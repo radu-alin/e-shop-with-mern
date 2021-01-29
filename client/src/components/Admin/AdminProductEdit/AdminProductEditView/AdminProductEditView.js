@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -33,9 +34,14 @@ const AdminProductEditView = ({
 }) => {
   let history = useHistory();
   const { _id: productId } = productDetails;
+
   const [formData, setFormData] = useState({
     ...defaultState(productDetails),
   });
+
+  console.log('formData - ', formData);
+  const [fileUploading, setFileUploading] = useState(false);
+  const imageUploadRef = useRef(null);
 
   useEffect(() => {
     const productEditReset = () =>
@@ -50,10 +56,38 @@ const AdminProductEditView = ({
     return () => onProductEditReset();
   }, [onProductEditReset]);
 
+  const uploadFileHandler = async () => {
+    console.log('uploadFileHandle - executed()');
+    setFileUploading(true);
+    const file = imageUploadRef?.current?.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+      const { data } = await axios.post('/api/upload', formData, config);
+      console.log('uploadData - finished - data - ', data);
+      setFileUploading(false);
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    const productDetails = formInputsDataUtil(formData.formInputsData);
-    onProductEdit(userToken, productId, productDetails);
+    let productDetails = formInputsDataUtil(formData.formInputsData);
+    if (productDetails.image) {
+      return onProductEdit(userToken, productId, productDetails);
+    }
+    const dataUpload = async () => {
+      productDetails.image = await uploadFileHandler();
+      onProductEdit(userToken, productId, productDetails);
+    };
+    dataUpload();
   };
 
   const formRender = () =>
@@ -61,33 +95,54 @@ const AdminProductEditView = ({
       Input,
       formData,
       setFormData,
-      formOneInputValidForValidFormUtil
+      formOneInputValidForValidFormUtil,
+      imageUploadRef
     );
 
+  const {
+    imageFile: { value: valueImageFile },
+    image: {
+      value: valueImageURL,
+      elementConfig: { placeholder: placeholderImageURL },
+    },
+  } = formData.formInputsData;
+
   const imageProduct = (() => {
-    const {
-      value,
-      elementConfig: { placeholder },
-      isTouched,
-    } = formData.formInputsData.image;
-    if (isTouched) {
-      return value;
+    const imageUpload = imageUploadRef?.current?.files[0];
+    console.log('imageUpload - ', imageUpload);
+    if (valueImageURL) {
+      return valueImageURL;
     }
-    return placeholder;
+    if (imageUpload) {
+      const image = URL.createObjectURL(imageUploadRef?.current?.files[0]);
+
+      return image;
+    }
+    if (placeholderImageURL) return placeholderImageURL;
+    if (!valueImageURL && !valueImageFile) return '';
+    return '';
   })();
+
+  const inputImageView =
+    ((valueImageURL || !placeholderImageURL) && '-imgURL') ||
+    (valueImageFile && '-imgUpload') ||
+    '';
+
   const formContainerView = (
     <FormContainer
       title='Product edit'
       message={[!!isSuccess, !!isError, isSuccess || isError]}>
       {formRender()}
-      <div className='admin-product-create-spinner'>
-        {isLoading && <Spinner type='small' />}
-      </div>
-      <div className='admin-product-create-image'>
-        <img
-          src={`${imageProduct}`}
-          alt={`${formData.formInputsData.name.elementConfig.placeholder}`}
-        />
+      <div className='admin-product-create-loader'>
+        <div className='admin-product-create-loader-image'>
+          <img
+            src={`${imageProduct}`}
+            alt={`${formData.formInputsData.name.value}`}
+          />
+        </div>
+        <div className='admin-product-create-loader-spinner'>
+          {(isLoading || isSuccess || fileUploading) && <Spinner type='small' />}
+        </div>
       </div>
       <div className='admin-product-create-button '>
         <Button
@@ -104,7 +159,9 @@ const AdminProductEditView = ({
 
   return (
     <section id='ProductAdd'>
-      <div className='admin-product-create'>{formContainerView}</div>
+      <div className={`admin-product-create${inputImageView}`}>
+        {formContainerView}
+      </div>
     </section>
   );
 };

@@ -140,7 +140,6 @@ export const defaultState = {
         type: 'file',
         name: 'fileUpload',
         id: 'fileUpload',
-        spellCheck: false,
         placeholder: 'Image upload',
       },
       validation: {

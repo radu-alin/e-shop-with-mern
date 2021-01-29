@@ -57,6 +57,7 @@ export const defaultState = (productDetails) => {
           type: 'text',
           name: 'category',
           id: 'category',
+          spellCheck: false,
           placeholder: category || 'Category',
         },
         validation: {
@@ -73,6 +74,7 @@ export const defaultState = (productDetails) => {
         elementConfig: {
           name: 'description',
           id: 'description',
+          spellCheck: false,
           placeholder: description || 'enter product description',
         },
         validation: {
@@ -124,10 +126,12 @@ export const defaultState = (productDetails) => {
           type: 'url',
           name: 'image',
           id: 'image',
-          placeholder: image || 'Image URL',
+          spellCheck: false,
+          placeholder: image,
         },
         validation: {
           isRequired: false,
+          isURL: true,
         },
         isValid: false,
         isTouched: false,
@@ -146,6 +150,7 @@ export const defaultState = (productDetails) => {
         validation: {
           isRequired: false,
         },
+        isRef: true,
         isValid: true,
         isTouched: true,
       },

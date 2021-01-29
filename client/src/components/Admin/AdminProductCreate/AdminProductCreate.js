@@ -31,9 +31,6 @@ const AdminProductCreate = ({
   const [fileUploading, setFileUploading] = useState(false);
   const imageUploadRef = useRef(null);
 
-  console.log('fileUploading - ', fileUploading);
-  console.log('AdminProductCreate - rerender() - formData - ', formData);
-
   useEffect(() => {
     return () => onProductCreateReset();
   }, [onProductCreateReset]);
@@ -69,7 +66,6 @@ const AdminProductCreate = ({
   };
 
   const onSubmitHandler = (event) => {
-    console.log('onSubmitHandler - executed()');
     event.preventDefault();
     let productDetails = formInputsDataUtil(formData.formInputsData);
     if (productDetails.image) {
@@ -134,8 +130,7 @@ const AdminProductCreate = ({
         <Button
           type='btn-gray-dark animation'
           onClickAction={onSubmitHandler}
-          // disabled={!formData.isFormValid}>
-          disabled={false}>
+          disabled={!formData.isFormValid}>
           {formData.isFormValid ? 'Submit' : ' Enter product details.'}
         </Button>
       </div>
