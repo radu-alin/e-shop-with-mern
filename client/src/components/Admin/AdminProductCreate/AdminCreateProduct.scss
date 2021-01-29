@@ -5,21 +5,40 @@
   @media (max-width: 576px) {
     padding: 0 1rem 0 1rem;
   }
-  &-spinner {
-    margin-top: 1rem;
+  &-imgURL {
+    input[type='file'] {
+      visibility: hidden;
+    }
+    label[for='fileUpload']:after {
+      content: ' - option unvailable, you selected an imageURL.';
+    }
+  }
+  &-imgUpload {
+    input[type='url'] {
+      visibility: hidden;
+    }
+    label[for='image']:after {
+      content: ' - option unvailable, you selected an image upload.';
+    }
+  }
+
+  &-loader {
     height: 3rem;
+    display: flex;
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  &-image {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid #767676;
-    img {
-      width: 100%;
-      margin: 0 auto 0 auto;
-      object-fit: cover;
+    &-image {
+      img {
+        height: 3rem;
+        flex: 1;
+        margin: 0 auto 0 auto;
+        object-fit: cover;
+      }
+    }
+    &-spinner {
+      flex: 1;
     }
   }
   &-footer {

@@ -55,6 +55,11 @@ export const formRenderInputsUtil = (
       isValid = pattern.test(value) && isValid;
     }
 
+    if (rules.isURL) {
+      const pattern = /(^http[s]?:\/{2})|(^www)|(^\/{1,2})/;
+      isValid = (value.trim() === '' && isValid) || (pattern.test(value) && isValid);
+    }
+
     if (rules.isNumeric) {
       const pattern = /^\d+$/;
       isValid = pattern.test(value) && isValid;

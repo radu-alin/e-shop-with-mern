@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import { productCreate, productCreateReset } from '../../../redux/actions/index';
@@ -27,6 +28,11 @@ const AdminProductCreate = ({
   onProductCreateReset,
 }) => {
   const [formData, setFormData] = useState({ ...defaultState });
+  const [fileUploading, setFileUploading] = useState(false);
+  const imageUploadRef = useRef(null);
+
+  console.log('fileUploading - ', fileUploading);
+  console.log('AdminProductCreate - rerender() - formData - ', formData);
 
   useEffect(() => {
     return () => onProductCreateReset();
@@ -37,14 +43,43 @@ const AdminProductCreate = ({
       setTimeout(() => {
         onProductCreateReset();
         setFormData({ ...defaultState });
-      }, 3000);
+      }, 1500);
     isSuccess && productCreateReset();
   }, [isSuccess, onProductCreateReset]);
 
+  const uploadFileHandler = async () => {
+    console.log('uploadFileHandle - executed()');
+    setFileUploading(true);
+    const file = imageUploadRef?.current?.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+      const { data } = await axios.post('/api/upload', formData, config);
+      console.log('uploadData - finished - data - ', data);
+      setFileUploading(false);
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const onSubmitHandler = (event) => {
+    console.log('onSubmitHandler - executed()');
     event.preventDefault();
-    const productDetails = formInputsDataUtil(formData.formInputsData);
-    onProductCreate(userToken, productDetails);
+    let productDetails = formInputsDataUtil(formData.formInputsData);
+    if (productDetails.image) {
+      return onProductCreate(userToken, productDetails);
+    }
+    const dataUpload = async () => {
+      productDetails.image = await uploadFileHandler();
+      onProductCreate(userToken, productDetails);
+    };
+    dataUpload();
   };
 
   const formRender = () =>
@@ -52,28 +87,55 @@ const AdminProductCreate = ({
       Input,
       formData,
       setFormData,
-      formAllInputsValidForValidFormUtil
+      formAllInputsValidForValidFormUtil,
+      imageUploadRef
     );
+
+  const imageProduct = (() => {
+    const imageUpload = imageUploadRef?.current?.files[0];
+    const {
+      imageFile: { value: valueImageFile },
+      image: { value: valueImageURL },
+    } = formData.formInputsData;
+    if (!valueImageURL && !valueImageFile) return '';
+    if (valueImageURL) {
+      return valueImageURL;
+    }
+    if (imageUpload) {
+      const image = URL.createObjectURL(imageUploadRef?.current?.files[0]);
+
+      return image;
+    }
+    return '';
+  })();
+
+  const inputImageView =
+    (formData.formInputsData.image?.value && '-imgURL') ||
+    (formData.formInputsData.imageFile?.value && '-imgUpload') ||
+    '';
 
   const formContainerView = (
     <FormContainer
       title='Product create'
       message={[!!isSuccess, !!isError, isSuccess || isError]}>
       {formRender()}
-      <div className='admin-product-create-spinner'>
-        {isLoading || (isSuccess && <Spinner type='small' />)}
-      </div>
-      <div className='admin-product-create-image'>
-        <img
-          src={`${formData.formInputsData.image.value}`}
-          alt={`${formData.formInputsData.name.value}`}
-        />
+      <div className='admin-product-create-loader'>
+        <div className='admin-product-create-loader-image'>
+          <img
+            src={`${imageProduct}`}
+            alt={`${formData.formInputsData.name.value}`}
+          />
+        </div>
+        <div className='admin-product-create-loader-spinner'>
+          {(isLoading || isSuccess || fileUploading) && <Spinner type='small' />}
+        </div>
       </div>
       <div className='admin-product-create-button '>
         <Button
           type='btn-gray-dark animation'
           onClickAction={onSubmitHandler}
-          disabled={!formData.isFormValid}>
+          // disabled={!formData.isFormValid}>
+          disabled={false}>
           {formData.isFormValid ? 'Submit' : ' Enter product details.'}
         </Button>
       </div>
@@ -84,7 +146,9 @@ const AdminProductCreate = ({
 
   return (
     <section id='ProductAdd'>
-      <div className='admin-product-create'>{formContainerView}</div>
+      <div className={`admin-product-create${inputImageView}`}>
+        {formContainerView}
+      </div>
     </section>
   );
 };

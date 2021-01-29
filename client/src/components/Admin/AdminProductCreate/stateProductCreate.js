@@ -1,5 +1,6 @@
 export const defaultState = {
   formInputsData: {
+    //brand
     brand: {
       label: 'Brand',
       elementType: 'input',
@@ -15,9 +16,11 @@ export const defaultState = {
       validation: {
         isRequired: true,
       },
+      isRef: false,
       isValid: false,
       isTouched: false,
     },
+    //name
     name: {
       label: 'Name',
       elementType: 'input',
@@ -32,9 +35,11 @@ export const defaultState = {
       validation: {
         isRequired: true,
       },
+      isRef: false,
       isValid: false,
       isTouched: false,
     },
+    //category
     category: {
       label: 'Category',
       elementType: 'input',
@@ -43,14 +48,17 @@ export const defaultState = {
         type: 'text',
         name: 'category',
         id: 'category',
+        spellCheck: false,
         placeholder: 'Category',
       },
       validation: {
         isRequired: true,
       },
+      isRef: false,
       isValid: false,
       isTouched: false,
     },
+    //description
     description: {
       label: 'Description',
       elementType: 'textarea',
@@ -58,14 +66,17 @@ export const defaultState = {
       elementConfig: {
         name: 'description',
         id: 'description',
+        spellCheck: false,
         placeholder: 'enter product description',
       },
       validation: {
         isRequired: true,
       },
+      isRef: false,
       isValid: false,
       isTouched: false,
     },
+    //price
     price: {
       label: 'Price',
       elementType: 'input',
@@ -79,9 +90,11 @@ export const defaultState = {
       validation: {
         isRequired: true,
       },
+      isRef: false,
       isValid: false,
       isTouched: false,
     },
+    //countInStock
     countInStock: {
       label: 'Stock',
       elementType: 'input',
@@ -98,6 +111,7 @@ export const defaultState = {
       isValid: false,
       isTouched: false,
     },
+    //image
     image: {
       label: 'Image URL',
       elementType: 'input',
@@ -106,13 +120,35 @@ export const defaultState = {
         type: 'url',
         name: 'image',
         id: 'image',
+        spellCheck: false,
         placeholder: 'Image URL',
       },
       validation: {
-        isRequired: true,
+        isRequired: false,
+        isURL: true,
       },
-      isValid: false,
+      isRef: false,
+      isValid: true,
       isTouched: false,
+    },
+    //file
+    imageFile: {
+      label: 'Image upload',
+      elementType: 'input',
+      value: '',
+      elementConfig: {
+        type: 'file',
+        name: 'fileUpload',
+        id: 'fileUpload',
+        spellCheck: false,
+        placeholder: 'Image upload',
+      },
+      validation: {
+        isRequired: false,
+      },
+      isRef: true,
+      isValid: true,
+      isTouched: true,
     },
   },
   isFormValid: false,

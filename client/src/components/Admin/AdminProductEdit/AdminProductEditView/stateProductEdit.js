@@ -132,6 +132,23 @@ export const defaultState = (productDetails) => {
         isValid: false,
         isTouched: false,
       },
+      //file
+      imageFile: {
+        label: 'Image upload',
+        elementType: 'input',
+        value: '',
+        elementConfig: {
+          type: 'file',
+          name: 'fileUpload',
+          id: 'fileUpload',
+          placeholder: 'Image upload',
+        },
+        validation: {
+          isRequired: false,
+        },
+        isValid: true,
+        isTouched: true,
+      },
     },
     isFormValid: false,
   };
