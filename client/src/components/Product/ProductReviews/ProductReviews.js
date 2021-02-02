@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 
 import {
   formRenderInputsUtil,
@@ -45,6 +45,8 @@ const ProductReviews = ({
   } = formData;
   const { lastReview } = isSuccess;
   let { id: productId } = useParams();
+  let location = useLocation();
+  let history = useHistory();
 
   if (isError) {
     setInfoMessage({
@@ -54,6 +56,13 @@ const ProductReviews = ({
   }
 
   const addReviewButtonHandler = () => {
+    console.log('!userToken - ', !userToken);
+    if (!userToken) {
+      history.push({
+        pathname: '/auth',
+        state: { from: location },
+      });
+    }
     const userReviewedTrue = productReviews.some((review) => {
       return review.user === userId;
     });

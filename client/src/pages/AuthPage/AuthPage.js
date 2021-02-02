@@ -5,8 +5,10 @@ import UserAuth from '../../components/User/UserAuth/UserAuth';
 
 const AuthPage = ({ isAuth }) => {
   let { state } = useLocation();
+  console.log('state - ', state);
+
   return (
-    <main id="AuthPage">
+    <main id='AuthPage'>
       {isAuth ? <Redirect to={state?.from || '/'} /> : <UserAuth />}
     </main>
   );
