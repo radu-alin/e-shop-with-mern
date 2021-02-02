@@ -6,6 +6,7 @@ import {
   productEditReducer,
   productFetchReducer,
   productDeleteReducer,
+  productReviewCreateReducer,
 } from './productReducer';
 import {
   cartItemsIdAndQuantityReducer,
@@ -41,6 +42,7 @@ export const rootReducer = combineReducers({
   productEdit: productEditReducer,
   productDelete: productDeleteReducer,
   productList: productListFetchReducer,
+  productReview: productReviewCreateReducer,
   cartItemsDetail: cartItemsDetailFetchReducer,
   cartItemsIdAndQuantity: cartItemsIdAndQuantityReducer,
   cartCheckoutDetails: cartCheckoutDetailsReducer,

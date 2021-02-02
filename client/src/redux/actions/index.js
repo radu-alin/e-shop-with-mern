@@ -10,9 +10,12 @@ export {
   productEdit,
   productEditReset,
   productFetch,
+  productFetchUpdateReviews,
   productFetchClear,
   productDelete,
   productDeleteReset,
+  productReviewCreate,
+  productReviewCreateReset,
 } from './productAction';
 
 export {

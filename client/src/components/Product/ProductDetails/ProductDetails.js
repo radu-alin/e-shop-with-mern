@@ -6,7 +6,7 @@ import { cartAddItem, productFetch } from '../../../redux/actions';
 import { productDetailsAndQuantityAvailableSelector } from '../../../redux/selectors/cartSelector';
 
 import ProductDetailsView from './ProductDetailsView/ProductDetailsView';
-
+import ProductReviews from '../ProductReviews/ProductReviews';
 import Button from '../../UI/Button/Button';
 import Spinner from '../../UI/Spinner/Spinner';
 import Message from '../../UI/Message/Message';
@@ -33,10 +33,13 @@ const ProductDetails = ({
       return <Spinner />;
     }
     return (
-      <ProductDetailsView
-        productDetails={productDetails}
-        onCartAddItem={onCartAddItem}
-      />
+      <>
+        <ProductDetailsView
+          productDetails={productDetails}
+          onCartAddItem={onCartAddItem}
+        />
+        <ProductReviews />
+      </>
     );
   };
 

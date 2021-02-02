@@ -103,6 +103,10 @@ export const productFetch = (id) => async (dispatch) => {
 export const productFetchClear = () => ({
   type: actionTypes.PRODUCT_FETCH_CLEAR,
 });
+export const productFetchUpdateReviews = (review) => ({
+  type: actionTypes.PRODUCT_FETCH_UPDATE_REVIEWS,
+  payload: review,
+});
 // productDelete
 export const productDeleteStart = (productId) => ({
   type: actionTypes.PRODUCT_DELETE_START,
@@ -137,4 +141,42 @@ export const productDelete = (token, productId) => async (dispatch) => {
 };
 export const productDeleteReset = () => ({
   type: actionTypes.PRODUCT_DELETE_RESET,
+});
+// productReviewCreate
+export const productReviewCreateStart = () => ({
+  type: actionTypes.PRODUCT_REVIEW_CREATE_START,
+});
+export const productReviewCreateFail = (error) => ({
+  type: actionTypes.PRODUCT_REVIEW_CREATE_FAIL,
+  payload: error,
+});
+export const productReviewCreateSuccess = (product) => ({
+  type: actionTypes.PRODUCT_REVIEW_CREATE_SUCCESS,
+  payload: product,
+});
+export const productReviewCreate = (token, productId, review) => async (
+  dispatch
+) => {
+  dispatch(productReviewCreateStart());
+  const url = `/api/products/${productId}/reviews`;
+  const body = { ...review };
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const { data } = await axios.post(url, body, config);
+    dispatch(productReviewCreateSuccess(data));
+  } catch (err) {
+    const isError =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    dispatch(productReviewCreateFail(isError));
+  }
+};
+export const productReviewCreateReset = () => ({
+  type: actionTypes.PRODUCT_REVIEW_CREATE_RESET,
 });

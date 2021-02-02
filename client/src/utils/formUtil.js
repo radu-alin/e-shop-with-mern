@@ -102,22 +102,20 @@ export const formRenderInputsUtil = (
     });
   }
 
-  const inputs = formElementsArray.map(({ id, config }) => {
-    return (
-      <Element
-        key={id}
-        ref={config.isRef ? ref : null}
-        label={config.label}
-        elementType={config.elementType}
-        value={config.value}
-        isTouched={config.isTouched}
-        isValid={config.isValid}
-        shouldValidate={config.validation}
-        onChangeAction={(event) => inputChangedHandler(event, id)}
-        {...config.elementConfig}
-      />
-    );
-  });
+  const inputs = formElementsArray.map(({ id, config }) => (
+    <Element
+      key={id}
+      ref={config.isRef ? ref : null}
+      label={config.label}
+      elementType={config.elementType}
+      value={config.value}
+      isTouched={config.isTouched}
+      isValid={config.isValid}
+      shouldValidate={config.validation}
+      onChangeAction={(event) => inputChangedHandler(event, id)}
+      {...config.elementConfig}
+    />
+  ));
 
   return inputs;
 };

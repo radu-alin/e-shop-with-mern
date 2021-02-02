@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import ProductDetails from '../../components/Product/ProductDetails/ProductDetails';
-import LatestProducts from '../../components/Product/LatestProducts/LatestProducts';
 
 const ProductDetailsPage = () => {
   let { id } = useParams();
@@ -16,7 +15,6 @@ const ProductDetailsPage = () => {
         productId={id}
         buttonGoBackClickHandler={buttonGoBackClickHandler}
       />
-      <LatestProducts />
     </main>
   );
 };

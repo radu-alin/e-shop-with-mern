@@ -16,28 +16,30 @@ const ProductDetailsView = ({
   },
   onCartAddItem,
 }) => (
-  <section id="ProductDetails">
-    <div className="product-details-content">
-      <div className="product-details-content-image">
-        <img src={image} alt="product" />
+  <section id='ProductDetails'>
+    <div className='product-details-content'>
+      <div className='product-details-content-image'>
+        <img src={image} alt='product' />
       </div>
-      <div className="product-details-content-text-left">
+      <div className='product-details-content-text-left'>
         <h3>{name}</h3>
-        <Rating value={rating} numReviews={numReviews} />
-        <hr className="my-1"></hr>
+        <Rating value={rating} numReviews={numReviews}>
+          reviews
+        </Rating>
+        <hr className='my-1'></hr>
         <h3>${price}</h3>
         <hr></hr>
         <p>{description}</p>
       </div>
-      <div className="product-details-content-text-right">
-        <div className="product-details-content-text-right-price">
+      <div className='product-details-content-text-right'>
+        <div className='product-details-content-text-right-price'>
           <span>Price:</span>
           <span>
             <strong> ${price}</strong>
           </span>
         </div>
         <hr></hr>
-        <div className="product-details-content-text-right-stock">
+        <div className='product-details-content-text-right-stock'>
           <span>Status: </span>
           <span>
             <strong>{countInStock ? 'In Stock' : 'Out of Stock'}</strong>
@@ -46,9 +48,8 @@ const ProductDetailsView = ({
         <hr></hr>
         <Button
           onClickAction={() => onCartAddItem(productDetails)}
-          type="btn-gray-dark "
-          disabled={countInStock <= 0}
-        >
+          type='btn-gray-dark '
+          disabled={countInStock <= 0}>
           {countInStock <= 0 ? 'OUT OF STOCK' : 'ADD TO CHART'}
         </Button>
       </div>

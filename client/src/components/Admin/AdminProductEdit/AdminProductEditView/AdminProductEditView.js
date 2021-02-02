@@ -39,7 +39,6 @@ const AdminProductEditView = ({
     ...defaultState(productDetails),
   });
 
-  console.log('formData - ', formData);
   const [fileUploading, setFileUploading] = useState(false);
   const imageUploadRef = useRef(null);
 
@@ -57,7 +56,6 @@ const AdminProductEditView = ({
   }, [onProductEditReset]);
 
   const uploadFileHandler = async () => {
-    console.log('uploadFileHandle - executed()');
     setFileUploading(true);
     const file = imageUploadRef?.current?.files[0];
     const formData = new FormData();
@@ -69,7 +67,6 @@ const AdminProductEditView = ({
         },
       };
       const { data } = await axios.post('/api/upload', formData, config);
-      console.log('uploadData - finished - data - ', data);
       setFileUploading(false);
       return data;
     } catch (err) {
@@ -109,7 +106,6 @@ const AdminProductEditView = ({
 
   const imageProduct = (() => {
     const imageUpload = imageUploadRef?.current?.files[0];
-    console.log('imageUpload - ', imageUpload);
     if (valueImageURL) {
       return valueImageURL;
     }

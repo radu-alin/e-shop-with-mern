@@ -17,7 +17,7 @@ import Input from '../../UI/Input/Input';
 import Spinner from '../../UI/Spinner/Spinner';
 import Button from '../../UI/Button/Button';
 
-import './AdminCreateProduct.scss';
+import './AdminProductCreate.scss';
 
 const AdminProductCreate = ({
   userToken,
@@ -45,7 +45,6 @@ const AdminProductCreate = ({
   }, [isSuccess, onProductCreateReset]);
 
   const uploadFileHandler = async () => {
-    console.log('uploadFileHandle - executed()');
     setFileUploading(true);
     const file = imageUploadRef?.current?.files[0];
     const formData = new FormData();
@@ -57,7 +56,6 @@ const AdminProductCreate = ({
         },
       };
       const { data } = await axios.post('/api/upload', formData, config);
-      console.log('uploadData - finished - data - ', data);
       setFileUploading(false);
       return data;
     } catch (err) {

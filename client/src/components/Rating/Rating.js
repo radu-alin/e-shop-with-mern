@@ -1,6 +1,6 @@
 import './Rating.scss';
 
-const Rating = ({ value, numReviews }) => {
+const Rating = ({ value, numReviews, children }) => {
   const renderStars = () => (
     <>
       <span>
@@ -11,8 +11,7 @@ const Rating = ({ value, numReviews }) => {
               : value >= 0.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
-          }
-        ></i>
+          }></i>
       </span>
       <span>
         <i
@@ -22,8 +21,7 @@ const Rating = ({ value, numReviews }) => {
               : value >= 1.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
-          }
-        ></i>
+          }></i>
       </span>
       <span>
         <i
@@ -33,8 +31,7 @@ const Rating = ({ value, numReviews }) => {
               : value >= 2.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
-          }
-        ></i>
+          }></i>
       </span>
       <span>
         <i
@@ -44,8 +41,7 @@ const Rating = ({ value, numReviews }) => {
               : value >= 3.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
-          }
-        ></i>
+          }></i>
       </span>
       <span>
         <i
@@ -55,14 +51,16 @@ const Rating = ({ value, numReviews }) => {
               : value >= 4.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
-          }
-        ></i>
+          }></i>
       </span>
-      <span> {numReviews} reviews</span>
+      <span>
+        {' '}
+        {numReviews} {children}
+      </span>
     </>
   );
 
-  return <div className="rating">{renderStars()}</div>;
+  return <div className='rating'>{renderStars()}</div>;
 };
 
 export default Rating;

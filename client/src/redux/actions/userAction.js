@@ -223,7 +223,6 @@ export const userUpdateToAdminSuccess = (data) => ({
   payload: data,
 });
 export const userUpdateToAdmin = (userId, token) => async (dispatch) => {
-  console.log('userUpdateToAdmin - execute()');
   dispatch(userUpdateToAdminStart(userId));
   const url = `/api/users/${userId}`;
   const body = {};

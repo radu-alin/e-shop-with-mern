@@ -105,7 +105,13 @@ export const productFetchReducer = (state = initialStateProductFetch, action) =>
       return {
         ...state,
         productDetails: { ...action.payload },
+        productReviews: [...action.payload.reviews],
         isLoading: false,
+      };
+    case actionTypes.PRODUCT_FETCH_UPDATE_REVIEWS:
+      return {
+        ...state,
+        productReviews: [...state.productReviews, action.payload],
       };
     case actionTypes.PRODUCT_FETCH_CLEAR:
       return {
@@ -157,6 +163,49 @@ export const productDeleteReducer = (state = initialStateProductDelete, action) 
         isLoading: true,
         isError: null,
         isSuccess: false,
+      };
+
+    default:
+      return state;
+  }
+};
+
+// productReviewCreate
+const initialStateProductReviewCreate = {
+  isLoading: false,
+  isError: null,
+  isSuccess: false,
+};
+
+export const productReviewCreateReducer = (
+  state = initialStateProductReviewCreate,
+  action
+) => {
+  switch (action.type) {
+    case actionTypes.PRODUCT_REVIEW_CREATE_START:
+      return {
+        ...state,
+        isLoading: true,
+        isError: null,
+      };
+    case actionTypes.PRODUCT_REVIEW_CREATE_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.payload,
+      };
+    case actionTypes.PRODUCT_REVIEW_CREATE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: action.payload,
+      };
+    case actionTypes.PRODUCT_REVIEW_CREATE_RESET:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
+        isError: null,
       };
 
     default:
