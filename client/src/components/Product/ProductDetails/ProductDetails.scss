@@ -1,0 +1,19 @@
+.product-details {
+  height: 100%;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 994px) {
+    padding: 0 1rem 0 1rem;
+    height: auto;
+  }
+  @media (max-width: 576px) {
+    height: auto;
+  }
+  &-header {
+    height: 3rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}

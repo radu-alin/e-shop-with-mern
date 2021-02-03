@@ -11,6 +11,8 @@ import Button from '../../UI/Button/Button';
 import Spinner from '../../UI/Spinner/Spinner';
 import Message from '../../UI/Message/Message';
 
+import './ProductDetails.scss';
+
 const ProductDetails = ({
   productId,
   productDetails,
