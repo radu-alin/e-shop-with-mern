@@ -1,10 +1,13 @@
+import { connect } from 'react-redux';
+
 import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import CartDropdownIcon from '../../CartDropdown/CartDropdownIcon/CartDropdownIcon';
+import CartDropdown from '../../CartDropdown/CartDropdown';
 
 import './Toolbar.scss';
 
-const Toolbar = () => (
+const Toolbar = ({ isDropdownHidden }) => (
   <>
     <header id='Toolbar'>
       <div className='toolbar bg-gray-dark'>
@@ -15,6 +18,7 @@ const Toolbar = () => (
           <div className='toolbar-content-right'>
             <NavigationItems />
             <CartDropdownIcon />
+            <CartDropdown />
           </div>
         </div>
       </div>
@@ -22,4 +26,8 @@ const Toolbar = () => (
   </>
 );
 
-export default Toolbar;
+const mapStateToProps = ({ cartDropdown: { isDropdownHidden } }) => ({
+  isDropdownHidden,
+});
+
+export default connect(mapStateToProps)(Toolbar);
