@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+import { axiosInstance } from '../../axios';
 
 //productListFetch
 export const productListFetchStart = () => ({
@@ -18,7 +18,7 @@ export const productListFetchFail = (error) => ({
 export const productListFetch = () => async (dispatch) => {
   dispatch(productListFetchStart());
   try {
-    const { data } = await axios.get('/api/products');
+    const { data } = await axiosInstance.get('/api/products');
     dispatch(productListFetchSuccess(data));
   } catch (err) {
     const isError =

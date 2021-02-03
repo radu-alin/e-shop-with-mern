@@ -43,7 +43,11 @@ const ProductReviews = ({
       rating: { value: selectedRating },
     },
   } = formData;
-  const { lastReview } = isSuccess;
+  const productDetails = isSuccess?.productReviewed;
+  const reviews = isSuccess?.productReviewed?.reviews;
+  const lastReview = reviews && reviews[reviews.length - 1];
+  console.log('reviews - ', reviews);
+  console.log('productReviewed - ', lastReview);
   let { id: productId } = useParams();
   let location = useLocation();
   let history = useHistory();
@@ -63,15 +67,15 @@ const ProductReviews = ({
         state: { from: location },
       });
     }
-    const userReviewedTrue = productReviews.some((review) => {
-      return review.user === userId;
-    });
-    if (userReviewedTrue) {
-      return setInfoMessage({
-        messageType: 'danger',
-        messageContent: 'Sorry but you reviewed this product.',
-      });
-    }
+    // const checkIfUserReviewed = productReviews.some((review) => {
+    //   return review.user === userId;
+    // });
+    // if (checkIfUserReviewed) {
+    //   return setInfoMessage({
+    //     messageType: 'danger',
+    //     messageContent: 'Sorry but you reviewed this product.',
+    //   });
+    // }
     setAddReview(true);
   };
 
@@ -82,7 +86,7 @@ const ProductReviews = ({
         messageContent: 'Review created.  Thank you.',
       });
       setTimeout(() => {
-        onProductFetchUpdateReviews(lastReview);
+        onProductFetchUpdateReviews(productDetails, lastReview);
         onProductReviewCreateReset();
         setAddReview(false);
         setInfoMessage(false);
@@ -95,6 +99,7 @@ const ProductReviews = ({
     isSuccess,
     onProductReviewCreateReset,
     onProductFetchUpdateReviews,
+    productDetails,
     lastReview,
   ]);
 
@@ -181,8 +186,8 @@ const mapDispatchToProps = (dispatch) => ({
   onProductReviewCreate: (token, productId, review) =>
     dispatch(productReviewCreate(token, productId, review)),
   onProductReviewCreateReset: () => dispatch(productReviewCreateReset()),
-  onProductFetchUpdateReviews: (review) =>
-    dispatch(productFetchUpdateReviews(review)),
+  onProductFetchUpdateReviews: (productDetails, review) =>
+    dispatch(productFetchUpdateReviews(productDetails, review)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductReviews);

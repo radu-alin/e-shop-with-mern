@@ -111,7 +111,8 @@ export const productFetchReducer = (state = initialStateProductFetch, action) =>
     case actionTypes.PRODUCT_FETCH_UPDATE_REVIEWS:
       return {
         ...state,
-        productReviews: [...state.productReviews, action.payload],
+        productDetails: action.payload.productDetails,
+        productReviews: [...state.productReviews, action.payload.review],
       };
     case actionTypes.PRODUCT_FETCH_CLEAR:
       return {

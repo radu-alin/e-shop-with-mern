@@ -45,10 +45,9 @@ const CheckoutPlaceOrder = ({
 
   const buttonPlaceOrderView = (() => (
     <Button
-      type="btn-gray-dark"
+      type='btn-gray-dark'
       disabled={paymentMethod.length === 0 || !shippingAddress.address}
-      onClickAction={placeOrderButtonClickHandler}
-    >
+      onClickAction={placeOrderButtonClickHandler}>
       Place Order
     </Button>
   ))();
@@ -57,15 +56,22 @@ const CheckoutPlaceOrder = ({
   const orderDetails = { shippingAddress, paymentMethod, totalPrice, shippingPrice };
 
   return (
-    <section id="CheckoutPlaceOrder">
+    <section id='CheckoutPlaceOrder'>
       <OrderDetailsView
         orderDetails={orderDetails}
         orderItems={false}
         isPaid={false}
-        isLoading={isLoadingSummary}
-      >
+        isLoading={isLoadingSummary}>
         {buttonPlaceOrderView}
       </OrderDetailsView>
+      {paymentMethod === 'PayPal' && (
+        <>
+          <hr></hr>
+          PayPal test credentials:{' '}
+          <strong>username: sb-yvxrp4651694@personal.example.com</strong> , password:
+          <strong> 4"Itn/aa</strong>
+        </>
+      )}
     </section>
   );
 };

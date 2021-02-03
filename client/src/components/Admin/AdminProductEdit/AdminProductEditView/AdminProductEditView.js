@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { axiosInstance } from '../../../../axios';
 
 import {
   productEdit,
@@ -66,7 +66,7 @@ const AdminProductEditView = ({
           'Content-Type': 'multipart/form-data',
         },
       };
-      const { data } = await axios.post('/api/upload', formData, config);
+      const { data } = await axiosInstance.post('/api/upload', formData, config);
       setFileUploading(false);
       return data;
     } catch (err) {

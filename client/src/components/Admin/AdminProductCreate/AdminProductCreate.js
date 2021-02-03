@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
+import { axiosInstance } from '../../../axios';
 
 import { productCreate, productCreateReset } from '../../../redux/actions/index';
 
@@ -55,7 +55,7 @@ const AdminProductCreate = ({
           'Content-Type': 'multipart/form-data',
         },
       };
-      const { data } = await axios.post('/api/upload', formData, config);
+      const { data } = await axiosInstance.post('/api/upload', formData, config);
       setFileUploading(false);
       return data;
     } catch (err) {

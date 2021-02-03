@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { axiosInstance } from '../../axios';
 
 import { localStorageSetItemUtil } from '../../utils/localStorageUtil';
 
@@ -27,7 +27,7 @@ export const orderCreate = (token, orderData) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.post(url, body, config);
+    const { data } = await axiosInstance.post(url, body, config);
     orderData.paymentMethod === 'CashOnDelivery' &&
       localStorageSetItemUtil('cartItems', []);
     dispatch(orderCreateSuccess(data));
@@ -64,7 +64,7 @@ export const ordersListFetch = (token) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.get(url, config);
+    const { data } = await axiosInstance.get(url, config);
     dispatch(ordersListFetchSuccess(data));
   } catch (err) {
     const isError =
@@ -99,7 +99,7 @@ export const orderDetailsFetch = (token, orderId) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.get(url, config);
+    const { data } = await axiosInstance.get(url, config);
     dispatch(orderDetailsFetchSuccess(data));
   } catch (err) {
     const isError =
@@ -135,7 +135,7 @@ export const orderPay = (token, orderId, paymentResult) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.put(url, paymentResult, config);
+    const { data } = await axiosInstance.put(url, paymentResult, config);
     localStorageSetItemUtil('cartItems', []);
     dispatch(orderPaySuccess(data));
   } catch (err) {

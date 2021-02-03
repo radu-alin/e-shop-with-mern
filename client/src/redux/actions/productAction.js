@@ -1,5 +1,5 @@
+import { axiosInstance } from '../../axios';
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
 
 //productCreate
 export const productCreateStart = () => ({
@@ -24,7 +24,7 @@ export const productCreate = (token, productData) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.post(url, body, config);
+    const { data } = await axiosInstance.post(url, body, config);
     dispatch(productCreateSuccess(data));
   } catch (err) {
     const isError =
@@ -61,7 +61,7 @@ export const productEdit = (token, productId, productData) => async (dispatch) =
     },
   };
   try {
-    const { data } = await axios.put(url, body, config);
+    const { data } = await axiosInstance.put(url, body, config);
     dispatch(productEditSuccess(data));
   } catch (err) {
     const isError =
@@ -90,7 +90,7 @@ export const productFetchSuccess = (product) => ({
 export const productFetch = (id) => async (dispatch) => {
   dispatch(productFetchStart());
   try {
-    const { data } = await axios.get('/api/products/' + id);
+    const { data } = await axiosInstance.get('/api/products/' + id);
     dispatch(productFetchSuccess(data));
   } catch (err) {
     const isError =
@@ -103,9 +103,9 @@ export const productFetch = (id) => async (dispatch) => {
 export const productFetchClear = () => ({
   type: actionTypes.PRODUCT_FETCH_CLEAR,
 });
-export const productFetchUpdateReviews = (review) => ({
+export const productFetchUpdateReviews = (productDetails, review) => ({
   type: actionTypes.PRODUCT_FETCH_UPDATE_REVIEWS,
-  payload: review,
+  payload: { productDetails, review },
 });
 // productDelete
 export const productDeleteStart = (productId) => ({
@@ -129,7 +129,7 @@ export const productDelete = (token, productId) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.delete(url, config);
+    const { data } = await axiosInstance.delete(url, config);
     dispatch(productDeleteSuccess(data));
   } catch (err) {
     const isError =
@@ -167,7 +167,7 @@ export const productReviewCreate = (token, productId, review) => async (
     },
   };
   try {
-    const { data } = await axios.post(url, body, config);
+    const { data } = await axiosInstance.post(url, body, config);
     dispatch(productReviewCreateSuccess(data));
   } catch (err) {
     const isError =

@@ -107,14 +107,14 @@ export const postProductReview = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
-    const userAlreadyReviewed = product.reviews.find((review) => {
-      return review.user.toString() === req.user._id.toString();
-    });
+    // const userAlreadyReviewed = product.reviews.find((review) => {
+    //   return review.user.toString() === req.user._id.toString();
+    // });
 
-    if (userAlreadyReviewed) {
-      res.status(400);
-      throw new Error('Product already reviewed');
-    }
+    // if (userAlreadyReviewed) {
+    //   res.status(400);
+    //   throw new Error('Product already reviewed');
+    // }
 
     const review = {
       name: req.user.name,
@@ -129,10 +129,8 @@ export const postProductReview = asyncHandler(async (req, res) => {
       product.reviews.reduce((acc, item) => item.rating + acc, 0) /
       product.reviews.length;
     const productReviewed = await product.save();
-    const { reviews } = productReviewed;
-    const lastReview = reviews[reviews.length - 1];
 
-    res.status(201).json({ lastReview });
+    res.status(201).json({ productReviewed });
   } else {
     res.status(404);
     throw new Error('Product not found.');

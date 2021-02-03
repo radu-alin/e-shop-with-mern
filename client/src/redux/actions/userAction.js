@@ -1,5 +1,5 @@
+import { axiosInstance } from '../../axios';
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
 
 export const userLogout = () => {
   localStorage.removeItem('userId');
@@ -40,7 +40,7 @@ export const userAuth = (userData, isNewAccount) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.post(url, body, config);
+    const { data } = await axiosInstance.post(url, body, config);
     data.isAdmin
       ? dispatch(userIsAdminAuthSuccess(data._id, data.token, data.isAdmin))
       : dispatch(userAuthSuccess(data._id, data.token));
@@ -79,7 +79,7 @@ export const userProfileFetch = (token) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.get(url, config);
+    const { data } = await axiosInstance.get(url, config);
     dispatch(userProfileFetchSuccess(data));
   } catch (err) {
     const isError =
@@ -116,7 +116,7 @@ export const userProfileUpdate = (token, userData) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.put(url, body, config);
+    const { data } = await axiosInstance.put(url, body, config);
     dispatch(userProfileUpdateSuccess(data));
   } catch (err) {
     const isError =
@@ -151,7 +151,7 @@ export const userListFetch = (token) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.get(url, config);
+    const { data } = await axiosInstance.get(url, config);
     dispatch(userListFetchSuccess(data));
   } catch (err) {
     const isError =
@@ -195,7 +195,7 @@ export const userDelete = (userId, token) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.delete(url, config);
+    const { data } = await axiosInstance.delete(url, config);
     dispatch(userDeleteSuccess(data));
   } catch (err) {
     const isError =
@@ -232,7 +232,7 @@ export const userUpdateToAdmin = (userId, token) => async (dispatch) => {
     },
   };
   try {
-    const { data } = await axios.put(url, body, config);
+    const { data } = await axiosInstance.put(url, body, config);
     dispatch(userUpdateToAdminSuccess(data));
   } catch (err) {
     const isError =

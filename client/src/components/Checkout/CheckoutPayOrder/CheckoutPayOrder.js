@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { axiosInstance } from '../../../axios';
 
 import { sumRoundValueUtil } from '../../../utils/sumUtil';
 
@@ -51,7 +51,7 @@ const CheckoutPayOrder = ({
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data: CLIENT_ID } = await axios.get('/api/config/paypal');
+      const { data: CLIENT_ID } = await axiosInstance.get('/api/config/paypal');
       const PAYPAL_SCRIPT = `https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}`;
       const script = document.createElement('script');
       script.setAttribute('type', 'text/javascript');
@@ -115,7 +115,7 @@ const CheckoutPayOrder = ({
 
   const checkoutPayOrderView = () => {
     if (isErrorOrderFetch) {
-      return <Message type="danger" message={isErrorOrderFetch} />;
+      return <Message type='danger' message={isErrorOrderFetch} />;
     }
     if (!orderDetails) {
       return <Spinner />;
@@ -125,14 +125,21 @@ const CheckoutPayOrder = ({
         orderDetails={orderDetails}
         isPaid={isPaid || isSuccessOrderPay}
         orderItems={orderItems}
-        isLoading={isLoadingSummary}
-      >
+        isLoading={isLoadingSummary}>
         {buttonPayOrderView()}
       </OrderDetailsView>
     );
   };
 
-  return <section id="CheckoutPayOrder">{checkoutPayOrderView()}</section>;
+  return (
+    <section id='CheckoutPayOrder'>
+      {checkoutPayOrderView()}
+      <hr></hr>
+      PayPal test credentials:{' '}
+      <strong>username: sb-yvxrp4651694@personal.example.com</strong> , password:
+      <strong> 4"Itn/aa</strong>
+    </section>
+  );
 };
 
 const mapStateToProps = ({ user: { userToken }, orderDetails, orderPay }) => ({

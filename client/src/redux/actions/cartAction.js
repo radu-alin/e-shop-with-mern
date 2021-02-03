@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { axiosInstance } from '../../axios';
 import * as actionTypes from './actionTypes';
 
 //cartItemsIdAndQuantity
@@ -33,7 +33,7 @@ export const cartItemsDetailFetchSuccess = (itemsDetail) => ({
 export const cartItemsDetailFetch = (cartItemsId) => async (dispatch) => {
   dispatch(cartItemsDetailFetchStart());
 
-  const fetchItem = (id) => axios.get(`/api/products/${id}`);
+  const fetchItem = (id) => axiosInstance.get(`/api/products/${id}`);
   const requests = cartItemsId.map((id) => fetchItem(id));
   try {
     const results = await Promise.all(requests);

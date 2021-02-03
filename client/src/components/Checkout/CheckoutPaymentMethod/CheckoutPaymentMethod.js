@@ -26,43 +26,45 @@ const CheckoutPaymentMethod = ({ paymentMethod, onCartSavePaymentMethod }) => {
   };
 
   return (
-    <section id="CheckoutPaymentMethod">
-      <div className="checkout-payment-method">
-        <FormContainer title="Payment details" message={[]}>
+    <section id='CheckoutPaymentMethod'>
+      <div className='checkout-payment-method'>
+        <FormContainer title='Payment details' message={[]}>
           <InputRadio
-            label="Cash on Delivery"
-            name="paymentMethod"
-            value="CashOnDelivery"
+            label='Cash on Delivery'
+            name='paymentMethod'
+            value='CashOnDelivery'
             onChangeAction={(event) => inputSelectChangeHandler(event)}
             paymentState={paymentMethod}
           />
           <InputRadio
-            label="PayPal"
-            name="paymentMethod"
-            value="PayPal"
+            label='PayPal'
+            name='paymentMethod'
+            value='PayPal'
             onChangeAction={(e) => inputSelectChangeHandler(e)}
             paymentState={paymentMethod}
           />
           <InputRadio
-            label="Stripe"
-            name="paymentMethod"
-            value="Stripe"
+            label='Stripe'
+            name='paymentMethod'
+            value='Stripe'
             onChangeAction={(e) => inputSelectChangeHandler(e)}
             paymentState={paymentMethod}
           />
-          <div className="checkout-payment-method-spinner">
-            {false && <Spinner type="small" />}
+          <div className='checkout-payment-method-spinner'>
+            {false && <Spinner type='small' />}
           </div>
           <Button
-            type="btn-gray-dark"
+            type='btn-gray-dark'
             onClickAction={onSubmitHandler}
-            disabled={paymentMethod.length === 0}
-          >
+            disabled={paymentMethod.length === 0}>
             {paymentMethod.length === 0 ? 'Select a Payment Method' : 'Next Step'}
           </Button>
           <hr></hr>
         </FormContainer>
       </div>
+      <hr></hr>
+      Note: <strong>PayPal credentials </strong>for testing purpose will be provided
+      in next step.
     </section>
   );
 };
