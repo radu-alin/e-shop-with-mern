@@ -3,13 +3,19 @@
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
+
+  @media (max-width: 576px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   & a {
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
 
     &.active {
       color: #919aa1;

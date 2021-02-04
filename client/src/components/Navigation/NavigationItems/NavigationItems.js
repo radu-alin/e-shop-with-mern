@@ -15,7 +15,7 @@ const NavigationItems = ({ isAuth }) => {
   ) : (
     <NavigationItem link='/auth'>
       <UserIcon />
-      SIGN IN
+      Sign In
     </NavigationItem>
   );
 

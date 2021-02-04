@@ -51,7 +51,7 @@ const NavDropdown = ({ userIsAdmin }) => {
         onMouseEnter={dropdownIsShowHandler}
         onMouseLeave={dropdownIsHideHandler}>
         <NavDropdownHeader isActive={isShowDropdown}>
-          {userIsAdmin ? 'AdminAccount' : 'My account'}
+          {userIsAdmin ? 'Admin' : 'Account'}
         </NavDropdownHeader>
         {dropdownItems}
       </ul>

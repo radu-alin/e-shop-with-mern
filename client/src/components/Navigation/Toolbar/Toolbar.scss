@@ -12,6 +12,10 @@
     @media (max-width: 994px) {
       padding: 0 1rem 0 1rem;
     }
+
+    @media (max-width: 576px) {
+      padding: 0 2rem 0 2rem;
+    }
     @media (max-width: 319px) {
       justify-content: space-around;
     }

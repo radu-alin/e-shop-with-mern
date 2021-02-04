@@ -1,6 +1,29 @@
 .logo {
   width: 5rem;
   height: 100%;
+
+  @media (max-width: 576px) {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &-text {
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+
+  &-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-bottom: 7px;
+    fill: #fff;
+
+    @media (min-width: 500px) {
+      display: none;
+    }
+  }
+
   & a {
     height: 100%;
     width: 100%;
@@ -12,6 +35,13 @@
     &:hover,
     &:active {
       color: #919aa1;
+    }
+  }
+
+  &:hover,
+  &:active {
+    svg {
+      fill: #919aa1;
     }
   }
 }
