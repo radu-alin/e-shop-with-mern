@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
 
+import { ReactComponent as ShoppingCartIcon } from '../../../assets/svg/shopping-cart.svg';
+import { ReactComponent as UserIcon } from '../../../assets/svg/user-icon.svg';
 import NavigationItem from './NavigationItem/Navigationitem';
 import NavDropdown from '../NavDropdown/NavDropdown.js';
 
@@ -11,17 +13,17 @@ const NavigationItems = ({ isAuth }) => {
       <NavDropdown />
     </li>
   ) : (
-    <NavigationItem link="/auth">
-      <i className="fas fa-user"></i>
+    <NavigationItem link='/auth'>
+      <UserIcon />
       SIGN IN
     </NavigationItem>
   );
 
   return (
     <nav>
-      <ul id="NavigationItems" className="navigation-items ">
-        <NavigationItem link="/cart">
-          <i className="fas fa-shopping-cart"></i>Cart
+      <ul id='NavigationItems' className='navigation-items '>
+        <NavigationItem link='/cart'>
+          <ShoppingCartIcon /> Cart
         </NavigationItem>
         {signInOrProfileView}
       </ul>

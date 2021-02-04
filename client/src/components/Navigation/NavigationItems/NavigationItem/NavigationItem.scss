@@ -2,6 +2,7 @@
   width: 100%;
   height: 100%;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 
   & a {
@@ -13,9 +14,22 @@
     &.active {
       color: #919aa1;
     }
+  }
 
-    &:hover,
-    &:active {
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-right: 0.3rem;
+    fill: #fff;
+    transition: fill 0.2s ease-in-out;
+  }
+
+  &:hover,
+  &:active {
+    svg {
+      fill: #919aa1;
+    }
+    a {
       color: #919aa1;
     }
   }

@@ -4,6 +4,9 @@ import { useHistory } from 'react-router-dom';
 
 import { defaultState } from './stateCheckoutShipping';
 
+import { ReactComponent as UndoIcon } from '../../../assets/svg/undo-icon.svg';
+import { ReactComponent as EditIcon } from '../../../assets/svg/edit-icon.svg';
+
 import {
   formRenderInputsUtil,
   formInputsDataUtil,
@@ -74,43 +77,42 @@ const CheckoutShipping = ({
   const shippingPageFooterView = () => {
     if (!editShipping) {
       return (
-        <p className="shipping-page-footer">
+        <p className='shipping-page-footer'>
           Modify shipping address:
           <span onClick={editTrueIconClickHandler}>
             &nbsp; edit &nbsp;
-            <i className="far fa-edit"></i>
+            <EditIcon />
           </span>
         </p>
       );
     }
     if (!address) {
       return (
-        <p className="user-auth-footer">
+        <p className='user-auth-footer'>
           <span>All fields are required</span>
         </p>
       );
     }
     return (
-      <p className="user-auth-footer">
+      <p className='user-auth-footer'>
         Back to previous address:
         <span onClick={restorePreviousShippingAddress}>
-          &nbsp; undo <i className="fas fa-undo"></i>
+          &nbsp; undo <UndoIcon />
         </span>
       </p>
     );
   };
 
   return (
-    <section id="ShippingPage">
+    <section id='ShippingPage'>
       <div className={`shipping-page${editShipping ? '-edit' : ''}`}>
-        <FormContainer title="Shipping details" message={[]}>
+        <FormContainer title='Shipping details' message={[]}>
           {renderFormHandler()}
-          <div className="shipping-page-spinner"></div>
+          <div className='shipping-page-spinner'></div>
           <Button
-            type="btn-gray-dark"
+            type='btn-gray-dark'
             onClickAction={onSubmitHandler}
-            disabled={!formData.isFormValid}
-          >
+            disabled={!formData.isFormValid}>
             {formData.isFormValid ? 'Next Step' : ' Enter shipping details.'}
           </Button>
           <hr></hr>

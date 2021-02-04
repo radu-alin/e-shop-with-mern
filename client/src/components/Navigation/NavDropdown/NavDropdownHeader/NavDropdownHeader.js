@@ -1,3 +1,5 @@
+import { ReactComponent as ArrowDownIcon } from '../../../../assets/svg/arrow-down-icon.svg';
+
 import './NavDropdowHeader.scss';
 
 const NavDropdownHeader = ({ children, isActive }) => {
@@ -7,7 +9,7 @@ const NavDropdownHeader = ({ children, isActive }) => {
     <>
       <li className={classes}>
         {children}
-        <i className="fas fa-chevron-down"></i>
+        <ArrowDownIcon />
       </li>
     </>
   );

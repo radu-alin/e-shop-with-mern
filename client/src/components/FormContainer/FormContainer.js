@@ -1,3 +1,5 @@
+import { ReactComponent as EditIcon } from '../../assets/svg/edit-icon.svg';
+
 import './FormContainer.scss';
 
 const FormAuthContainer = ({ title, editIconClickAction, message, children }) => {
@@ -17,31 +19,31 @@ const FormAuthContainer = ({ title, editIconClickAction, message, children }) =>
   const { classType, messageToDisplay } = messageDisplayHandler();
 
   return (
-    <section id="FormAuthContainer">
+    <section id='FormAuthContainer'>
       <form id={title}>
-        <div className="form-container">
-          <div className="form-container-header">
-            <div className="form-container-header-title">
+        <div className='form-container'>
+          <div className='form-container-header'>
+            <div className='form-container-header-title'>
               <legend>
                 <h1>{title}</h1>
               </legend>
             </div>
             {editIconClickAction ? (
-              <div className="form-container-header-edit">
+              <div className='form-container-header-edit'>
                 <h3>Edit</h3>
-                <i className="far fa-edit" onClick={editIconClickAction}></i>
+                <EditIcon onClick={editIconClickAction} />
               </div>
             ) : null}
           </div>
           <hr></hr>
-          <div className="form-container-message">
+          <div className='form-container-message'>
             {messageContent ? (
               <div className={`form-container-message-${classType}`}>
                 <h3>{messageToDisplay}</h3>
               </div>
             ) : null}
           </div>
-          <div className="form-container-content py-1">{children}</div>
+          <div className='form-container-content py-1'>{children}</div>
         </div>
       </form>
     </section>

@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
+import { ReactComponent as TrashIcon } from '../../../../assets/svg/trash-icon.svg';
+
 import './CartItem.scss';
 
 const CartItem = ({
@@ -34,10 +36,10 @@ const CartItem = ({
 
   const formView = countInStock ? (
     <>
-      <div className="cart-item-content-left-quantity-option">
+      <div className='cart-item-content-left-quantity-option'>
         <form onChange={(e) => submitFormHandler(e)}>
-          <label htmlFor="quantity">Quantity: </label>
-          <select id="quantity" defaultValue={countReserved}>
+          <label htmlFor='quantity'>Quantity: </label>
+          <select id='quantity' defaultValue={countReserved}>
             {renderInputSelectHandler()}
           </select>
         </form>
@@ -46,24 +48,24 @@ const CartItem = ({
   ) : null;
 
   return (
-    <article id="CartItem">
-      <div className="cart-item">
-        <div className="cart-item-image">
+    <article id='CartItem'>
+      <div className='cart-item'>
+        <div className='cart-item-image'>
           <img src={image} alt={name} />
         </div>
-        <div className="cart-item-content">
-          <div className="cart-item-content-left">
-            <div className="cart-item-content-left-title">
+        <div className='cart-item-content'>
+          <div className='cart-item-content-left'>
+            <div className='cart-item-content-left-title'>
               <span>
                 <strong>
                   <Link to={'/products/' + productId}>{name}</Link>
                 </strong>
               </span>
             </div>
-            <div className="cart-item-content-left-quantity">{formView}</div>
+            <div className='cart-item-content-left-quantity'>{formView}</div>
           </div>
-          <div className="cart-item-content-right">
-            <div className="cart-item-content-right-price">
+          <div className='cart-item-content-right'>
+            <div className='cart-item-content-right-price'>
               <span>
                 <strong>
                   {countReserved} x &#36;{price}
@@ -71,12 +73,11 @@ const CartItem = ({
               </span>
               <span> per/item</span>
             </div>
-            <div className="cart-item-content-right-action-icons">
+            <div className='cart-item-content-right-action-icons'>
               <div
-                className="cart-item-content-right-action-icons-remove-button"
-                onClick={() => onCartClearItem(productId)}
-              >
-                <i className="far fa-trash-alt"></i>
+                className='cart-item-content-right-action-icons-remove-button'
+                onClick={() => onCartClearItem(productId)}>
+                <TrashIcon />
               </div>
             </div>
           </div>

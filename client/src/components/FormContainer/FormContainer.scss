@@ -13,11 +13,11 @@
       align-items: center;
       font-size: 1rem;
 
-      i {
-        padding-left: 5px;
-        &:hover {
-          cursor: pointer;
-        }
+      svg {
+        margin-left: 5px;
+        margin-bottom: 5px;
+        width: 1rem;
+        height: 1rem;
       }
     }
   }

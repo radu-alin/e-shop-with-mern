@@ -80,10 +80,9 @@
       &-action-icons {
         &-remove-button {
           padding-top: 1rem;
-          i {
-            margin-top: 1rem;
-            cursor: pointer;
-            font-size: 1.3rem;
+          svg {
+            width: 1.5rem;
+            height: 1.5rem;
           }
         }
       }

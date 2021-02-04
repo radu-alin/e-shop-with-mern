@@ -1,57 +1,56 @@
+import { ReactComponent as StartFullIcon } from '../../assets/svg/star-full-icon.svg';
+import { ReactComponent as StartHalfIcon } from '../../assets/svg/start-half-icon.svg';
+import { ReactComponent as StartEmptyIcon } from '../../assets/svg/start-empty-icon.svg';
+
 import './Rating.scss';
 
 const Rating = ({ value, numReviews, children }) => {
   const renderStars = () => (
     <>
       <span>
-        <i
-          className={
-            value >= 1
-              ? 'fas fa-star'
-              : value >= 0.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
-          }></i>
+        {value >= 1 ? (
+          <StartFullIcon />
+        ) : value >= 0.5 ? (
+          <StartHalfIcon />
+        ) : (
+          <StartEmptyIcon />
+        )}
       </span>
       <span>
-        <i
-          className={
-            value >= 2
-              ? 'fas fa-star'
-              : value >= 1.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
-          }></i>
+        {value >= 2 ? (
+          <StartFullIcon />
+        ) : value >= 1.5 ? (
+          <StartHalfIcon />
+        ) : (
+          <StartEmptyIcon />
+        )}
       </span>
       <span>
-        <i
-          className={
-            value >= 3
-              ? 'fas fa-star'
-              : value >= 2.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
-          }></i>
+        {value >= 3 ? (
+          <StartFullIcon />
+        ) : value >= 2.5 ? (
+          <StartHalfIcon />
+        ) : (
+          <StartEmptyIcon />
+        )}
       </span>
       <span>
-        <i
-          className={
-            value >= 4
-              ? 'fas fa-star'
-              : value >= 3.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
-          }></i>
+        {value >= 4 ? (
+          <StartFullIcon />
+        ) : value >= 3.5 ? (
+          <StartHalfIcon />
+        ) : (
+          <StartEmptyIcon />
+        )}
       </span>
       <span>
-        <i
-          className={
-            value >= 5
-              ? 'fas fa-star'
-              : value >= 4.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
-          }></i>
+        {value >= 5 ? (
+          <StartFullIcon />
+        ) : value >= 4.5 ? (
+          <StartHalfIcon />
+        ) : (
+          <StartEmptyIcon />
+        )}
       </span>
       <span>
         {' '}
