@@ -1,5 +1,6 @@
 import Rating from '../../../Rating/Rating';
 import Button from '../../../UI/Button/Button';
+import Meta from '../../../Meta/Meta';
 
 import './ProductDetailsView.scss';
 
@@ -17,6 +18,7 @@ const ProductDetailsView = ({
   onCartAddItem,
 }) => (
   <section id='ProductDetails'>
+    <Meta title={name} description={description} />
     <div className='product-details-content'>
       <div className='product-details-content-image'>
         <img src={image} alt='product' />
