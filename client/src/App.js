@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -7,13 +7,31 @@ import { userAuthSuccess, userIsAdminAuthSuccess } from './redux/actions/index';
 import Layout from './components/Layout/Layout';
 import HomePage from './pages/HomePage/HomePage';
 import ProductDetailsPage from './pages/ProductDetailsPage/ProductDetailsPage';
-import AuthPage from './pages/AuthPage/AuthPage';
 import UserAccountPage from './pages/UserAccountPage/UserAccountPage';
 import CartPage from './pages/CartPage/CartPage';
-import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
-import AdminAccountPage from './pages/AdminAccountPage/AdminAccountPage';
 import LogoutPage from './pages/LogoutPage/LogoutPage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+// import AuthPage from './pages/AuthPage/AuthPage';
+// import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+// import AdminAccountPage from './pages/AdminAccountPage/AdminAccountPage';
+
+const AuthPage = lazy(() =>
+  import(
+    /* webpackPrefetch: true,  webpackChunkName: "auth" */ './pages/AuthPage/AuthPage'
+  )
+);
+
+const CheckoutPage = lazy(() =>
+  import(
+    /* webpackPrefetch: true,  webpackChunkName: "checkout" */ './pages/CheckoutPage/CheckoutPage'
+  )
+);
+
+const AdminAccountPage = lazy(() =>
+  import(
+    /* webpackPrefetch: true,  webpackChunkName: "checkout" */ './pages/AdminAccountPage/AdminAccountPage'
+  )
+);
 
 const App = ({ userAuthIsAdmin, onUserAuthSuccess, onUserIsAdminAuthSuccess }) => {
   useEffect(() => {
@@ -51,19 +69,23 @@ const App = ({ userAuthIsAdmin, onUserAuthSuccess, onUserIsAdminAuthSuccess }) =
           <LogoutPage />
         </Route>
         <Route path='/auth'>
-          <AuthPage />
+          <Suspense fallback>{AuthPage}</Suspense>
         </Route>
         <Route path='/cart'>
           <CartPage />
         </Route>
         <PrivateRoute path='/checkout'>
-          <CheckoutPage />
+          <Suspense>{CheckoutPage}</Suspense>
         </PrivateRoute>
         <PrivateRoute path='/account'>
           <UserAccountPage />
         </PrivateRoute>
         <PrivateRoute path='/dashboard'>
-          {userAuthIsAdmin ? <AdminAccountPage /> : <Redirect to='/' />}
+          {userAuthIsAdmin ? (
+            <Suspense fallback>{AdminAccountPage}</Suspense>
+          ) : (
+            <Redirect to='/' />
+          )}
         </PrivateRoute>
         <Route path='*'>
           <Redirect to='/' />
