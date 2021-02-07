@@ -54,35 +54,33 @@ const AuthForm = ({ isAuth, isLoading, isError, onUserLogin, onUserResetError })
     );
 
   return (
-    <section id="UserAuth">
-      <div className="user-auth p-1">
+    <section id='UserAuth'>
+      <div className='user-auth p-1'>
         <FormContainer
           title={isNewAccount ? 'Sign Up' : 'Sign In'}
           message={[
             isAuth,
             !!isError,
             !!isError ? isError : isAuth ? 'Operation success.' : null,
-          ]}
-        >
+          ]}>
           {formRender()}
-          <div className="user-auth-spinner">
-            {isLoading && <Spinner type="small" />}
+          <div className='user-auth-spinner'>
+            {isLoading && <Spinner type='small' />}
           </div>
           <Button
-            type="btn-gray-dark animation"
+            type='btn-gray-dark animation'
             onClickAction={onSubmitHandler}
-            disabled={!formData.isFormValid}
-          >
+            disabled={!formData.isFormValid}>
             {formData.isFormValid ? 'Submit' : ' Please enter your credentials.'}
           </Button>
           <hr></hr>
           {isNewAccount ? (
-            <p className="user-auth-footer">
+            <p className='user-auth-footer'>
               Back to
               <span onClick={onLoginClickHandler}>&nbsp; Sign In </span>
             </p>
           ) : (
-            <p className="user-auth-footer">
+            <p className='user-auth-footer'>
               If you don't have an account please
               <span onClick={onRegisterClickHandler}>&nbsp; REGISTER</span>
             </p>

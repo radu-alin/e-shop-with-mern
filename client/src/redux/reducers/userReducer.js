@@ -13,6 +13,7 @@ export const userAuthReducer = (state = initialStateUserAuth, action) => {
     case actionTypes.USER_AUTH_START:
       return {
         ...state,
+        isLoading: true,
         isError: false,
       };
     case actionTypes.USER_AUTH_FAIL:

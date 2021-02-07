@@ -67,15 +67,15 @@ const ProductReviews = ({
         state: { from: location },
       });
     }
-    // const checkIfUserReviewed = productReviews.some((review) => {
-    //   return review.user === userId;
-    // });
-    // if (checkIfUserReviewed) {
-    //   return setInfoMessage({
-    //     messageType: 'danger',
-    //     messageContent: 'Sorry but you reviewed this product.',
-    //   });
-    // }
+    const checkIfUserReviewed = productReviews.some((review) => {
+      return review.user === userId;
+    });
+    if (checkIfUserReviewed) {
+      return setInfoMessage({
+        messageType: 'danger',
+        messageContent: 'Sorry but you reviewed this product.',
+      });
+    }
     setAddReview(true);
   };
 
@@ -191,3 +191,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductReviews);
+
+// username: sb-yvxrp4651694@personal.example.com , password: 4"Itn/aa
