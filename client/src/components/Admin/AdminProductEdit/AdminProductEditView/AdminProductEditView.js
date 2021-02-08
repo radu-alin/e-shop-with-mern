@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { axiosInstance } from '../../../../axios';
@@ -21,6 +21,8 @@ import FormContainer from '../../../FormContainer/FormContainer';
 import Input from '../../../UI/Input/Input';
 import Spinner from '../../../UI/Spinner/Spinner';
 import Button from '../../../UI/Button/Button';
+
+import './AdminProductEditView.scss';
 
 const AdminProductEditView = ({
   userToken,
@@ -55,7 +57,7 @@ const AdminProductEditView = ({
     return () => onProductEditReset();
   }, [onProductEditReset]);
 
-  const uploadFileHandler = async () => {
+  const uploadFileHandler = useCallback(async () => {
     setFileUploading(true);
     const file = imageUploadRef?.current?.files[0];
     const formData = new FormData();
@@ -72,7 +74,7 @@ const AdminProductEditView = ({
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [setFileUploading]);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -104,7 +106,7 @@ const AdminProductEditView = ({
     },
   } = formData.formInputsData;
 
-  const imageProduct = (() => {
+  const imageProduct = useMemo(() => {
     const imageUpload = imageUploadRef?.current?.files[0];
     if (valueImageURL) {
       return valueImageURL;
@@ -117,7 +119,7 @@ const AdminProductEditView = ({
     if (placeholderImageURL) return placeholderImageURL;
     if (!valueImageURL && !valueImageFile) return '';
     return '';
-  })();
+  }, [valueImageFile, valueImageURL, placeholderImageURL]);
 
   const inputImageView =
     ((valueImageURL || !placeholderImageURL) && '-imgURL') ||

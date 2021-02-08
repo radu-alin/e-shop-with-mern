@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { axiosInstance } from '../../../axios';
 
@@ -44,7 +44,8 @@ const AdminProductCreate = ({
     isSuccess && productCreateReset();
   }, [isSuccess, onProductCreateReset]);
 
-  const uploadFileHandler = async () => {
+  const uploadFileHandler = useCallback(async () => {
+    console.log('uploadFileHandler - ', uploadFileHandler);
     setFileUploading(true);
     const file = imageUploadRef?.current?.files[0];
     const formData = new FormData();
@@ -61,7 +62,7 @@ const AdminProductCreate = ({
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [setFileUploading]);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -84,13 +85,13 @@ const AdminProductCreate = ({
       formAllInputsValidForValidFormUtil,
       imageUploadRef
     );
+  const {
+    imageFile: { value: valueImageFile },
+    image: { value: valueImageURL },
+  } = formData.formInputsData;
 
-  const imageProduct = (() => {
+  const imageProduct = useMemo(() => {
     const imageUpload = imageUploadRef?.current?.files[0];
-    const {
-      imageFile: { value: valueImageFile },
-      image: { value: valueImageURL },
-    } = formData.formInputsData;
     if (!valueImageURL && !valueImageFile) return '';
     if (valueImageURL) {
       return valueImageURL;
@@ -101,7 +102,7 @@ const AdminProductCreate = ({
       return image;
     }
     return '';
-  })();
+  }, [valueImageFile, valueImageURL]);
 
   const inputImageView =
     (formData.formInputsData.image?.value && '-imgURL') ||
