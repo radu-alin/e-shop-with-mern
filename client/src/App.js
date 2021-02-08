@@ -69,20 +69,26 @@ const App = ({ userAuthIsAdmin, onUserAuthSuccess, onUserIsAdminAuthSuccess }) =
           <LogoutPage />
         </Route>
         <Route path='/auth'>
-          <Suspense fallback>{AuthPage}</Suspense>
+          <Suspense fallback>
+            <AuthPage />
+          </Suspense>
         </Route>
         <Route path='/cart'>
           <CartPage />
         </Route>
         <PrivateRoute path='/checkout'>
-          <Suspense>{CheckoutPage}</Suspense>
+          <Suspense>
+            <CheckoutPage />
+          </Suspense>
         </PrivateRoute>
         <PrivateRoute path='/account'>
           <UserAccountPage />
         </PrivateRoute>
         <PrivateRoute path='/dashboard'>
           {userAuthIsAdmin ? (
-            <Suspense fallback>{AdminAccountPage}</Suspense>
+            <Suspense fallback>
+              <AdminAccountPage />
+            </Suspense>
           ) : (
             <Redirect to='/' />
           )}
