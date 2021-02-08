@@ -22,15 +22,15 @@ router
   .post(postUserRegister);
 
 router
+  .route('/profile')
+  .get(authProtectMiddleware, getUserProfile)
+  .put(authProtectMiddleware, putUserProfile);
+
+router
   .route('/:id')
   .delete(authProtectMiddleware, authAdminProtectMiddleware, deleteUser)
   .put(authProtectMiddleware, authAdminProtectMiddleware, putUserAsAdmin);
 
 router.route('/login').post(postUserLogin);
-
-router
-  .route('/profile')
-  .get(authProtectMiddleware, getUserProfile)
-  .put(authProtectMiddleware, putUserProfile);
 
 export default router;

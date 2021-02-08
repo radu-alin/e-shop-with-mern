@@ -77,7 +77,7 @@ const App = ({ userAuthIsAdmin, onUserAuthSuccess, onUserIsAdminAuthSuccess }) =
           <CartPage />
         </Route>
         <PrivateRoute path='/checkout'>
-          <Suspense>
+          <Suspense fallback>
             <CheckoutPage />
           </Suspense>
         </PrivateRoute>

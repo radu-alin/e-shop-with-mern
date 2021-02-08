@@ -53,6 +53,10 @@ const UserProfile = ({
     [name, email, formData.formInputsData.name.elementConfig.placeholder]
   );
 
+  useEffect(() => {
+    return () => onUserProfileUpdateClear();
+  }, [onUserProfileUpdateClear]);
+
   const [editProfile, setEditProfile] = useState(false);
   const firstInputRef = useRef(null);
   const isUpdatedRef = useRef(isUpdated);
@@ -97,7 +101,7 @@ const UserProfile = ({
 
   const formContainerView = (
     <FormContainer
-      title="My Profile"
+      title='My Profile'
       message={[
         !!isUpdated,
         !!isErrorUpdate,
@@ -107,26 +111,24 @@ const UserProfile = ({
           ? 'Operation done successfully.'
           : null,
       ]}
-      editIconClickAction={editTrueIconClickHandler}
-    >
+      editIconClickAction={editTrueIconClickHandler}>
       {formRender()}
-      <div className="user-profile-spinner">
-        {isLoadingUpdate && <Spinner type="small" />}
+      <div className='user-profile-spinner'>
+        {isLoadingUpdate && <Spinner type='small' />}
       </div>
-      <div className="user-profile-button btn-red btn-apply">
+      <div className='user-profile-button btn-red btn-apply'>
         {editProfile ? (
           <Button
-            type="btn-gray-dark animation"
+            type='btn-gray-dark animation'
             onClickAction={onSubmitHandler}
-            disabled={!formData.isFormValid}
-          >
+            disabled={!formData.isFormValid}>
             {formData.isFormValid ? 'Submit' : ' Please enter your new credentials.'}
           </Button>
         ) : null}
       </div>
       <hr></hr>
       {editProfile && (
-        <p className="user-profile-footer">
+        <p className='user-profile-footer'>
           Keep old data <span onClick={editFalseIconClickHandler}>&nbsp; BACK </span>
         </p>
       )}
@@ -135,7 +137,7 @@ const UserProfile = ({
 
   const userProfileView = () => {
     if (isErrorFetch) {
-      return <Message type="danger" message={isErrorFetch} />;
+      return <Message type='danger' message={isErrorFetch} />;
     }
     if (!name) {
       return <Spinner />;
@@ -144,7 +146,7 @@ const UserProfile = ({
   };
 
   return (
-    <section id="UserProfile">
+    <section id='UserProfile'>
       <div className={`user-profile${editProfile ? '-edit' : ''}`}>
         {userProfileView()}
       </div>
