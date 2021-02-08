@@ -38,29 +38,28 @@ const UserProfile = ({
   const [formData, setFormData] = useState(
     !name ? { ...defaultState() } : { ...defaultState(name, email) }
   );
+  const [editProfile, setEditProfile] = useState(false);
+  const firstInputRef = useRef(null);
+  const isUpdatedRef = useRef(isUpdated);
+  isUpdatedRef.current = isUpdated;
 
   useEffect(() => {
     userToken && !name && onUserProfileFetch(userToken);
   }, [userToken, name, onUserProfileFetch]);
 
-  useEffect(
-    () =>
-      formData.formInputsData.name.elementConfig.placeholder === 'Your Name' &&
-      name &&
-      setFormData({
-        ...defaultState(name, email),
-      }),
-    [name, email, formData.formInputsData.name.elementConfig.placeholder]
-  );
+  // useEffect(
+  //   () =>
+  //     formData.formInputsData.name.elementConfig.placeholder === 'Your Name' &&
+  //     name &&
+  //     setFormData({
+  //       ...defaultState(name, email),
+  //     }),
+  //   [name, email, formData.formInputsData.name.elementConfig.placeholder]
+  // );
 
   useEffect(() => {
     return () => onUserProfileUpdateClear();
   }, [onUserProfileUpdateClear]);
-
-  const [editProfile, setEditProfile] = useState(false);
-  const firstInputRef = useRef(null);
-  const isUpdatedRef = useRef(isUpdated);
-  isUpdatedRef.current = isUpdated;
 
   const editTrueIconClickHandler = useCallback(() => {
     setEditProfile(true);
@@ -78,7 +77,7 @@ const UserProfile = ({
           const clearUser = () =>
             setTimeout(() => {
               onUserProfileFetchedClear();
-            }, 1000);
+            }, 1500);
           setEditProfile(false);
           onUserProfileUpdateClear();
           clearUser();

@@ -59,43 +59,35 @@ const App = ({ userAuthIsAdmin, onUserAuthSuccess, onUserIsAdminAuthSuccess }) =
   return (
     <Layout>
       <Switch>
-        <Route exact path='/'>
-          <HomePage />
-        </Route>
-        <Route path='/products/:id'>
-          <ProductDetailsPage />
-        </Route>
-        <Route path='/logout'>
-          <LogoutPage />
-        </Route>
-        <Route path='/auth'>
-          <Suspense fallback>
+        <Suspense fallback>
+          <Route exact path='/'>
+            <HomePage />
+          </Route>
+          <Route path='/products/:id'>
+            <ProductDetailsPage />
+          </Route>
+          <Route path='/logout'>
+            <LogoutPage />
+          </Route>
+          <Route path='/auth'>
             <AuthPage />
-          </Suspense>
-        </Route>
-        <Route path='/cart'>
-          <CartPage />
-        </Route>
-        <PrivateRoute path='/checkout'>
-          <Suspense fallback>
+          </Route>
+          <Route path='/cart'>
+            <CartPage />
+          </Route>
+          <PrivateRoute path='/checkout'>
             <CheckoutPage />
-          </Suspense>
-        </PrivateRoute>
-        <PrivateRoute path='/account'>
-          <UserAccountPage />
-        </PrivateRoute>
-        <PrivateRoute path='/dashboard'>
-          {userAuthIsAdmin ? (
-            <Suspense fallback>
-              <AdminAccountPage />
-            </Suspense>
-          ) : (
+          </PrivateRoute>
+          <PrivateRoute path='/account'>
+            <UserAccountPage />
+          </PrivateRoute>
+          <PrivateRoute path='/dashboard'>
+            {userAuthIsAdmin ? <AdminAccountPage /> : <Redirect to='/' />}
+          </PrivateRoute>
+          <Route path='*'>
             <Redirect to='/' />
-          )}
-        </PrivateRoute>
-        <Route path='*'>
-          <Redirect to='/' />
-        </Route>
+          </Route>
+        </Suspense>
       </Switch>
     </Layout>
   );
